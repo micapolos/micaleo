@@ -1,6 +1,5 @@
-import leo scheme
+import mica test
 
-display-line "mica/assert-test.leo"
-load "mica/assert-test.leo"
-display-line "mica/let-test.leo"
-load "mica/let-test.leo"
+test mica test
+test mica assert
+test mica let
