@@ -19,7 +19,9 @@ library
         symbol->string 'id
         "-test.leo"
     when
-      test x
+      test: x, ...
       begin
-        write 'testing x
-        load test-path x
+        begin
+          write 'testing x
+          load test-path x
+        ...

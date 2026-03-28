@@ -1,5 +1,6 @@
 import mica test
 
-test mica test
-test mica assert
-test mica let
+test
+  mica test
+  mica assert
+  mica let
