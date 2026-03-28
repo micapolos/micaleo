@@ -1,5 +1,5 @@
 library
-  micaleo
+  mica
   export:
   import leo scheme
   export
