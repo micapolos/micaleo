@@ -1,4 +1,4 @@
-import mica test
+import only: test, from leo scheme
 
 test
   mica all

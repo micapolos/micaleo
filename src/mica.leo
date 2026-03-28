@@ -5,5 +5,4 @@ library
   export
     import
       mica let
-      mica assert
-      except: let, assert, from leo scheme
+      except: let, from leo scheme

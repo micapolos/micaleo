@@ -1,9 +1,8 @@
 import
   mica let
-  mica assert
-  except: let, assert, from leo scheme
+  except: let, from leo scheme
 
-assert equal?
+check equal?
   let
     hello "Hello"
     world "world"
@@ -11,7 +10,7 @@ assert equal?
     in string-append: hello-world, "!"
   "Hello, world!"
 
-assert equal?
+check equal?
   let
     with
       values: hello, world
