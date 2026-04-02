@@ -1,5 +1,3 @@
-import only: test, from leo scheme
+import leo scheme
 
-test
-  mica all
-  mica
+test:
