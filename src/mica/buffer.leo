@@ -1,12 +1,13 @@
 library
   mica buffer
   export
-    buffer, buffer?
+    rename buffer make-buffer
+    buffer?
     buffer-string-box
     buffer-slack-box
     buffer-position-box
     buffer-forward?-box
-    empty-buffer
+    make-empty-buffer
 
     buffer-string
     buffer-length
@@ -29,7 +30,7 @@ library
       position-box
       forward?-box
 
-    lambda empty-buffer
+    lambda make-empty-buffer
       buffer: box "", box 0, box 0, box #t
 
     lambda

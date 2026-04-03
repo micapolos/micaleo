@@ -3,11 +3,11 @@ import
   mica buffer
 
 check equal?
-  with empty-buffer
-  buffer: box "", box 0, box 0, box #t
+  with make-empty-buffer
+  make-buffer: box "", box 0, box 0, box #t
 
 let
-  test-buffer buffer
+  test-buffer make-buffer
     box "start____end"
     box 4
     box 5
@@ -34,7 +34,7 @@ let
     check equal?: buffer-slack-end-position test-buffer, 12
 
 let
-  test-buffer buffer
+  test-buffer make-buffer
     box "start____end"
     box 4
     box 9
