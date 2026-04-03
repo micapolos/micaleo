@@ -97,11 +97,10 @@ library
             subtract
               slack
               buffer-slack buffer
-        new-position
-          if
-            buffer-forward? buffer
-            then buffer-position
-            else add: buffer-slack-start-position buffer, slack
+        new-position if
+          buffer-forward? buffer
+          then buffer-position
+          else add: buffer-slack-start-position buffer, slack
         in
           string-copy!
             old-string
