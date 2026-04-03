@@ -1,4 +1,4 @@
 import leo scheme
 
 test
-  mica all
+  mica buffer
