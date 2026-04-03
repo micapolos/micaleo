@@ -8,11 +8,12 @@ check equal?
 
 let
   test-buffer buffer
-    box "start....end"
+    box "start____end"
     box 4
     box 5
     box #t
   in
+    check equal?: buffer-string test-buffer, "start____end"
     check equal?: buffer-length test-buffer, 8
     check equal?: buffer-slack test-buffer, 4
     check equal?: buffer-position test-buffer, 5
@@ -22,6 +23,8 @@ let
     check equal?: buffer-slack-end-position test-buffer, 9
 
     buffer-resize-slack!: test-buffer, 7
+
+    check equal?: buffer-string test-buffer, "start_______end"
     check equal?: buffer-length test-buffer, 8
     check equal?: buffer-slack test-buffer, 7
     check equal?: buffer-position test-buffer, 5
@@ -32,11 +35,12 @@ let
 
 let
   test-buffer buffer
-    box "start....end"
+    box "start____end"
     box 4
     box 9
     box #f
   in
+    check equal?: buffer-string test-buffer, "start____end"
     check equal?: buffer-length test-buffer, 8
     check equal?: buffer-slack test-buffer, 4
     check equal?: buffer-position test-buffer, 9
@@ -46,6 +50,8 @@ let
     check equal?: buffer-slack-end-position test-buffer, 9
 
     buffer-resize-slack!: test-buffer, 7
+
+    check equal?: buffer-string test-buffer, "start_______end"
     check equal?: buffer-length test-buffer, 8
     check equal?: buffer-slack test-buffer, 7
     check equal?: buffer-position test-buffer, 12

@@ -8,6 +8,7 @@ library
     buffer-forward?-box
     empty-buffer
 
+    buffer-string
     buffer-length
     buffer-slack
     buffer-position
@@ -105,6 +106,7 @@ library
           add
             string-length old-string
             subtract: slack, buffer-slack buffer
+          char _
         new-position if
           buffer-forward? buffer
           then buffer-position buffer
@@ -120,7 +122,10 @@ library
             old-string
             buffer-slack-end-position buffer
             new-string
-            new-position
+            if
+              buffer-forward? buffer
+              then add: new-position, slack
+              else new-position
             buffer-tail-length buffer
           buffer-string-set!: buffer, new-string
           buffer-slack-set!: buffer, slack
