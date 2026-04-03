@@ -21,7 +21,10 @@ library
     buffer-tail-length
 
     buffer-slack-set!
-  import leo scheme
+    buffer-insert!
+  import
+    leo scheme
+    mica pot
 
   define
     record buffer
@@ -120,3 +123,32 @@ library
           set-box!: buffer-slack-box buffer, slack
           set-box!: buffer-position-box buffer, new-position
 
+    lambda
+      buffer-insert!: buffer, string
+      when
+        not buffer-forward? buffer
+        set-box!: buffer-position-box buffer, buffer-slack-start-position buffer
+        set-box!: buffer-forward?-box buffer, #t
+      when
+        less?: buffer-slack buffer, string-length string
+        buffer-slack-set!
+          buffer
+          subtract
+            nearest-pot add: buffer-length buffer, string-length string
+            buffer-length buffer
+      string-copy!
+        string
+        0
+        buffer-string buffer
+        buffer-slack-start-position buffer
+        string-length string
+      set-box!
+        buffer-position-box buffer
+        add
+          buffer-position buffer
+          string-length string
+      set-box!
+        buffer-slack-box buffer
+        subtract
+          buffer-slack buffer
+          string-length string
