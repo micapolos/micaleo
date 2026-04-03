@@ -7,5 +7,5 @@ check equal?
   buffer: box "", box 0, box 0, box #t
 
 check equal?
-  buffer-size with empty-buffer
+  buffer-length with empty-buffer
   0

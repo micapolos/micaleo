@@ -7,7 +7,8 @@ library
     buffer-position-box
     buffer-forward?-box
     empty-buffer
-    buffer-size
+    buffer-length
+    buffer-resize-slack!
   import leo scheme
 
   define
@@ -37,6 +38,10 @@ library
       unbox buffer-forward?-box buffer
 
     lambda
+      buffer-string-set!: buffer, string
+      set-box!: buffer-string-box buffer, string
+
+    lambda
       buffer-slack-set!: buffer, slack
       set-box!: buffer-slack-box buffer, slack
 
@@ -49,7 +54,68 @@ library
       set-box!: buffer-forward?-box buffer, forward?
 
     lambda
-      buffer-size buffer
+      buffer-length buffer
       subtract
         string-length buffer-string buffer
         buffer-slack buffer
+
+    lambda
+      buffer-slack-start-position buffer
+      if
+        buffer-forward? buffer
+        then buffer-position buffer
+        else subtract
+          buffer-position buffer
+          buffer-slack buffer
+
+    lambda
+      buffer-slack-end-position buffer
+      if
+        buffer-forward? buffer
+        then add
+          buffer-position buffer
+          buffer-slack buffer
+        else buffer-position buffer
+
+    lambda
+      buffer-head-length buffer
+      buffer-slack-start-position buffer
+
+    lambda
+      buffer-tail-length buffer
+      subtract
+        string-length buffer-string buffer
+        buffer-slack-end-position buffer
+
+    lambda
+      buffer-resize-slack!: buffer, slack
+      let sequential
+        old-string buffer-string buffer
+        new-string make-string
+          add
+            string-length
+            subtract
+              slack
+              buffer-slack buffer
+        new-position
+          if
+            buffer-forward? buffer
+            then buffer-position
+            else add: buffer-slack-start-position buffer, slack
+        in
+          string-copy!
+            old-string
+            0
+            new-string
+            0
+            buffer-head-length buffer
+          string-copy
+            old-string
+            buffer-slack-end-position buffer
+            new-string
+            new-position
+            buffer-tail-length buffer
+          buffer-string-set!: buffer, new-string
+          buffer-slack-set!: buffer, slack
+          buffer-position-set!: buffer, new-position
+
