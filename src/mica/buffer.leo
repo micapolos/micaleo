@@ -20,7 +20,7 @@ library
     buffer-head-length
     buffer-tail-length
 
-    buffer-resize-slack!
+    buffer-slack-set!
   import leo scheme
 
   define
@@ -52,22 +52,6 @@ library
     lambda
       buffer-forward? buffer
       unbox buffer-forward?-box buffer
-
-    lambda
-      buffer-string-set!: buffer, string
-      set-box!: buffer-string-box buffer, string
-
-    lambda
-      buffer-slack-set!: buffer, slack
-      set-box!: buffer-slack-box buffer, slack
-
-    lambda
-      buffer-position-set!: buffer, position
-      set-box!: buffer-position-box buffer, position
-
-    lambda
-      buffer-forward?-set!: buffer, forward?
-      set-box!: buffer-forward?-box buffer, forward?
 
     lambda
       buffer-length buffer
@@ -104,7 +88,7 @@ library
         buffer-slack-end-position buffer
 
     lambda
-      buffer-resize-slack!: buffer, slack
+      buffer-slack-set!: buffer, slack
       let sequential
         old-string buffer-string buffer
         new-string make-string
@@ -132,7 +116,7 @@ library
               then add: new-position, slack
               else new-position
             buffer-tail-length buffer
-          buffer-string-set!: buffer, new-string
-          buffer-slack-set!: buffer, slack
-          buffer-position-set!: buffer, new-position
+          set-box!: buffer-string-box buffer, new-string
+          set-box!: buffer-slack-box buffer, slack
+          set-box!: buffer-position-box buffer, new-position
 
