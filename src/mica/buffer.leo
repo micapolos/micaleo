@@ -9,6 +9,11 @@ library
     empty-buffer
     buffer-length
     buffer-resize-slack!
+
+    buffer-slack-start-position
+    buffer-slack-end-position
+    buffer-head-length
+    buffer-tail-length
   import leo scheme
 
   define
