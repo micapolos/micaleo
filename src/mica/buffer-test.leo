@@ -4,14 +4,10 @@ import
 
 check equal?
   with make-empty-buffer
-  make-buffer: box "", box 0, box 0, box #t
+  make-buffer: "", 0, 0, #t
 
 let
-  test-buffer make-buffer
-    box "start____end"
-    box 4
-    box 5
-    box #t
+  test-buffer make-buffer: "start____end", 4, 5, #t
   in
     check equal?: buffer-string test-buffer, "start____end"
     check equal?: buffer-length test-buffer, 8
@@ -34,11 +30,7 @@ let
     check equal?: buffer-slack-end-position test-buffer, 12
 
 let
-  test-buffer make-buffer
-    box "start____end"
-    box 4
-    box 9
-    box #f
+  test-buffer make-buffer: "start____end", 4, 9, #f
   in
     check equal?: buffer-string test-buffer, "start____end"
     check equal?: buffer-length test-buffer, 8
