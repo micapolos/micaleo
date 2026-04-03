@@ -14,10 +14,21 @@ let
     box #t
   in
     check equal?: buffer-length test-buffer, 8
+    check equal?: buffer-slack test-buffer, 4
+    check equal?: buffer-position test-buffer, 5
     check equal?: buffer-head-length test-buffer, 5
     check equal?: buffer-tail-length test-buffer, 3
     check equal?: buffer-slack-start-position test-buffer, 5
     check equal?: buffer-slack-end-position test-buffer, 9
+
+    buffer-resize-slack!: test-buffer, 7
+    check equal?: buffer-length test-buffer, 8
+    check equal?: buffer-slack test-buffer, 7
+    check equal?: buffer-position test-buffer, 5
+    check equal?: buffer-head-length test-buffer, 5
+    check equal?: buffer-tail-length test-buffer, 3
+    check equal?: buffer-slack-start-position test-buffer, 5
+    check equal?: buffer-slack-end-position test-buffer, 12
 
 let
   test-buffer buffer
@@ -27,7 +38,18 @@ let
     box #f
   in
     check equal?: buffer-length test-buffer, 8
+    check equal?: buffer-slack test-buffer, 4
+    check equal?: buffer-position test-buffer, 9
     check equal?: buffer-head-length test-buffer, 5
     check equal?: buffer-tail-length test-buffer, 3
     check equal?: buffer-slack-start-position test-buffer, 5
     check equal?: buffer-slack-end-position test-buffer, 9
+
+    buffer-resize-slack!: test-buffer, 7
+    check equal?: buffer-length test-buffer, 8
+    check equal?: buffer-slack test-buffer, 7
+    check equal?: buffer-position test-buffer, 12
+    check equal?: buffer-head-length test-buffer, 5
+    check equal?: buffer-tail-length test-buffer, 3
+    check equal?: buffer-slack-start-position test-buffer, 5
+    check equal?: buffer-slack-end-position test-buffer, 12

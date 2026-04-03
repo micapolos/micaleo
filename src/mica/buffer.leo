@@ -7,13 +7,18 @@ library
     buffer-position-box
     buffer-forward?-box
     empty-buffer
+
     buffer-length
-    buffer-resize-slack!
+    buffer-slack
+    buffer-position
+    buffer-forward?
 
     buffer-slack-start-position
     buffer-slack-end-position
     buffer-head-length
     buffer-tail-length
+
+    buffer-resize-slack!
   import leo scheme
 
   define
@@ -98,13 +103,11 @@ library
         old-string buffer-string buffer
         new-string make-string
           add
-            string-length
-            subtract
-              slack
-              buffer-slack buffer
+            string-length old-string
+            subtract: slack, buffer-slack buffer
         new-position if
           buffer-forward? buffer
-          then buffer-position
+          then buffer-position buffer
           else add: buffer-slack-start-position buffer, slack
         in
           string-copy!
@@ -113,7 +116,7 @@ library
             new-string
             0
             buffer-head-length buffer
-          string-copy
+          string-copy!
             old-string
             buffer-slack-end-position buffer
             new-string
