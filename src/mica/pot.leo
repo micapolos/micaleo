@@ -3,7 +3,7 @@ library
   export nearest-pot
   import leo scheme
 
-  define lambda
+  define
     nearest-pot n
     if
       zero? n

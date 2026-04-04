@@ -2,8 +2,10 @@ import
   leo scheme
   mica buffer
 
+check record-type-descriptor? buffer-type
+
 check equal?
-  with make-empty-buffer
+  make-empty-buffer:
   make-buffer: "", 0, 0, true
 
 let
@@ -18,7 +20,7 @@ let
     check equal?: buffer-slack-start-position test-buffer, 5
     check equal?: buffer-slack-end-position test-buffer, 9
 
-    buffer-slack-set!: test-buffer, 7
+    buffer-slack-change!: test-buffer, 7
 
     check equal?: buffer-string test-buffer, "start_______end"
     check equal?: buffer-length test-buffer, 8
@@ -41,7 +43,7 @@ let
     check equal?: buffer-slack-start-position test-buffer, 5
     check equal?: buffer-slack-end-position test-buffer, 9
 
-    buffer-slack-set!: test-buffer, 7
+    buffer-slack-change!: test-buffer, 7
 
     check equal?: buffer-string test-buffer, "start_______end"
     check equal?: buffer-length test-buffer, 8
@@ -90,6 +92,3 @@ let
     check equal?: buffer-tail-length test-buffer, 0
     check equal?: buffer-slack-start-position test-buffer, 9
     check equal?: buffer-slack-end-position test-buffer, 16
-
-
-
