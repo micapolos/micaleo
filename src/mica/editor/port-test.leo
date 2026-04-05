@@ -12,8 +12,8 @@ check equal?
       port
       char-background-color-foreground-color->cell
         char Z
-        white-color
-        black-color
+        color white
+        color black
   call-with-string-output-port lambda
     with port
     put-ansi: port, "30m"

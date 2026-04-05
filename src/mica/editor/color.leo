@@ -1,32 +1,19 @@
 library
   mica editor color
   export
+    color
+    bright, black, red, green, yellow, blue, magenta, cyan, white
+
     color-bits
 
     color-bright?
     color-code
 
-    black-color
-    red-color
-    green-color
-    yellow-color
-    blue-color
-    magenta-color
-    cyan-color
-    white-color
-
-    bright-black-color
-    bright-red-color
-    bright-green-color
-    bright-yellow-color
-    bright-blue-color
-    bright-magenta-color
-    bright-cyan-color
-    bright-white-color
-
     color->datum
   import
     leo scheme
+    syntax
+    keyword
 
   define color-bits 4
 
@@ -38,23 +25,27 @@ library
     color-code color
     fxand: color, 7
 
-  define black-color 0
-  define red-color 1
-  define green-color 2
-  define yellow-color 3
-  define blue-color 4
-  define magenta-color 5
-  define cyan-color 6
-  define white-color 7
+  define-keywords: bright, black, red, green, yellow, blue, magenta, cyan, white
 
-  define bright-black-color 8
-  define bright-red-color 9
-  define bright-green-color 10
-  define bright-yellow-color 11
-  define bright-blue-color 12
-  define bright-magenta-color 13
-  define bright-cyan-color 14
-  define bright-white-color 15
+  define-syntax
+    keywords: bright, black, red, green, yellow, blue, magenta, cyan, white
+    when: id, keyword? id, id
+    when: color black, 0
+    when: color red, 1
+    when: color green, 2
+    when: color yellow, 3
+    when: color blue, 4
+    when: color magenta, 5
+    when: color cyan, 6
+    when: color white, 7
+    when: color bright black, 8
+    when: color bright red, 9
+    when: color bright green, 10
+    when: color bright yellow, 11
+    when: color bright blue, 12
+    when: color bright magenta, 13
+    when: color bright cyan, 14
+    when: color bright white, 15
 
   define color-code-datums vector
     'black
