@@ -13,7 +13,8 @@ library
       port
       number->string
         add
-          color-code color, base
+          base
+          color-code color
           if: color-bright? color, 60, 0
 
   define
