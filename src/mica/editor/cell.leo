@@ -12,7 +12,7 @@ library
   comment
     unicode bits: from 0, to 21
     background color bits: from 0, to 25
-    background color bits: from 26, to 29
+    foreground color bits: from 26, to 29
 
   define
     char-bg-fg->cell: char, bg, fg
@@ -32,7 +32,7 @@ library
     cell->char cell
     integer->char fxand
       cell
-      1048575
+      fx1- fxsll: 1, 21
 
   define
     cell->bg cell
