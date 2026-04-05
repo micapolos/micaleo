@@ -28,6 +28,8 @@ library
     bytebuffer-advance!
     bytebuffer-insert-bytevector!
     bytebuffer-insert-u32-native!
+    bytebuffer-move-forward-u32-native!
+    bytebuffer-move-backward-u32-native!
   import
     leo scheme
     mica bytevector
@@ -129,6 +131,42 @@ library
         bytebuffer-bytevector bytebuffer
         slack-start
         u32
+
+  define
+    bytebuffer-move-forward-u32-native!: bytebuffer
+    let
+      with
+        bytevector bytebuffer-bytevector bytebuffer
+        slack-start bytebuffer-slack-start bytebuffer
+        slack-end bytebuffer-slack-end bytebuffer
+      bytevector-u32-native-set!
+        bytevector
+        slack-start
+        bytevector-u32-native-ref: bytevector, slack-end
+      set-bytebuffer-slack-start!
+        bytebuffer
+        add: slack-start, 4
+      set-bytebuffer-slack-end!
+        bytebuffer
+        add: slack-end, 4
+
+  define
+    bytebuffer-move-backward-u32-native!: bytebuffer
+    let
+      with
+        bytevector bytebuffer-bytevector bytebuffer
+        slack-start subtract
+          bytebuffer-slack-start bytebuffer
+          4
+        slack-end subtract
+          bytebuffer-slack-end bytebuffer
+          4
+      bytevector-u32-native-set!
+        bytevector
+        slack-end
+        bytevector-u32-native-ref: bytevector, slack-start
+      set-bytebuffer-slack-start!: bytebuffer, slack-start
+      set-bytebuffer-slack-end!: bytebuffer, slack-end
 
   define
     bytebuffer->bytevector bytebuffer

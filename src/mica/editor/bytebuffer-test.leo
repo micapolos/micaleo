@@ -85,3 +85,25 @@ let
     bytevector: 1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 0, 0, 0, 0
   check equal?: bytebuffer-slack-start bytebuffer, 12
   check equal?: bytebuffer-slack-end bytebuffer, 16
+
+let
+  with bytebuffer make-bytebuffer
+    bytevector: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+    4, 12
+  bytebuffer-move-forward-u32-native! bytebuffer
+  check equal?
+    bytebuffer
+    make-bytebuffer
+      bytevector: 1, 2, 3, 4, 13, 14, 15, 16, 9, 10, 11, 12, 13, 14, 15, 16
+      8, 16
+
+let
+  with bytebuffer make-bytebuffer
+    bytevector: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+    4, 12
+  bytebuffer-move-backward-u32-native! bytebuffer
+  check equal?
+    bytebuffer
+    make-bytebuffer
+      bytevector: 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 13, 14, 15, 16
+      0, 8
