@@ -1,37 +1,38 @@
 library
   mica editor cell
   export
-    char-bg-fg->cell
-    cell->char-bg-fg
+    char-background-color-foreground-color->cell
+    cell->char-background-color-foreground-color
     cell->char
-    cell->bg
-    cell->fg
+    cell->background-color
+    cell->foreground-color
   import
     leo scheme
+    mica editor color
 
   define char-bits 21
-  define bg-bits 4
-  define fg-bits 4
-  define bg-shift char-bits
-  define fg-shift fx+: bg-shift, bg-bits
+  define background-color-bits color-bits
+  define foreground-color-bits color-bits
+  define background-color-shift char-bits
+  define foreground-color-shift fx+: background-color-shift, background-color-bits
 
   define char-mask fx1- fxsll: 1, char-bits
-  define bg-mask fx1- fxsll: 1, bg-bits
-  define fg-mask fx1- fxsll: 1, fg-bits
+  define background-color-mask fx1- fxsll: 1, background-color-bits
+  define foreground-color-mask fx1- fxsll: 1, foreground-color-bits
 
   define
-    char-bg-fg->cell: char, bg, fg
+    char-background-color-foreground-color->cell: char, background-color, foreground-color
     fxior
       char->integer char
-      fxsll: bg, bg-shift
-      fxsll: fg, fg-shift
+      fxsll: background-color, background-color-shift
+      fxsll: foreground-color, foreground-color-shift
 
   define
-    cell->char-bg-fg cell
+    cell->char-background-color-foreground-color cell
     values
       cell->char cell
-      cell->bg cell
-      cell->fg cell
+      cell->background-color cell
+      cell->foreground-color cell
 
   define
     cell->char cell
@@ -40,13 +41,13 @@ library
       char-mask
 
   define
-    cell->bg cell
+    cell->background-color cell
     fxand
-      fxsrl: cell, bg-shift
-      bg-mask
+      fxsrl: cell, background-color-shift
+      background-color-mask
 
   define
-    cell->fg cell
+    cell->foreground-color cell
     fxand
-      fxsrl: cell, fg-shift
-      fg-mask
+      fxsrl: cell, foreground-color-shift
+      foreground-color-mask

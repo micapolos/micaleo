@@ -6,10 +6,10 @@ let*-values
   with
     with
       values cell
-      char-bg-fg->cell: char a, 1, 6
+      char-background-color-foreground-color->cell: char a, 1, 6
     with
-      values: ch, bg, fg
-      cell->char-bg-fg cell
+      values: ch, background-color, foreground-color
+      cell->char-background-color-foreground-color cell
   check equal?: ch, char a
-  check equal?: bg, 1
-  check equal?: fg, 6
+  check equal?: background-color, 1
+  check equal?: foreground-color, 6

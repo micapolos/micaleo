@@ -6,8 +6,8 @@ library
     cellbuffer->cell-list
     cellbuffer-insert-cell!
     cellbuffer->string
-    cellbuffer->bg-vector
-    cellbuffer->fg-vector
+    cellbuffer->background-color-vector
+    cellbuffer->foreground-color-vector
   import
     leo scheme
     mica editor cell
@@ -40,12 +40,12 @@ library
     list->string map: cell->char, cellbuffer->cell-list cellbuffer
 
   define
-    cellbuffer->bg-vector cellbuffer
-    list->vector map: cell->bg, cellbuffer->cell-list cellbuffer
+    cellbuffer->background-color-vector cellbuffer
+    list->vector map: cell->background-color, cellbuffer->cell-list cellbuffer
 
   define
-    cellbuffer->fg-vector cellbuffer
-    list->vector map: cell->fg, cellbuffer->cell-list cellbuffer
+    cellbuffer->foreground-color-vector cellbuffer
+    list->vector map: cell->foreground-color, cellbuffer->cell-list cellbuffer
 
   define
     cellbuffer-length cellbuffer
