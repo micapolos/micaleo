@@ -1,6 +1,6 @@
 import
   leo scheme
-  mica buffer
+  mica editor buffer
 
 check equal?
   make-empty-buffer:

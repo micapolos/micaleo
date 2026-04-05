@@ -1,5 +1,5 @@
 library
-  mica buffer
+  mica editor buffer
   export
     make-buffer
     buffer?

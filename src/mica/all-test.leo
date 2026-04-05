@@ -2,4 +2,4 @@ import leo scheme
 
 test
   mica pot
-  mica buffer
+  mica editor all
