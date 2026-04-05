@@ -25,9 +25,14 @@ library
 
     bytebuffer-slack-fill!
     bytebuffer-resize!
+
     bytebuffer-advance!
+    bytebuffer-retract!
+
     bytebuffer-insert-bytevector!
+
     bytebuffer-insert-u32-native!
+    bytebuffer-delete-u32-native!
     bytebuffer-move-forward-u32-native!
     bytebuffer-move-backward-u32-native!
   import
@@ -111,6 +116,19 @@ library
       add: bytebuffer-slack-start bytebuffer, length
 
   define
+    bytebuffer-retract!: bytebuffer, length
+    set-bytebuffer-slack-start!
+      bytebuffer
+      subtract: bytebuffer-slack-start bytebuffer, length
+    when
+      less/equal?
+        fxsll: bytebuffer-length bytebuffer, 2
+        bytevector-length bytebuffer-bytevector bytebuffer
+      bytebuffer-resize!
+        bytebuffer
+        fxsll: nearest-pot bytebuffer-length bytebuffer, 1
+
+  define
     bytebuffer-insert-bytevector!: bytebuffer, bytevector
     let
       with slack-start bytebuffer-slack-start bytebuffer
@@ -131,6 +149,10 @@ library
         bytebuffer-bytevector bytebuffer
         slack-start
         u32
+
+  define
+    bytebuffer-delete-u32-native!: bytebuffer
+    bytebuffer-retract!: bytebuffer, 4
 
   define
     bytebuffer-move-forward-u32-native!: bytebuffer

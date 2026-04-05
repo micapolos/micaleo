@@ -86,6 +86,31 @@ let
   check equal?: bytebuffer-slack-start bytebuffer, 12
   check equal?: bytebuffer-slack-end bytebuffer, 16
 
+comment retreat
+let
+  with bytebuffer make-bytebuffer
+    bytevector: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+    6, 10
+  bytebuffer-retract!: bytebuffer, 4
+  check equal?
+    bytebuffer
+    make-bytebuffer
+      bytevector: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+      2, 10
+
+comment retreat and shrink
+let
+  with bytebuffer make-bytebuffer
+    bytevector: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+    6, 14
+  bytebuffer-retract!: bytebuffer, 4
+  bytebuffer-slack-fill!: bytebuffer, 0
+  check equal?
+    bytebuffer
+    make-bytebuffer
+      bytevector: 1, 2, 0, 0, 0, 0, 15, 16
+      2, 6
+
 let
   with bytebuffer make-bytebuffer
     bytevector: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
