@@ -3,6 +3,9 @@ library
   export
     char-bg-fg->cell
     cell->char-bg-fg
+    cell->char
+    cell->bg
+    cell->fg
   import
     leo scheme
 
@@ -16,12 +19,24 @@ library
   define
     cell->char-bg-fg cell
     values
-      integer->char fxand
-        cell
-        1048575
-      fxand
-        fxsrl: cell, 20
-        15
-      fxand
-        fxsrl: cell, 24
-        15
+      cell->char cell
+      cell->bg cell
+      cell->fg cell
+
+  define
+    cell->char cell
+    integer->char fxand
+      cell
+      1048575
+
+  define
+    cell->bg cell
+    fxand
+      fxsrl: cell, 20
+      15
+
+  define
+    cell->fg cell
+    fxand
+      fxsrl: cell, 24
+      15

@@ -21,9 +21,13 @@ library
     bytebuffer-head-length
     bytebuffer-tail-length
 
+    bytebuffer->bytevector
+
     bytebuffer-slack-fill!
     bytebuffer-resize!
+    bytebuffer-advance!
     bytebuffer-insert!
+    bytebuffer-insert-u32!
   import
     leo scheme
     mica bytevector
@@ -94,23 +98,57 @@ library
       set-bytebuffer-slack-end!: bytebuffer, new-slack-end
 
   define
-    bytebuffer-insert!: bytebuffer, bytevector
+    bytebuffer-advance!: bytebuffer, length
     when
-      less?: bytebuffer-slack-length bytebuffer, bytevector-length bytevector
+      less?: bytebuffer-slack-length bytebuffer, length
       bytebuffer-resize!
         bytebuffer
-        nearest-pot add: bytebuffer-length bytebuffer, bytevector-length bytevector
-    bytevector-copy!
-      bytevector
-      0
-      bytebuffer-bytevector bytebuffer
-      bytebuffer-slack-start bytebuffer
-      bytevector-length bytevector
+        nearest-pot add: bytebuffer-length bytebuffer, length
     set-bytebuffer-slack-start!
       bytebuffer
-      add
-        bytebuffer-slack-start bytebuffer
+      add: bytebuffer-slack-start bytebuffer, length
+
+  define
+    bytebuffer-insert!: bytebuffer, bytevector
+    let
+      with slack-start bytebuffer-slack-start bytebuffer
+      bytebuffer-advance!: bytebuffer, bytevector-length bytevector
+      bytevector-copy!
+        bytevector
+        0
+        bytebuffer-bytevector bytebuffer
+        slack-start
         bytevector-length bytevector
+
+  define
+    bytebuffer-insert-u32!: bytebuffer, u32
+    let
+      with slack-start bytebuffer-slack-start bytebuffer
+      bytebuffer-advance!: bytebuffer, 4
+      bytevector-u32-native-set!
+        bytebuffer-bytevector bytebuffer
+        slack-start
+        u32
+
+  define
+    bytebuffer->bytevector bytebuffer
+    let*
+      with
+        length bytebuffer-length bytebuffer
+        bytevector make-bytevector length
+      bytevector-copy!
+        bytebuffer-bytevector bytebuffer
+        0
+        bytevector
+        0
+        bytebuffer-head-length bytebuffer
+      bytevector-copy!
+        bytebuffer-bytevector bytebuffer
+        bytebuffer-slack-end bytebuffer
+        bytevector
+        bytebuffer-head-length bytebuffer
+        bytebuffer-tail-length bytebuffer
+      bytevector
 
   record-type-equal-procedure
     record-type-descriptor bytebuffer
