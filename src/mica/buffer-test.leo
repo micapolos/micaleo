@@ -17,6 +17,13 @@ let
   check equal?: buffer-tail-length buffer, 3
 
 let
+  with buffer make-buffer: "start....end", 5, 9
+  buffer-slack-fill!: buffer, char _
+  check equal?
+    buffer
+    make-buffer: "start____end", 5, 9
+
+let
   with buffer make-buffer: "start____end", 5, 9
   check equal?: buffer-string buffer, "start____end"
   check equal?: buffer-slack-start buffer, 5
