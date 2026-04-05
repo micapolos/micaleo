@@ -8,6 +8,7 @@ check equal?
 
 let
   with buffer make-buffer: "start____end", 5, 9
+
   check equal?: buffer-string buffer, "start____end"
   check equal?: buffer-slack-start buffer, 5
   check equal?: buffer-slack-end buffer, 9
@@ -18,17 +19,15 @@ let
 
 let
   with buffer make-buffer: "start....end", 5, 9
-  buffer-slack-fill!: buffer, char _
-  check equal?
-    buffer
-    make-buffer: "start____end", 5, 9
 
-let
-  with buffer make-buffer: "start____end", 5, 9
+  buffer-slack-fill!: buffer, char _
+
   check equal?: buffer-string buffer, "start____end"
   check equal?: buffer-slack-start buffer, 5
   check equal?: buffer-slack-end buffer, 9
 
+let
+  with buffer make-buffer: "start____end", 5, 9
   buffer-resize!: buffer, 15
   buffer-slack-fill!: buffer, char _
 
