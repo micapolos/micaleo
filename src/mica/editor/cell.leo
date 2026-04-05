@@ -13,8 +13,8 @@ library
     char-bg-fg->cell: char, bg, fg
     fxior
       char->integer char
-      fxsll: bg, 20
-      fxsll: fg, 24
+      fxsll: bg, 21
+      fxsll: fg, 25
 
   define
     cell->char-bg-fg cell
@@ -32,11 +32,11 @@ library
   define
     cell->bg cell
     fxand
-      fxsrl: cell, 20
+      fxsrl: cell, 21
       15
 
   define
     cell->fg cell
     fxand
-      fxsrl: cell, 24
+      fxsrl: cell, 25
       15
