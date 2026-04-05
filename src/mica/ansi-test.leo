@@ -5,11 +5,10 @@ import
 check equal?
   call-with-string-output-port lambda
     with port
-    put-ansi: port, "foo"
+    put-ansi: port, "03m"
   string
     char code 27
     char left-square-bracket
-    char f
-    char o
-    char o
+    char 0
+    char 3
     char m

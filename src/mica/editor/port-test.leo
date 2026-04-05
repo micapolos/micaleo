@@ -16,6 +16,6 @@ check equal?
         black-color
   call-with-string-output-port lambda
     with port
-    put-ansi: port, "30"
-    put-ansi: port, "47"
+    put-ansi: port, "30m"
+    put-ansi: port, "47m"
     put-char: port, char Z

@@ -18,7 +18,9 @@ library
     put-color-base: port, color, base
     put-ansi
       port
-      color-base->ansi: color, base
+      string-append
+        color-base->ansi: color, base
+        "m"
 
   define
     put-cell: port, cell
