@@ -5,24 +5,24 @@ library
     buffer?
 
     buffer-string
-    buffer-slack
-    buffer-position
-    buffer-forward?
+    buffer-slack-start
+    buffer-slack-end
 
     set-buffer-string!
-    set-buffer-slack!
-    set-buffer-position!
-    set-buffer-forward?!
+    set-buffer-slack-start!
+    set-buffer-slack-end!
 
     make-empty-buffer
 
     buffer-length
-    buffer-slack-start-position
-    buffer-slack-end-position
+    buffer-slack-start
+    buffer-slack-end
+    buffer-slack-length
     buffer-head-length
     buffer-tail-length
 
-    change-buffer-slack!
+    buffer-slack-fill!
+    buffer-resize!
     buffer-insert!
   import
     leo scheme
@@ -30,109 +30,83 @@ library
 
   define-record buffer with
     mutable string
-    mutable slack
-    mutable position
-    mutable forward?
+    mutable unsigned slack-start
+    mutable unsigned slack-end
 
   define
     make-empty-buffer:
-    make-buffer: "", 0, 0, #t
+    make-buffer: "", 0, 0
 
   define
     buffer-length buffer
     subtract
       string-length buffer-string buffer
-      buffer-slack buffer
-
-  define
-    buffer-slack-start-position buffer
-    if
-      buffer-forward? buffer
-      then buffer-position buffer
-      else subtract
-        buffer-position buffer
-        buffer-slack buffer
-
-  define
-    buffer-slack-end-position buffer
-    if
-      buffer-forward? buffer
-      then add
-        buffer-position buffer
-        buffer-slack buffer
-      else buffer-position buffer
+      buffer-slack-length buffer
 
   define
     buffer-head-length buffer
-    buffer-slack-start-position buffer
+    buffer-slack-start buffer
 
   define
     buffer-tail-length buffer
     subtract
       string-length buffer-string buffer
-      buffer-slack-end-position buffer
+      buffer-slack-end buffer
 
   define
-    change-buffer-slack!: buffer, slack
+    buffer-slack-length buffer
+    subtract
+      buffer-slack-end buffer
+      buffer-slack-start buffer
+
+  define
+    buffer-slack-fill!: buffer, char
+    substring-fill!
+      buffer-string buffer
+      buffer-slack-start buffer
+      buffer-slack-end buffer
+      char
+
+  define
+    buffer-resize!: buffer, new-length
     let*
       with
-        old-string buffer-string buffer
-        new-string make-string
-          add
-            string-length old-string
-            subtract: slack, buffer-slack buffer
-          char _
-        new-position if
-          buffer-forward? buffer
-          buffer-position buffer
-          add: buffer-slack-start-position buffer, slack
+        string buffer-string buffer
+        new-string make-string new-length
+        length-delta subtract: string-length new-string, string-length string
+        new-slack-end add: buffer-slack-end buffer, length-delta
       string-copy!
-        old-string
+        string
         0
         new-string
         0
         buffer-head-length buffer
       string-copy!
-        old-string
-        buffer-slack-end-position buffer
+        string
+        buffer-slack-end buffer
         new-string
-        if
-          buffer-forward? buffer
-          add: new-position, slack
-          new-position
+        new-slack-end
         buffer-tail-length buffer
       set-buffer-string!: buffer, new-string
-      set-buffer-slack!: buffer, slack
-      set-buffer-position!: buffer, new-position
+      set-buffer-slack-end!: buffer, new-slack-end
 
   define
     buffer-insert!: buffer, string
     when
-      not buffer-forward? buffer
-      set-buffer-position!: buffer, buffer-slack-start-position buffer
-      set-buffer-forward?!: buffer, #t
-    when
-      less?: buffer-slack buffer, string-length string
-      change-buffer-slack!
+      less?: buffer-slack-length buffer, string-length string
+      buffer-resize!
         buffer
-        subtract
-          nearest-pot add: buffer-length buffer, string-length string
-          buffer-length buffer
+        nearest-pot add: buffer-length buffer, string-length string
     string-copy!
       string
       0
       buffer-string buffer
-      buffer-slack-start-position buffer
+      buffer-slack-start buffer
       string-length string
-    set-buffer-position!
+    set-buffer-slack-start!
       buffer
       add
-        buffer-position buffer
-        string-length string
-    set-buffer-slack!
-      buffer
-      subtract
-        buffer-slack buffer
+        buffer-slack-start buffer
         string-length string
 
   record-type-equal-procedure
@@ -144,14 +118,11 @@ library
           buffer-string first-buffer
           buffer-string second-buffer
         recurse
-          buffer-slack first-buffer
-          buffer-slack second-buffer
+          buffer-slack-start first-buffer
+          buffer-slack-start second-buffer
         recurse
-          buffer-position first-buffer
-          buffer-position second-buffer
-        recurse
-          buffer-forward? first-buffer
-          buffer-forward? second-buffer
+          buffer-slack-end first-buffer
+          buffer-slack-end second-buffer
 
   record-type-hash-procedure
     record-type-descriptor buffer
@@ -159,6 +130,5 @@ library
       with: buffer, recurse
       equal-hash vector
         recurse buffer-string buffer
-        recurse buffer-slack buffer
-        recurse buffer-position buffer
-        recurse buffer-forward? buffer
+        recurse buffer-slack-start buffer
+        recurse buffer-slack-end buffer
