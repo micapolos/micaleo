@@ -9,17 +9,22 @@ library
   import
     leo scheme
 
-  comment
-    unicode bits: from 0, to 21
-    background color bits: from 0, to 25
-    foreground color bits: from 26, to 29
+  define char-bits 21
+  define bg-bits 4
+  define fg-bits 4
+  define bg-shift char-bits
+  define fg-shift fx+: bg-shift, bg-bits
+
+  define char-mask fx1- fxsll: 1, char-bits
+  define bg-mask fx1- fxsll: 1, bg-bits
+  define fg-mask fx1- fxsll: 1, fg-bits
 
   define
     char-bg-fg->cell: char, bg, fg
     fxior
       char->integer char
-      fxsll: bg, 21
-      fxsll: fg, 25
+      fxsll: bg, bg-shift
+      fxsll: fg, fg-shift
 
   define
     cell->char-bg-fg cell
@@ -32,16 +37,16 @@ library
     cell->char cell
     integer->char fxand
       cell
-      fx1- fxsll: 1, 21
+      char-mask
 
   define
     cell->bg cell
     fxand
-      fxsrl: cell, 21
-      15
+      fxsrl: cell, bg-shift
+      bg-mask
 
   define
     cell->fg cell
     fxand
-      fxsrl: cell, 25
-      15
+      fxsrl: cell, fg-shift
+      fg-mask
