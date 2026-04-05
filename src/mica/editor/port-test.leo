@@ -10,10 +10,10 @@ check equal?
     with port
     put-cell
       port
-      char-background-color-foreground-color->cell
+      cell
         char Z
-        color white
-        color black
+        background color white
+        foreground color black
   call-with-string-output-port lambda
     with port
     put-ansi: port, "30m"

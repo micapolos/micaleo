@@ -1,8 +1,10 @@
 library
   mica editor cell
   export
-    char-background-color-foreground-color->cell
-    cell->char-background-color-foreground-color
+    cell
+    background
+    foreground
+    make-cell
     cell->char
     cell->background-color
     cell->foreground-color
@@ -10,6 +12,15 @@ library
   import
     leo scheme
     mica editor color
+    syntax
+
+  define-keywords: foreground, background
+
+  define-syntax
+    keywords: background, foreground
+    when
+      cell: ch, background bg, foreground fg
+      make-cell: ch, bg, fg
 
   define char-bits 21
   define background-color-bits color-bits
@@ -22,18 +33,11 @@ library
   define foreground-color-mask fx1- fxsll: 1, foreground-color-bits
 
   define
-    char-background-color-foreground-color->cell: char, background-color, foreground-color
+    make-cell: char, background-color, foreground-color
     fxior
       char->integer char
       fxsll: background-color, background-color-shift
       fxsll: foreground-color, foreground-color-shift
-
-  define
-    cell->char-background-color-foreground-color cell
-    values
-      cell->char cell
-      cell->background-color cell
-      cell->foreground-color cell
 
   define
     cell->char cell

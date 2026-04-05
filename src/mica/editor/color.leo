@@ -29,7 +29,6 @@ library
 
   define-syntax
     keywords: bright, black, red, green, yellow, blue, magenta, cyan, white
-    when: id, keyword? id, id
     when: color black, 0
     when: color red, 1
     when: color green, 2

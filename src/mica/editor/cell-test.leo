@@ -3,20 +3,20 @@ import
   mica editor color
   mica editor cell
 
-let*-values
-  with
-    with
-      values cell
-      char-background-color-foreground-color->cell: char a, color red, color bright cyan
-    with
-      values: ch, background-color, foreground-color
-      cell->char-background-color-foreground-color cell
-  check equal?: ch, char a
-  check equal?: background-color, color red
-  check equal?: foreground-color, color bright cyan
+let
+  with cell cell
+    char a
+    background color red
+    foreground color bright cyan
+  check equal?: cell->char cell, char a
+  check equal?: cell->background-color cell, color red
+  check equal?: cell->foreground-color cell, color bright cyan
 
 check equal?
-  cell->datum char-background-color-foreground-color->cell: char a, color red, color bright cyan
+  cell->datum cell
+    char a
+    background color red
+    foreground color bright cyan
   `cell`
     char a
     `background color red
