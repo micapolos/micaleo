@@ -11,11 +11,10 @@ library
     put-color-base: port, color, base
     put-ansi
       port
-      number->string
-        add
-          base
-          color-code color
-          if: color-bright? color, 60, 0
+      number->string add
+        base
+        color-code color
+        if: color-bright? color, 60, 0
 
   define
     put-cell: port, cell
