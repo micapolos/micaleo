@@ -26,8 +26,8 @@ library
     bytebuffer-slack-fill!
     bytebuffer-resize!
     bytebuffer-advance!
-    bytebuffer-insert!
-    bytebuffer-insert-u32!
+    bytebuffer-insert-bytevector!
+    bytebuffer-insert-u32-native!
   import
     leo scheme
     mica bytevector
@@ -109,7 +109,7 @@ library
       add: bytebuffer-slack-start bytebuffer, length
 
   define
-    bytebuffer-insert!: bytebuffer, bytevector
+    bytebuffer-insert-bytevector!: bytebuffer, bytevector
     let
       with slack-start bytebuffer-slack-start bytebuffer
       bytebuffer-advance!: bytebuffer, bytevector-length bytevector
@@ -121,7 +121,7 @@ library
         bytevector-length bytevector
 
   define
-    bytebuffer-insert-u32!: bytebuffer, u32
+    bytebuffer-insert-u32-native!: bytebuffer, u32
     let
       with slack-start bytebuffer-slack-start bytebuffer
       bytebuffer-advance!: bytebuffer, 4

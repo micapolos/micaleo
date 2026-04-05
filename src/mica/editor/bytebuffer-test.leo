@@ -55,7 +55,7 @@ let
 let
   with bytebuffer with make-empty-bytebuffer
 
-  bytebuffer-insert!
+  bytebuffer-insert-bytevector!
     bytebuffer
     bytevector: 1, 2, 3, 4, 5, 6
 
@@ -67,7 +67,7 @@ let
   check equal?: bytebuffer-slack-start bytebuffer, 6
   check equal?: bytebuffer-slack-end bytebuffer, 8
 
-  bytebuffer-insert!
+  bytebuffer-insert-bytevector!
     bytebuffer
     bytevector: 7, 8
 
@@ -77,7 +77,7 @@ let
   check equal?: bytebuffer-slack-start bytebuffer, 8
   check equal?: bytebuffer-slack-end bytebuffer, 8
 
-  bytebuffer-insert-u32!: bytebuffer, 16843009
+  bytebuffer-insert-u32-native!: bytebuffer, 16843009
   bytebuffer-slack-fill!: bytebuffer, 0
 
   check equal?

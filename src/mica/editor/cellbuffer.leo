@@ -53,4 +53,4 @@ library
 
   define
     cellbuffer-insert-cell!: cellbuffer, cell
-    bytebuffer-insert-u32!: cellbuffer-bytebuffer cellbuffer, cell
+    bytebuffer-insert-u32-native!: cellbuffer-bytebuffer cellbuffer, cell
