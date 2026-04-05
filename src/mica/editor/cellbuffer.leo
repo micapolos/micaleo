@@ -4,6 +4,7 @@ library
     make-empty-cellbuffer
     cellbuffer-length
     cellbuffer->cell-list
+    cellbuffer-current-cell
     cellbuffer-insert-cell!
     cellbuffer-delete-cell!
     cellbuffer-move-forward!
@@ -53,6 +54,10 @@ library
   define
     cellbuffer-length cellbuffer
     fxsrl: bytebuffer-length cellbuffer-bytebuffer cellbuffer, cellbuffer-shift
+
+  define
+    cellbuffer-current-cell: cellbuffer
+    bytebuffer-current-u32-native: cellbuffer-bytebuffer cellbuffer
 
   define
     cellbuffer-insert-cell!: cellbuffer, cell

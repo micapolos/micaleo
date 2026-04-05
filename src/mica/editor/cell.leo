@@ -6,6 +6,7 @@ library
     cell->char
     cell->background-color
     cell->foreground-color
+    cell->datum
   import
     leo scheme
     mica editor color
@@ -51,3 +52,10 @@ library
     fxand
       fxsrl: cell, foreground-color-shift
       foreground-color-mask
+
+  define
+    cell->datum cell
+    `cell`
+      cell->char cell
+      `background` color->datum cell->background-color cell
+      `foreground` color->datum cell->foreground-color cell

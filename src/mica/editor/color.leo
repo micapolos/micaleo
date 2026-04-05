@@ -23,6 +23,8 @@ library
     bright-magenta-color
     bright-cyan-color
     bright-white-color
+
+    color->datum
   import
     leo scheme
 
@@ -53,3 +55,23 @@ library
   define bright-magenta-color 13
   define bright-cyan-color 14
   define bright-white-color 15
+
+  define color-code-datums vector
+    'black
+    'red
+    'green
+    'yellow
+    'blue
+    'magenta
+    'cyan
+    'white
+
+  define
+    color->datum color
+    `color`
+      let
+        with code-datum vector-ref: color-code-datums, color-code color
+        if
+          color-bright? color
+          then `bright` code-datum
+          else code-datum

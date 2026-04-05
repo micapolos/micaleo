@@ -41,3 +41,7 @@ let
   check equal?
     cellbuffer->foreground-color-vector cellbuffer
     vector: 6, 2
+
+  check equal?
+    cellbuffer-current-cell cellbuffer
+    char-background-color-foreground-color->cell: char Z, 7, 2

@@ -31,8 +31,10 @@ library
 
     bytebuffer-insert-bytevector!
 
+    bytebuffer-current-u32-native
     bytebuffer-insert-u32-native!
     bytebuffer-delete-u32-native!
+
     bytebuffer-move-forward-u32-native!
     bytebuffer-move-backward-u32-native!
   import
@@ -139,6 +141,12 @@ library
         bytebuffer-bytevector bytebuffer
         slack-start
         bytevector-length bytevector
+
+  define
+    bytebuffer-current-u32-native: bytebuffer
+    bytevector-u32-native-ref
+      bytebuffer-bytevector bytebuffer
+      subtract: bytebuffer-slack-start bytebuffer, 4
 
   define
     bytebuffer-insert-u32-native!: bytebuffer, u32
