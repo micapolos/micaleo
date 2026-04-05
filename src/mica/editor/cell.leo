@@ -4,7 +4,6 @@ library
     cell
     background
     foreground
-    make-cell
     cell->char
     cell->background-color
     cell->foreground-color
