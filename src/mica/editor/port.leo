@@ -3,19 +3,9 @@ library
   export put-cell
   import
     leo scheme
+    mica ansi
     mica editor color
     mica editor cell
-
-  define
-    put-escape port
-    put-char: port, char code 27
-
-  define
-    put-ansi: port, string
-    put-escape port
-    put-char: port, char left-square-bracket
-    put-string: port, string
-    put-char: port, char m
 
   define
     put-cell: port, cell
