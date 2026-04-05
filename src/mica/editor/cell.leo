@@ -9,6 +9,11 @@ library
   import
     leo scheme
 
+  comment
+    unicode bits: from 0, to 21
+    background color bits: from 0, to 25
+    background color bits: from 26, to 29
+
   define
     char-bg-fg->cell: char, bg, fg
     fxior
