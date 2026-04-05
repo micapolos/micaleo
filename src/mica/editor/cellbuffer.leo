@@ -5,6 +5,7 @@ library
     cellbuffer-length
     cellbuffer->cell-list
     cellbuffer-insert-cell!
+    cellbuffer-delete-cell!
     cellbuffer-move-forward!
     cellbuffer-move-backward!
     cellbuffer->string
@@ -56,6 +57,10 @@ library
   define
     cellbuffer-insert-cell!: cellbuffer, cell
     bytebuffer-insert-u32-native!: cellbuffer-bytebuffer cellbuffer, cell
+
+  define
+    cellbuffer-delete-cell!: cellbuffer
+    bytebuffer-delete-u32-native!: cellbuffer-bytebuffer cellbuffer
 
   define
     cellbuffer-move-forward!: cellbuffer
