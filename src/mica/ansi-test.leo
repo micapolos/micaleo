@@ -2,6 +2,9 @@ import
   leo scheme
   mica ansi
 
+check char-ansi-terminator? char a
+check not char-ansi-terminator? char 0
+
 check equal?
   call-with-string-output-port lambda
     with port

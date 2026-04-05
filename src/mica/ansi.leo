@@ -1,6 +1,8 @@
 library
   mica ansi
   export
+    char-ansi-terminator?
+
     sgr-ansi
 
     reset-ansi
@@ -25,10 +27,19 @@ library
   import
     leo scheme
     only: partial, from procedure
+    eof
 
   define
     sgr-ansi: command
     string-append: command, "m"
+
+  define
+    char-ansi-terminator? char
+    let
+      with code char->integer char
+      and
+        >=: code, 64
+        <=: code, 127
 
   define reset-ansi "0m"
   define home-ansi "H"
