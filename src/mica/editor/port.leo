@@ -8,24 +8,16 @@ library
     mica editor cell
 
   define
+    put-color-base: port, color, base
+    put-ansi
+      port
+      number->string
+        add
+          color-code color, base
+          if: color-bright? color, 60, 0
+
+  define
     put-cell: port, cell
-
-    let
-      with color cell->foreground-color cell
-      put-ansi
-        port
-        number->string
-          add
-            color-code color
-            if: color-bright? color, 90, 30
-
-    let
-      with color cell->background-color cell
-      put-ansi
-        port
-        number->string
-          add
-            color-code color
-            if: color-bright? color, 100, 40
-
+    put-color-base: port, cell->foreground-color cell, 30
+    put-color-base: port, cell->background-color cell, 40
     put-char: port, cell->char cell
