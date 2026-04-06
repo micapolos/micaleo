@@ -4,5 +4,9 @@ import
   mica editor command
 
 let-ftype
-  with command command-ftype
-  command-init! command
+  with
+    test-command command-ftype
+    expected-command command-ftype
+  check equal?
+    ftype-pointer->sexpr test-command
+    ftype-pointer->sexpr expected-command

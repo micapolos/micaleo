@@ -32,6 +32,6 @@ library
         with
           val make-ftype-pointer
             ftype
-            object->reference-address make-immobile-bytevector: ftype-sizeof ftype
+            object->reference-address make-immobile-bytevector: ftype-sizeof ftype, 0
           ...
         x, xs, ...
