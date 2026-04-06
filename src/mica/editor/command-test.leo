@@ -4,4 +4,4 @@ import
 
 check equal?
   ftype-sizeof command-ftype
-  32
+  69
