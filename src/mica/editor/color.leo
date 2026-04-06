@@ -18,10 +18,10 @@ library
     keyword
 
   define-ftype fcolors bits
-    background-bright?: unsigned, 1
-    background-color: unsigned, 3
-    foreground-bright?: unsigned, 1
-    foreground-color: unsigned, 3
+    background-bright? unsigned 1
+    background-color unsigned 3
+    foreground-bright? unsigned 1
+    foreground-color unsigned 3
 
   define color-bits 4
 
