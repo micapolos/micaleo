@@ -17,7 +17,9 @@ library
   define-syntax
     when
       ftype-clear!: ftype, pointer
-      memory-clear!: ftype-pointer-address, ftype-sizeof ftype
+      memory-clear!
+        ftype-pointer-address pointer
+        ftype-sizeof ftype
 
   define-syntax
     when

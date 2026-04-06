@@ -7,6 +7,7 @@ library
   import
     leo scheme
     mica pointer
+    mica ftype-pointer
     char
 
   define-ftype argument-ftype bits
@@ -34,7 +35,7 @@ library
 
   define
     command-init!: command
-    ftype-set!: command-ftype, command, flags, escape?, 0
+    ftype-clear!: command-ftype, command
 
   define
     command-put!: command, char
