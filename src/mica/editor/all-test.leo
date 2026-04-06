@@ -6,3 +6,4 @@ test
   mica editor cell
   mica editor cellbuffer
   mica editor port
+  mica editor command

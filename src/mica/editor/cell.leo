@@ -1,6 +1,7 @@
 library
   mica editor cell
   export
+    fcell
     cell
     background
     foreground
@@ -12,6 +13,14 @@ library
     leo scheme
     mica editor color
     syntax
+
+  define-ftype fcell packed struct
+    colors fcolors
+    data bits
+      bold?: unsigned, 1
+      italic?: unsigned, 1
+      underline?: unsigned, 1
+      char-code: unsigned, 21
 
   define-keywords: foreground, background
 
