@@ -5,5 +5,6 @@ test
   mica port
   mica pot
   mica bytevector-slice
+  mica memory
   mica pointer
   mica editor all

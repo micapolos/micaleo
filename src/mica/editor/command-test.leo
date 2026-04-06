@@ -1,7 +1,8 @@
 import
   leo scheme
+  mica ftype-pointer
   mica editor command
 
-check equal?
-  ftype-sizeof command-ftype
-  69
+let-ftype
+  with command command-ftype
+  command-init! command

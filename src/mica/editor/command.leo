@@ -2,6 +2,8 @@ library
   mica editor command
   export
     command-ftype
+    command-init!
+    command-put!
   import
     leo scheme
     mica pointer
@@ -29,6 +31,10 @@ library
       and
         >=: char-code, 64
         <=: char-code, 126
+
+  define
+    command-init!: command
+    ftype-set!: command-ftype, command, flags, escape?, 0
 
   define
     command-put!: command, char
