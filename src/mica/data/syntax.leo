@@ -2,6 +2,7 @@ library
   mica data syntax
   export
     transform-data
+    transform-op
     transform-data-ref
   import
     leo scheme
@@ -62,6 +63,35 @@ library
       when
         other
         syntax other
+
+  define
+    transform-op op
+    syntax-case
+      op
+      when
+        op
+          struct: fields, ...
+          accessor
+        free-keyword? struct
+        quasisyntax op
+          unsyntax transform-data syntax struct: fields, ...
+          accessor
+      when
+        op
+          bits: fields, ...
+          accessor
+        free-keyword? bits
+        quasisyntax op
+          unsyntax transform-data syntax bits: fields, ...
+          accessor
+      when
+        op
+          array: size, element-data
+          accessor
+        free-keyword? array
+        quasisyntax op
+          unsyntax transform-data syntax array: size, element-data
+          accessor
 
   define
     transform-data-ref data-ref
