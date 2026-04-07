@@ -10,3 +10,4 @@ test
   mica ftype
   mica editor all
   mica data
+  mica data all
