@@ -56,34 +56,27 @@ begin
 
   check equal?
     syntax->datum transform-path syntax path int
-    'path:
+    'path int
 
   check equal?
     syntax->datum transform-path syntax path
       struct: x int, y int
       x
     'path
-      access
-        struct: x int, y int
-        x
+      struct: x int, y int
+      x
 
   check equal?
     syntax->datum transform-path syntax path
-      struct parent struct child struct point struct: x int, y int
-      parent, child, point, y
+      array
+        16
+        struct foo bits enabled? boolean
+      10, foo, enabled?
     'path
-      access
-        struct parent struct child struct point struct: x int, y int
-        parent
-      access
-        struct child struct point struct: x int, y int
-        child
-      access
-        struct point struct: x int, y int
-        point
-      access
-        struct: x int, y int
-        y
+      array
+        16
+        struct foo bits enabled? unsigned 1
+      10, foo, enabled?
 
 begin
   comment transform-data-ref
