@@ -68,10 +68,10 @@ library
     syntax-case
       data-ref
       when
-        _: data, expr
+        data-ref: data, expr
         syntax expr
       when
-        _
+        data-ref
           struct: fields, ...
           expr, accessor, accessors, ...
         free-keyword? struct
@@ -84,10 +84,21 @@ library
             expr, accessor
           accessors, ...
       when
-        _
+        data-ref
           bits: fields, ...
           expr, accessor
         free-keyword? bits
         quasisyntax ftype-ref
           unsyntax transform-data syntax bits: fields, ...
           expr, accessor
+      when
+        data-ref
+          array: size, element-data
+          expr, accessor, accessors, ...
+        free-keyword? array
+        transform-data-ref quasisyntax data-ref
+          element-data
+          ftype-ref
+            unsyntax transform-data syntax array: size, element-data
+            expr, accessor
+          accessors, ...
