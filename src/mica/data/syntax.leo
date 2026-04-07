@@ -36,7 +36,7 @@ library
     syntax-case
       bit-field
       when
-        name boolean 1
+        name boolean
         free-keyword? boolean
         syntax name unsigned 1
       when
@@ -59,6 +59,12 @@ library
         quasisyntax struct unsyntax-splicing map
           transform-field
           syntax fields ...
+      when
+        array: size, data
+        free-keyword? array
+        quasisyntax array
+          size
+          unsyntax transform-data syntax data
       when
         other
         syntax other
