@@ -85,7 +85,7 @@ library
             zero? ftype-ref: command-arg, arg, present?
             then
               ftype-set!: command-arg, arg, present?, 1
-              ftype-set!: command-arg, arg, value, char->integer char
+              ftype-set!: command-arg, arg, value, digit
             else
               ftype-set!
                 command-arg, arg, value
@@ -101,5 +101,19 @@ library
           fx1+ ftype-ref: command, command-pointer, flags, arg-count
       when
         char-terminator? char
+        let*
+          with
+            index ftype-ref: command, command-pointer, flags, arg-count
+            arg ftype-&ref: command, command-pointer, args, index
+          when
+            not zero? ftype-ref: command-arg, arg, present?
+            ftype-set!
+              command, command-pointer, flags, arg-count
+              fx1+ ftype-ref: command, command-pointer, flags, arg-count
+        ftype-set!: command, command-pointer, flags, escape?, 0
         ftype-set!: command, command-pointer, flags, execute?, 1
+        ftype-set!: command, command-pointer, char, char
+      else
+        ftype-set!: command, command-pointer, flags, escape?, 0
+        ftype-set!: command, command-pointer, flags, execute?, 0
         ftype-set!: command, command-pointer, char, char
