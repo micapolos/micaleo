@@ -2,7 +2,7 @@ library
   mica data syntax
   export
     transform-data
-    transform-op
+    transform-access
     transform-data-ref
   import
     leo scheme
@@ -65,7 +65,7 @@ library
         syntax other
 
   define
-    transform-op op
+    transform-access op
     syntax-case
       op
       when
@@ -83,9 +83,7 @@ library
           bits: fields, ...
           accessor
         free-keyword? bits
-        quasisyntax op
-          unsyntax transform-data syntax bits: fields, ...
-          :
+        quasisyntax op unsyntax transform-data syntax bits: fields, ...
       when
         op
           array: size, element-data
@@ -103,34 +101,25 @@ library
         data-ref: data, expr
         syntax expr
       when
-        data-ref
-          struct: fields, ...
-          expr, accessor, accessors, ...
-        free-keyword? struct
-        transform-data-ref quasisyntax data-ref
-          unsyntax field-ref
-            syntax fields ...
-            syntax accessor
-          ftype-ref
-            unsyntax transform-data syntax struct: fields, ...
-            expr, accessor
-          accessors, ...
-      when
-        data-ref
-          bits: fields, ...
-          expr, accessor
-        free-keyword? bits
-        quasisyntax ftype-ref
-          unsyntax transform-data syntax bits: fields, ...
-          expr, accessor
-      when
-        data-ref
-          array: size, element-data
-          expr, accessor, accessors, ...
-        free-keyword? array
-        transform-data-ref quasisyntax data-ref
-          element-data
-          ftype-ref
-            unsyntax transform-data syntax array: size, element-data
-            expr, accessor
-          accessors, ...
+        data-ref: data, expr, accessor, accessors, ...
+        syntax-case
+          transform-access syntax op: data, accessor
+          when
+            op: ftype
+            if
+              not null? syntax accessors ...
+              then
+                syntax-error
+                  syntax accessors ...
+                  'invalid accessors
+              else quasisyntax ftype-ref
+                unsyntax transform-data syntax data
+                expr, accessor
+          when
+            op: ftype, child-data
+            transform-data-ref quasisyntax data-ref
+              child-data
+              ftype-ref
+                unsyntax transform-data syntax data
+                expr, accessor
+              accessors, ...

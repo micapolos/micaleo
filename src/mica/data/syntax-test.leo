@@ -20,10 +20,10 @@ begin
         value unsigned 7
 
 begin
-  comment transform-op
+  comment transform-access
 
   check equal?
-    syntax->datum transform-op syntax ref
+    syntax->datum transform-access syntax ref
       struct: x int, y int
       x
     'ref
@@ -31,7 +31,7 @@ begin
       int
 
   check equal?
-    syntax->datum transform-op syntax ref
+    syntax->datum transform-access syntax ref
       array: 16, int
       10
     'ref
@@ -39,12 +39,11 @@ begin
       int
 
   check equal?
-    syntax->datum transform-op syntax ref
+    syntax->datum transform-access syntax ref
       bits: enabled? boolean 1, value unsigned 7
       enabled?
     'ref
       bits: enabled? unsigned 1, value unsigned 7
-      :
 
 begin
   comment transform-data-ref
