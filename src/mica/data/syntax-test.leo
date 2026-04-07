@@ -23,26 +23,26 @@ begin
   comment transform-access
 
   check equal?
-    syntax->datum transform-access syntax ref
+    syntax->datum transform-access syntax access
       struct: x int, y int
       x
-    'ref
+    'access
       struct: x int, y int
       int
 
   check equal?
-    syntax->datum transform-access syntax ref
+    syntax->datum transform-access syntax access
       array: 16, int
       10
-    'ref
+    'access
       array: 16, int
       int
 
   check equal?
-    syntax->datum transform-access syntax ref
+    syntax->datum transform-access syntax access
       bits: enabled? boolean 1, value unsigned 7
       enabled?
-    'ref
+    'access
       bits: enabled? unsigned 1, value unsigned 7
 
 begin
