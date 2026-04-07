@@ -8,6 +8,7 @@ library
     leo scheme
     mica pointer
     mica ftype
+    mica data
 
   define-ftype command-arg bits
     present? unsigned 1
