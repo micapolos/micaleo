@@ -3,6 +3,7 @@ library
   export
     transform-data
     transform-access
+    transform-path
     transform-data-ref
   import
     leo scheme
@@ -92,6 +93,37 @@ library
         quasisyntax access
           unsyntax transform-data syntax array: size, element-data
           element-data
+
+  define
+    transform-path path
+    syntax-case
+      path
+      when
+        path: data
+        syntax path
+      when
+        path: data, expr, accessor, accessors, ...
+        syntax-case
+          transform-access syntax access: data, accessor
+          when
+            access: ftype
+            if
+              not null? syntax accessors ...
+              then
+                syntax-error
+                  syntax accessors ...
+                  'invalid accessors
+              else quasisyntax path
+                unsyntax transform-data syntax data
+                accessor
+          when
+            access: ftype, child-data
+            transform-path quasisyntax access
+              child-data
+              access
+                unsyntax transform-data syntax data
+                accessor
+              accessors, ...
 
   define
     transform-data-ref data-ref
