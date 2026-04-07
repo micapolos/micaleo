@@ -2,8 +2,26 @@ library
   mica data syntax
   export
     transform-data
+    transform-data-ref
   import
     leo scheme
+
+  define
+    field-ref: fields, name
+    switch
+      assp
+        partial: free-identifier=?, name
+        map: syntax->list, fields
+      when
+        _ false?
+        syntax-error
+          syntax accessor
+          `no such field` 'syntax accessor
+      else ass syntax-case
+        ass
+        when
+          _ x
+          syntax x
 
   define
     transform-field field
@@ -44,3 +62,32 @@ library
       when
         other
         syntax other
+
+  define
+    transform-data-ref data-ref
+    syntax-case
+      data-ref
+      when
+        _: data, expr
+        syntax expr
+      when
+        _
+          struct: fields, ...
+          expr, accessor, accessors, ...
+        free-keyword? struct
+        transform-data-ref quasisyntax data-ref
+          unsyntax field-ref
+            syntax fields ...
+            syntax accessor
+          ftype-ref
+            unsyntax transform-data syntax struct: fields, ...
+            expr, accessor
+          accessors, ...
+      when
+        _
+          bits: fields, ...
+          expr, accessor
+        free-keyword? bits
+        quasisyntax ftype-ref
+          unsyntax transform-data syntax bits: fields, ...
+          expr, accessor
