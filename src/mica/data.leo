@@ -17,4 +17,4 @@ library
         keyword? name
         quasisyntax begin
           define-ftype name unsyntax transform-data syntax spec
-          define-property: name, data, syntax spec
+          define-property name data syntax spec
