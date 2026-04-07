@@ -65,31 +65,31 @@ library
         syntax other
 
   define
-    transform-access op
+    transform-access access
     syntax-case
-      op
+      access
       when
-        op
+        access
           struct: fields, ...
           accessor
         free-keyword? struct
-        quasisyntax op
+        quasisyntax access
           unsyntax transform-data syntax struct: fields, ...
           unsyntax field-ref
             syntax fields ...
             syntax accessor
       when
-        op
+        access
           bits: fields, ...
           accessor
         free-keyword? bits
-        quasisyntax op unsyntax transform-data syntax bits: fields, ...
+        quasisyntax access unsyntax transform-data syntax bits: fields, ...
       when
-        op
+        access
           array: size, element-data
           accessor
         free-keyword? array
-        quasisyntax op
+        quasisyntax access
           unsyntax transform-data syntax array: size, element-data
           element-data
 
