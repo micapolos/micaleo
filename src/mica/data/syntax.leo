@@ -16,9 +16,7 @@ library
         map: syntax->list, fields
       when
         _ false?
-        syntax-error
-          syntax accessor
-          `no such field` 'syntax accessor
+        syntax-error: name, `no field` name
       else ass syntax-case
         ass
         when
@@ -100,9 +98,9 @@ library
       path
       when
         path: data
-        syntax path
+        syntax path data
       when
-        path: data, expr, accessor, accessors, ...
+        path: data, accessor, accessors, ...
         syntax-case
           transform-access syntax access: data, accessor
           when
@@ -114,16 +112,15 @@ library
                   syntax accessors ...
                   'invalid accessors
               else quasisyntax path
-                unsyntax transform-data syntax data
+                data
                 accessor
           when
             access: ftype, child-data
-            transform-path quasisyntax access
-              child-data
-              access
-                unsyntax transform-data syntax data
-                accessor
-              accessors, ...
+            syntax-case
+              transform-path syntax path: child-data, accessors, ...
+              when
+                path: data, accessors, ...
+                syntax path: data, accessor, accessors, ...
 
   define
     transform-data-ref data-ref

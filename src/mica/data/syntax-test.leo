@@ -46,6 +46,25 @@ begin
       bits: enabled? unsigned 1, value unsigned 7
 
 begin
+  comment transform-path
+
+  check equal?
+    syntax->datum transform-path syntax path int
+    'path int
+
+  check equal?
+    syntax->datum transform-path syntax path
+      struct: x int, y int
+      x
+    'path: int, x
+
+  check equal?
+    syntax->datum transform-path syntax path
+      struct parent struct child struct point struct: x int, y int
+      parent, child, point, y
+    'path: int, parent, child, point, y
+
+begin
   comment transform-data-ref
 
   check equal?
