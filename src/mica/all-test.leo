@@ -9,3 +9,4 @@ test
   mica pointer
   mica ftype
   mica editor all
+  mica data
