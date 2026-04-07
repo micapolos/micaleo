@@ -7,4 +7,5 @@ test
   mica bytevector-slice
   mica memory
   mica pointer
+  mica ftype
   mica editor all
