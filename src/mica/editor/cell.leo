@@ -12,7 +12,6 @@ library
   import
     leo scheme
     mica editor color
-    syntax
 
   define-ftype fcell packed struct
     colors fcolors

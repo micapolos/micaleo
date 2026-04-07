@@ -26,8 +26,6 @@ library
     put-ansi
   import
     leo scheme
-    only: partial, from procedure
-    eof
 
   define
     sgr-ansi: command

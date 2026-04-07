@@ -9,7 +9,6 @@ library
   import
     leo scheme
     mica memory
-    syntax
 
   define
     ftype-mem=?: ftype-pointer-a, ftype-pointer-b

@@ -4,7 +4,6 @@ library
     get/put-until
   import
     leo scheme
-    eof
 
   define
     get/put-until: input-port, output-port, char-test?

@@ -14,8 +14,6 @@ library
     color->datum
   import
     leo scheme
-    syntax
-    keyword
 
   define-ftype fcolors bits
     background-bright? unsigned 1
