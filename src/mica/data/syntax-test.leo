@@ -28,7 +28,7 @@ begin
       x
     'ref
       struct: x int, y int
-      x
+      int
 
   check equal?
     syntax->datum transform-op syntax ref
@@ -36,7 +36,7 @@ begin
       10
     'ref
       array: 16, int
-      10
+      int
 
   check equal?
     syntax->datum transform-op syntax ref
@@ -44,7 +44,7 @@ begin
       enabled?
     'ref
       bits: enabled? unsigned 1, value unsigned 7
-      enabled?
+      :
 
 begin
   comment transform-data-ref

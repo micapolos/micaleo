@@ -75,7 +75,9 @@ library
         free-keyword? struct
         quasisyntax op
           unsyntax transform-data syntax struct: fields, ...
-          accessor
+          unsyntax field-ref
+            syntax fields ...
+            syntax accessor
       when
         op
           bits: fields, ...
@@ -83,7 +85,7 @@ library
         free-keyword? bits
         quasisyntax op
           unsyntax transform-data syntax bits: fields, ...
-          accessor
+          :
       when
         op
           array: size, element-data
@@ -91,7 +93,7 @@ library
         free-keyword? array
         quasisyntax op
           unsyntax transform-data syntax array: size, element-data
-          accessor
+          element-data
 
   define
     transform-data-ref data-ref
