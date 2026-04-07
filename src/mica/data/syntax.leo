@@ -97,8 +97,8 @@ library
     syntax-case
       path
       when
-        path: data
-        syntax path data
+        path data
+        syntax path:
       when
         path: data, accessor, accessors, ...
         syntax-case
@@ -111,16 +111,20 @@ library
                 syntax-error
                   syntax accessors ...
                   'invalid accessors
-              else quasisyntax path
-                data
-                accessor
+              else
+                syntax path access: ftype, accessor
           when
             access: ftype, child-data
             syntax-case
               transform-path syntax path: child-data, accessors, ...
               when
-                path: data, accessors, ...
-                syntax path: data, accessor, accessors, ...
+                path
+                  accesses: ftypes, accessors
+                  ...
+                syntax path
+                  access: ftype, accessor
+                  access: ftypes, accessors
+                  ...
 
   define
     transform-data-ref data-ref
