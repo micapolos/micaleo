@@ -26,11 +26,11 @@ define
 
 check equal?
   syntax->datum compile: typeof, syntax value-a
-  ': type-a, value-a
+  'type-a value-a
 
 check equal?
   syntax->datum compile: typeof, syntax 123
-  ': fixnum, 123
+  'fixnum 123
 
 check equal?
   syntax->datum compile
