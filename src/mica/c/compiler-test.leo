@@ -16,17 +16,17 @@ define
         with: fixnum, fixnum
         fixnum
     when
-      free-identifier=?: identifier, syntax v1
-      syntax t1
+      free-identifier=?: identifier, syntax value-a
+      syntax type-a
     when
-      free-identifier=?: identifier, syntax v2
-      syntax t2
+      free-identifier=?: identifier, syntax value-b
+      syntax type-b
     else
       syntax-error: identifier, 'undefined type
 
 check equal?
-  syntax->datum compile: typeof, syntax v1
-  ': t1, v1
+  syntax->datum compile: typeof, syntax value-a
+  ': type-a, value-a
 
 check equal?
   syntax->datum compile: typeof, syntax 123
@@ -36,42 +36,54 @@ check equal?
   syntax->datum compile
     typeof
     syntax lambda
-      with: v1 t1, v2 t2
-      v1, v2
+      with: value-a type-a, value-b type-b
+      value-a, value-b
   ':
     lambda
-      with: t1, t2
-      t2
+      with: type-a, type-b
+      type-b
     lambda
-      with: v1, v2
-      v1, v2
+      with: value-a, value-b
+      value-a, value-b
 
 check equal?
   syntax->datum compile
     typeof
     syntax :
       lambda
-        with: a1 t1, a2 t2
+        with: a1 type-a, a2 type-b
         a1, a2
-      v1, v2
+      value-a, value-b
   ':
-    t2
+    type-b
     :
       lambda
         with: a1, a2
         a1, a2
-      v1, v2
+      value-a, value-b
 
 check equal?
   syntax->datum compile
     typeof
     syntax let
       with
-        a1 v1
-        a2 v2
+        a1 value-a
+        a2 value-b
       a1, a2
   ':
-    t2
+    type-b
     let
-      with: a1 v1, a2 v2
+      with: a1 value-a, a2 value-b
       a1, a2
+
+check equal?
+  syntax->datum compile
+    typeof
+    syntax fxzero? 123
+  'boolean fxzero? 123
+
+check equal?
+  syntax->datum compile
+    typeof
+    syntax fx+: 10, 20
+  'fixnum fx+: 10, 20
