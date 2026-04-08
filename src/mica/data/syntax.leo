@@ -149,6 +149,21 @@ library
     syntax *-any-set!
 
   define
+    data-op-needs-minus? op
+    let
+      with first-char string-ref: symbol->string syntax->datum op, 0
+      or
+        char-alphabetic? first-char
+        char=?: first-char, #\&
+
+  define
+    transform-data-op-identifier: name, op
+    if
+      data-op-needs-minus? op
+      then identifier-append: name, name, syntax -, op
+      else identifier-append: name, name, op
+
+  define
     transform-data-op op
     syntax-case
       op
@@ -218,10 +233,7 @@ library
     quasisyntax define-syntax
       when
         :
-          unsyntax if
-            char-alphabetic? string-ref: symbol->string syntax->datum op, 0
-            then identifier-append: name, name, syntax -, op
-            else identifier-append: name, name, op
+          unsyntax transform-data-op-identifier: name, op
           x, ... ...
         unsyntax transform-data-op quasisyntax
           :
