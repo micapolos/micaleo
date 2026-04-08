@@ -3,16 +3,20 @@ library
   export
     memory-clear!
     memory-fill!
-  import leo scheme
+  import
+    leo scheme
 
   define
-    memory-clear!: address, length
-    memory-fill!: address, length, 0
+    memory-clear!: address, start-offset, end-offset
+    memory-fill!: address, start-offset, end-offset, 0
 
   define
-    memory-fill!: address, length, u8
-    when
-      not fxzero? length
-      foreign-set!: 'unsigned-8, address, 0, u8
-      memory-fill!: fx1+ address, fx1- length, u8
-
+    memory-fill!: address, start-offset, end-offset, u8
+    unless
+      fx=?: start-offset, end-offset
+      foreign-set!: 'unsigned-8, address, start-offset, u8
+      memory-fill!
+        address
+        fx+/wraparound: start-offset, 1
+        end-offset
+        u8
