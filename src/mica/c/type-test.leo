@@ -1,6 +1,7 @@
 import
   leo scheme
   mica c type
+  mica c keywords
 
 begin
   comment identifier
