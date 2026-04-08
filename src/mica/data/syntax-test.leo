@@ -26,6 +26,59 @@ begin
       struct foo bits enabled? unsigned 1
 
 begin
+  comment transform-access
+
+  check equal?
+    syntax->datum transform-access syntax access
+      struct: x int, y int
+      x
+    'access
+      struct: x int, y int
+      int
+
+  check equal?
+    syntax->datum transform-access syntax access
+      array: 16, int
+      10
+    'access
+      array: 16, int
+      int
+
+  check equal?
+    syntax->datum transform-access syntax access
+      bits: enabled? boolean, value unsigned 7
+      enabled?
+    'access
+      bits: enabled? unsigned 1, value unsigned 7
+
+begin
+  comment transform-path
+
+  check equal?
+    syntax->datum transform-path syntax path int
+    'path int
+
+  check equal?
+    syntax->datum transform-path syntax path
+      struct: x int, y int
+      x
+    'path
+      struct: x int, y int
+      x
+
+  check equal?
+    syntax->datum transform-path syntax path
+      array
+        16
+        struct foo bits enabled? boolean
+      10, foo, enabled?
+    'path
+      array
+        16
+        struct foo bits enabled? unsigned 1
+      10, foo, enabled?
+
+begin
   comment transform-data-op
 
   check equal?

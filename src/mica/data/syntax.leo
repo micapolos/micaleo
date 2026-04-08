@@ -2,6 +2,8 @@ library
   mica data syntax
   export
     transform-data
+    transform-access
+    transform-path
     transform-data-op
     transform-data-ops
     transform-define-syntax-data-op
@@ -72,6 +74,64 @@ library
       when
         other
         syntax other
+
+  define
+    transform-access access
+    syntax-case
+      access
+      when
+        access
+          struct: fields, ...
+          accessor
+        free-keyword? struct
+        quasisyntax access
+          unsyntax transform-data syntax struct: fields, ...
+          unsyntax field-ref
+            syntax fields ...
+            syntax accessor
+      when
+        access
+          bits: fields, ...
+          accessor
+        free-keyword? bits
+        quasisyntax access unsyntax transform-data syntax bits: fields, ...
+      when
+        access
+          array: size, element-data
+          accessor
+        free-keyword? array
+        quasisyntax access
+          unsyntax transform-data syntax array: size, element-data
+          element-data
+
+  define
+    transform-path path
+    syntax-case
+      path
+      when
+        path data
+        quasisyntax path unsyntax transform-data syntax data
+      when
+        path: data, accessor, accessors, ...
+        syntax-case
+          transform-access syntax access: data, accessor
+          when
+            access: ftype
+            if
+              not null? syntax accessors ...
+              then
+                syntax-error
+                  syntax accessors ...
+                  'invalid accessors
+              else
+                syntax path: ftype, accessor
+          when
+            access: ftype, child-data
+            syntax-case
+              transform-path syntax path: child-data, accessors, ...
+              when
+                path: _, accessors, ...
+                syntax path: ftype, accessor, accessors, ...
 
   define transform-data-ops list
     syntax ref
