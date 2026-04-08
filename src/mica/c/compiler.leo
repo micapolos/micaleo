@@ -19,17 +19,6 @@ library
         else ass cadr ass
 
   define
-    check-type=?: param-type, arg-type, arg
-    comment unless
-      syntax=?: param-type, arg-type
-      syntax-error
-        arg
-        `invalid
-          type` syntax->datum arg-type
-          expected` syntax->datum param-type
-    void:
-
-  define
     compile: typeof, stx
     syntax-case
       stx
@@ -98,8 +87,8 @@ library
                   with: param-types, ...
                   return-type
                 begin
-                  for-all
-                    check-type=?
+                  for-each
+                    type-check
                     syntax param-types ...
                     syntax arg-types ...
                     syntax args ...
