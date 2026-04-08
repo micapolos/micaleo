@@ -21,7 +21,6 @@ library
       ftype-clear!: ftype, pointer
       memory-clear!
         ftype-pointer-address pointer
-        0
         ftype-sizeof ftype
 
   define-syntax
@@ -29,7 +28,6 @@ library
       ftype-fill!: ftype, pointer, u8
       memory-fill!
         ftype-pointer-address pointer
-        0
         ftype-sizeof ftype
         u8
 

@@ -7,16 +7,14 @@ library
     leo scheme
 
   define
-    memory-clear!: address, start-offset, end-offset
-    memory-fill!: address, start-offset, end-offset, 0
+    memory-clear!: address, length
+    memory-fill!: address, length, 0
 
   define
-    memory-fill!: address, start-offset, end-offset, u8
+    memory-fill!: address, length, u8
     unless
-      fx=?: start-offset, end-offset
-      foreign-set!: 'unsigned-8, address, start-offset, u8
-      memory-fill!
-        address
-        fx+/wraparound: start-offset, 1
-        end-offset
-        u8
+      fxzero? length
+      let
+        with new-length fx-/wraparound: length, 1
+        foreign-set!: 'unsigned-8, address, new-length, u8
+        memory-fill!: address, new-length, u8
