@@ -20,7 +20,7 @@ library
     compile: typeof, stx
     syntax-case
       stx
-      keywords: let, with
+      keywords: lambda, let, with
       when
         let
           with: ids exprs, ...
@@ -46,6 +46,27 @@ library
                   let
                     with: ids exprs, ...
                     xs, ..., x
+      when
+        lambda
+          with: ids types, ...
+          xs, ..., x
+        syntax-case
+          map
+            partial
+              compile
+              typeof+
+                typeof
+                syntax : ids types, ...
+            syntax->list syntax : xs, ..., x
+          when
+            : xs-types xs, ..., x-type x
+            syntax :
+              lambda
+                with: types, ...
+                x-type
+              lambda
+                with: ids, ...
+                xs, ..., x
       when
         id
         keyword? id
