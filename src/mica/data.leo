@@ -18,3 +18,6 @@ library
         quasisyntax begin
           define-ftype name unsyntax transform-data syntax spec
           define-property name data syntax spec
+          unsyntax-splicing map
+            partial: transform-data-define-syntax, syntax name
+            transform-data-ops

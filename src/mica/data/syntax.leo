@@ -3,6 +3,8 @@ library
   export
     transform-data
     transform-data-op
+    transform-data-ops
+    transform-data-define-syntax
   import
     leo scheme
 
@@ -67,7 +69,17 @@ library
         other
         syntax other
 
-  define-keywords: ref, any, &
+  define transform-data-ops list
+    syntax ref
+    syntax *-ref
+    syntax &ref
+    syntax *-&ref
+    syntax any-ref
+    syntax *-any-ref
+    syntax set!
+    syntax *-set!
+    syntax any-set!
+    syntax *-any-set!
 
   define
     transform-data-op op
@@ -133,3 +145,19 @@ library
         quasisyntax ftype*-any-set!
           unsyntax transform-data syntax data
           expr, accessors, ..., v
+
+  define
+    transform-data-define-syntax: name, op
+    quasisyntax define-syntax
+      when
+        :
+          unsyntax if
+            char-alphabetic? string-ref: symbol->string syntax->datum op, 0
+            then identifier-append: name, name, syntax -, op
+            else identifier-append: name, name, op
+          x, ... ...
+        unsyntax transform-data-op quasisyntax
+          :
+            unsyntax op
+            unsyntax name
+            x, ... ...

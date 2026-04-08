@@ -107,3 +107,13 @@ begin
     'ftype*-any-set!
       struct foo bits enabled? unsigned 1
       x, i, foo, enabled?, v
+
+begin
+  comment transform-data-define-syntax
+
+  check equal?
+    syntax->datum transform-data-define-syntax: syntax point, syntax ref
+    'define-syntax
+      when
+        point-ref: x, ...
+        ftype-ref: point, x, ...
