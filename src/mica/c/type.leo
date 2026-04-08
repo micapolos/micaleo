@@ -5,6 +5,7 @@ library
     type-error
     type-check
     apply-type-check
+    simple->foreign-type
   import
     mica c base
     mica c keywords
@@ -162,3 +163,24 @@ library
                 syntax from-result-type
           when: _, #f
       when: _, #f
+
+  define
+    simple->foreign-type type
+    syntax-case
+      type
+      keywords: char, short, int, long, signed, unsigned, wide, float, double, size
+      when: char, 'char
+      when: wide char, 'wchar
+      when: short, 'short
+      when: unsigned short, 'unsigned-short
+      when: int, 'int
+      when: unsigned int, 'unsigned-int
+      when: long, 'long
+      when: unsigned long, 'unsigned-long
+      when: size, 'size_t
+      when: signed size, 'ssize_t
+      when: float, 'float
+      when: double, 'double
+      when
+        _
+        syntax-error: type, 'non simple type
