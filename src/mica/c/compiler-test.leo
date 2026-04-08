@@ -54,13 +54,11 @@ check equal?
         with: a1 type-a, a2 type-b
         a1, a2
       value-a, value-b
-  ':
-    type-b
-    :
-      lambda
-        with: a1, a2
-        a1, a2
-      value-a, value-b
+  'type-b :
+    lambda
+      with: a1, a2
+      a1, a2
+    value-a, value-b
 
 check equal?
   syntax->datum compile
@@ -70,11 +68,9 @@ check equal?
         a1 value-a
         a2 value-b
       a1, a2
-  ':
-    type-b
-    let
-      with: a1 value-a, a2 value-b
-      a1, a2
+  'type-b let
+    with: a1 value-a, a2 value-b
+    a1, a2
 
 check equal?
   syntax->datum compile
