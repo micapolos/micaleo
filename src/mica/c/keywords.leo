@@ -1,12 +1,17 @@
 library
   mica c keywords
   export:
-    int, float
-    unsigned
+    unsigned, signed, wide
+    char, short, int, long
+    size
+    float, double
     struct, array, bits
-  import leo scheme
+  import
+    mica c base
 
   define-keywords
-    int, float
-    unsigned
+    unsigned, signed, wide
+    char, short, int, long
+    size
+    float, double
     struct, array, bits

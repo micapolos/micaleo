@@ -1,5 +1,5 @@
 import
-  leo scheme
+  mica c base
   mica c type
   mica c keywords
 

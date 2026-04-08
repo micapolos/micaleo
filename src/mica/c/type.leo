@@ -6,7 +6,7 @@ library
     type-check
     apply-type-check
   import
-    leo scheme
+    mica c base
     mica c keywords
 
   define
@@ -44,7 +44,91 @@ library
     type-assignable?: type, from-type
     syntax-case
       type
-      keywords: lambda, with
+      keywords: char, short, int, long, signed, unsigned, wide, float, double, size, lambda, with
+      when
+        char
+        syntax-case
+          from-type
+          keywords: char
+          when: char, #t
+          when: _, #f
+      when
+        wide char
+        syntax-case
+          from-type
+          keywords: wide, char
+          when: wide char, #t
+          when: _, #f
+      when
+        short
+        syntax-case
+          from-type
+          keywords: short
+          when: short, #t
+          when: _, #f
+      when
+        unsigned short
+        syntax-case
+          from-type
+          keywords: unsigned, short
+          when: unsigned short, #t
+          when: _, #f
+      when
+        int
+        syntax-case
+          from-type
+          keywords: int
+          when: int, #t
+          when: _, #f
+      when
+        unsigned int
+        syntax-case
+          from-type
+          keywords: unsigned, int
+          when: unsigned int, #t
+          when: _, #f
+      when
+        long
+        syntax-case
+          from-type
+          keywords: long
+          when: long, #t
+          when: _, #f
+      when
+        unsigned long
+        syntax-case
+          from-type
+          keywords: unsigned, long
+          when: unsigned long, #t
+          when: _, #f
+      when
+        size
+        syntax-case
+          from-type
+          keywords: size
+          when: size, #t
+          when: _, #f
+      when
+        signed size
+        syntax-case
+          from-type
+          keywords: signed, size
+          when: signed size, #t
+          when: _, #f
+      when
+        float
+        syntax-case
+          from-type
+          keywords: float
+          when: float, #t
+          when: _, #f
+      when
+        double
+        syntax-case
+          from-type
+          keywords: double
+          when: double, #t
+          when: _, #f
       when
         id
         keyword? id
