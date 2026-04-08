@@ -3,7 +3,6 @@ library
   export
     transform-data
     transform-access
-    transform-path
     transform-data-op
     transform-data-ops
     transform-define-syntax-data-op
@@ -80,6 +79,9 @@ library
     syntax-case
       access
       when
+        access data
+        syntax data
+      when
         access: name, accessor
         keyword? name
         transform-access
@@ -109,23 +111,15 @@ library
           accessor
         free-keyword? array
         syntax element-data
-
-  define
-    transform-path: lookup-data, path
-    syntax-case
-      path
       when
-        path data
-        syntax data
-      when
-        path: data, accessor, accessors, ...
+        access: data, accessor, accessors, ...
         syntax-case
           transform-access
             lookup-data
             syntax access: data, accessor
           when
             child-data
-            transform-path
+            transform-access
               lookup-data
               syntax path: child-data, accessors, ...
 

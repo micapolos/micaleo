@@ -75,25 +75,14 @@ begin
         x
     'int
 
-begin
-  comment transform-path
-
   check equal?
-    syntax->datum transform-path
+    syntax->datum transform-access
       lookup-data
       syntax path int
     'int
 
   check equal?
-    syntax->datum transform-path
-      lookup-data
-      syntax path
-        struct: x int, y int
-        x
-    'int
-
-  check equal?
-    syntax->datum transform-path
+    syntax->datum transform-access
       lookup-data
       syntax path
         array
