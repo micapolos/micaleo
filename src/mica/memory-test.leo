@@ -2,7 +2,7 @@ import
   leo scheme
   mica memory
 
-define size *: 1024, 1024, 32
+define size *: 1024, 1024
 define address foreign-alloc size
 dynamic-wind
   lambda void:
