@@ -1,6 +1,7 @@
 library
   mica c keywords
   export:
+    native, overflowing
     unsigned, signed, wide
     char, short, int, long
     size
@@ -10,6 +11,7 @@ library
     mica c base
 
   define-keywords
+    native, overflowing
     unsigned, signed, wide
     char, short, int, long
     size
