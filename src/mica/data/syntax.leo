@@ -1,7 +1,6 @@
 library
   mica data syntax
   export
-    ref, any, &
     transform-data
     transform-data-op
   import
@@ -74,54 +73,63 @@ library
     transform-data-op op
     syntax-case
       op
-      keywords: ref, any, *, &, set!
       when
         ref: data, expr, accessors, ...
+        free-keyword? ref
         quasisyntax ftype-ref
           unsyntax transform-data syntax data
           expr, accessors, ...
       when
-        * ref: data, expr, index, accessors, ...
+        *-ref: data, expr, index, accessors, ...
+        free-keyword? *-ref
         quasisyntax ftype*-ref
           unsyntax transform-data syntax data
           expr, index, accessors, ...
       when
-        & ref: data, expr, accessors, ...
+        &ref: data, expr, accessors, ...
+        free-keyword? &ref
         quasisyntax ftype-&ref
           unsyntax transform-data syntax data
           expr, accessors, ...
       when
-        * & ref: data, expr, index, accessors, ...
+        *-&ref: data, expr, index, accessors, ...
+        free-keyword? *-&ref
         quasisyntax ftype*-&ref
           unsyntax transform-data syntax data
           expr, index, accessors, ...
       when
-        any ref: data, expr, accessors, ...
+        any-ref: data, expr, accessors, ...
+        free-keyword? any-ref
         quasisyntax ftype-any-ref
           unsyntax transform-data syntax data
           expr, accessors, ...
       when
-        * any ref: data, expr, index, accessors, ...
+        *-any-ref: data, expr, index, accessors, ...
+        free-keyword? *-any-ref
         quasisyntax ftype*-any-ref
           unsyntax transform-data syntax data
           expr, index, accessors, ...
       when
-        set!: data, expr, accessors, ...
+        set!: data, expr, accessors, ..., v
+        free-keyword? set!
         quasisyntax ftype-set!
           unsyntax transform-data syntax data
-          expr, accessors, ...
+          expr, accessors, ..., v
       when
-        * set!: data, expr, accessors, ...
+        *-set!: data, expr, accessors, ..., v
+        free-keyword? *-set!
         quasisyntax ftype*-set!
           unsyntax transform-data syntax data
-          expr, accessors, ...
+          expr, accessors, ..., v
       when
-        any set!: data, expr, accessors, ...
+        any-set!: data, expr, accessors, ..., v
+        free-keyword? any-set!
         quasisyntax ftype-any-set!
           unsyntax transform-data syntax data
-          expr, accessors, ...
+          expr, accessors, ..., v
       when
-        * any set!: data, expr, accessors, ...
+        *-any-set!: data, expr, accessors, ..., v
+        free-keyword? *-any-set!
         quasisyntax ftype*-any-set!
           unsyntax transform-data syntax data
-          expr, accessors, ...
+          expr, accessors, ..., v

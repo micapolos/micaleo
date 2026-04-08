@@ -37,7 +37,7 @@ begin
       x, foo, enabled?
 
   check equal?
-    syntax->datum transform-data-op syntax * ref
+    syntax->datum transform-data-op syntax *-ref
       struct foo bits enabled? boolean
       x, i, foo, enabled?
     'ftype*-ref
@@ -45,7 +45,7 @@ begin
       x, i, foo, enabled?
 
   check equal?
-    syntax->datum transform-data-op syntax & ref
+    syntax->datum transform-data-op syntax &ref
       struct foo bits enabled? boolean
       x, foo, enabled?
     'ftype-&ref
@@ -53,7 +53,7 @@ begin
       x, foo, enabled?
 
   check equal?
-    syntax->datum transform-data-op syntax * & ref
+    syntax->datum transform-data-op syntax *-&ref
       struct foo bits enabled? boolean
       x, i, foo, enabled?
     'ftype*-&ref
@@ -61,7 +61,7 @@ begin
       x, i, foo, enabled?
 
   check equal?
-    syntax->datum transform-data-op syntax any ref
+    syntax->datum transform-data-op syntax any-ref
       struct foo bits enabled? boolean
       x, foo, enabled?
     'ftype-any-ref
@@ -69,7 +69,7 @@ begin
       x, foo, enabled?
 
   check equal?
-    syntax->datum transform-data-op syntax * any ref
+    syntax->datum transform-data-op syntax *-any-ref
       struct foo bits enabled? boolean
       x, i, foo, enabled?
     'ftype*-any-ref
@@ -85,7 +85,7 @@ begin
       x, foo, enabled?, v
 
   check equal?
-    syntax->datum transform-data-op syntax * set!
+    syntax->datum transform-data-op syntax *-set!
       struct foo bits enabled? boolean
       x, i, foo, enabled?, v
     'ftype*-set!
@@ -93,7 +93,7 @@ begin
       x, i, foo, enabled?, v
 
   check equal?
-    syntax->datum transform-data-op syntax any set!
+    syntax->datum transform-data-op syntax any-set!
       struct foo bits enabled? boolean
       x, foo, enabled?, v
     'ftype-any-set!
@@ -101,7 +101,7 @@ begin
       x, foo, enabled?, v
 
   check equal?
-    syntax->datum transform-data-op syntax * any set!
+    syntax->datum transform-data-op syntax *-any-set!
       struct foo bits enabled? boolean
       x, i, foo, enabled?, v
     'ftype*-any-set!
