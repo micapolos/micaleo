@@ -11,3 +11,4 @@ test
   mica editor all
   mica data
   mica data all
+  mica c all
