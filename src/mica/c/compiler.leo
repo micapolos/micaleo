@@ -3,7 +3,7 @@ library
   export compile
   import
     mica c base
-    syntax
+    mica c type
 
   define
     typeof+: typeof, bindings
