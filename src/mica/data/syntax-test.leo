@@ -30,120 +30,80 @@ begin
 
   check equal?
     syntax->datum transform-data-op syntax ref
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, 10, foo, enabled?
+      struct foo bits enabled? boolean
+      x, foo, enabled?
     'ftype-ref
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, 10, foo, enabled?
+      struct foo bits enabled? unsigned 1
+      x, foo, enabled?
 
   check equal?
     syntax->datum transform-data-op syntax * ref
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, i, 10, foo, enabled?
+      struct foo bits enabled? boolean
+      x, i, foo, enabled?
     'ftype*-ref
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, i, 10, foo, enabled?
+      struct foo bits enabled? unsigned 1
+      x, i, foo, enabled?
 
   check equal?
     syntax->datum transform-data-op syntax & ref
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, 10, foo, enabled?
+      struct foo bits enabled? boolean
+      x, foo, enabled?
     'ftype-&ref
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, 10, foo, enabled?
+      struct foo bits enabled? unsigned 1
+      x, foo, enabled?
 
   check equal?
     syntax->datum transform-data-op syntax * & ref
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, i, 10, foo, enabled?
+      struct foo bits enabled? boolean
+      x, i, foo, enabled?
     'ftype*-&ref
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, i, 10, foo, enabled?
+      struct foo bits enabled? unsigned 1
+      x, i, foo, enabled?
 
   check equal?
     syntax->datum transform-data-op syntax any ref
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, 10, foo, enabled?
+      struct foo bits enabled? boolean
+      x, foo, enabled?
     'ftype-any-ref
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, 10, foo, enabled?
+      struct foo bits enabled? unsigned 1
+      x, foo, enabled?
 
   check equal?
     syntax->datum transform-data-op syntax * any ref
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, i, 10, foo, enabled?
+      struct foo bits enabled? boolean
+      x, i, foo, enabled?
     'ftype*-any-ref
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, i, 10, foo, enabled?
+      struct foo bits enabled? unsigned 1
+      x, i, foo, enabled?
 
   check equal?
     syntax->datum transform-data-op syntax set!
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, 10, foo, enabled?, #t
+      struct foo bits enabled? boolean
+      x, foo, enabled?, v
     'ftype-set!
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, 10, foo, enabled?, #t
+      struct foo bits enabled? unsigned 1
+      x, foo, enabled?, v
 
   check equal?
     syntax->datum transform-data-op syntax * set!
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, 10, foo, enabled?, #t
+      struct foo bits enabled? boolean
+      x, i, foo, enabled?, v
     'ftype*-set!
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, 10, foo, enabled?, #t
+      struct foo bits enabled? unsigned 1
+      x, i, foo, enabled?, v
 
   check equal?
     syntax->datum transform-data-op syntax any set!
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, 10, foo, enabled?, #t
+      struct foo bits enabled? boolean
+      x, foo, enabled?, v
     'ftype-any-set!
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, 10, foo, enabled?, #t
+      struct foo bits enabled? unsigned 1
+      x, foo, enabled?, v
 
   check equal?
     syntax->datum transform-data-op syntax * any set!
-      array
-        16
-        struct foo bits enabled? boolean
-      expr, 10, foo, enabled?, #t
+      struct foo bits enabled? boolean
+      x, i, foo, enabled?, v
     'ftype*-any-set!
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      expr, 10, foo, enabled?, #t
+      struct foo bits enabled? unsigned 1
+      x, i, foo, enabled?, v
