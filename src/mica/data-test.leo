@@ -11,6 +11,8 @@ let-data
     point-a point
     point-b point
 
+  check equal?: data-sizeof point, 8
+
   point-clear! point-a
   point-fill!: point-b, 0
 
@@ -29,7 +31,7 @@ let-data
     20
 
   check equal?
-    point=?: point-a, point-b
+    data=?: point-a, point-b
     true
 
-  check-point=?: point-a, point-b
+  check-data=?: point-a, point-b

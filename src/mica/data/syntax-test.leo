@@ -116,20 +116,6 @@ check equal?
       ftype-ref: point, x, ...
 
 check equal?
-  syntax->datum transform-define-syntax-data=?: syntax point
-  'define-syntax
-    when
-      point=?: a, b
-      ftype-mem=?: a, b
-
-check equal?
-  syntax->datum transform-define-syntax-data->datum: syntax point
-  'define-syntax
-    when
-      point->datum x
-      ftype-pointer->sexpr x
-
-check equal?
   syntax->datum transform-define-syntax-data-clear!: syntax point
   'define-syntax
     when
@@ -142,17 +128,3 @@ check equal?
     when
       point-fill!: x, v
       ftype-fill!: point, x, v
-
-check equal?
-  syntax->datum transform-define-syntax-let-data: syntax point
-  'define-syntax
-    when
-      let-data: xs, ...
-      let-ftype: xs, ...
-
-check equal?
-  syntax->datum transform-define-syntax-check-data=?: syntax point
-  'define-syntax
-    when
-      check-point=?: a, b
-      check-ftype=?: a, b

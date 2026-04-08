@@ -1,13 +1,37 @@
 library
   mica data
   export
+    data
     define-data
+    data-sizeof
+    data=?
+    data->datum
+    let-data
+    check-data=?
+
   import
     leo scheme
     mica data syntax
     mica ftype
 
-  define-keywords: data
+  define-keyword data
+
+  define-syntax
+    when
+      data-sizeof x
+      ftype-sizeof x
+    when
+      data=?: a, b
+      ftype-mem=?: a, b
+    when
+      data->datum x
+      ftype-pointer->sexpr x
+    when
+      let-data: xs, ...
+      let-ftype: xs, ...
+    when
+      check-data=?: a, b
+      check-ftype=?: a, b
 
   define-syntax
     define-data stx
@@ -22,8 +46,5 @@ library
           unsyntax-splicing map
             partial: transform-define-syntax-data-op, syntax name
             transform-data-ops
-          unsyntax transform-define-syntax-data=? syntax name
           unsyntax transform-define-syntax-data-clear! syntax name
           unsyntax transform-define-syntax-data-fill! syntax name
-          unsyntax transform-define-syntax-check-data=? syntax name
-          unsyntax transform-define-syntax-let-data syntax name
