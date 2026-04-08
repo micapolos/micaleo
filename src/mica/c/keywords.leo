@@ -1,6 +1,12 @@
 library
   mica c keywords
-  export: struct, array, bits
+  export:
+    int, float
+    unsigned
+    struct, array, bits
   import leo scheme
 
-  define-keywords: struct, array, bits
+  define-keywords
+    int, float
+    unsigned
+    struct, array, bits
