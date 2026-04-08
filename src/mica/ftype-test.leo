@@ -14,4 +14,8 @@ let-ftype
   ftype-set!: point, point-b, x, 10
   ftype-set!: point, point-b, y, 20
 
+  check equal?
+    ftype-mem=?: point-a, point-b
+    true
+
   check-ftype=?: point-a, point-b

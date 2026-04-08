@@ -12,6 +12,7 @@ library
 
   import
     leo scheme
+    mica ftype
 
   define
     field-ref: fields, name
@@ -173,7 +174,7 @@ library
       :
         unsyntax identifier-append: name, name, syntax =?
         a, b
-      ftype-mem=?: unsyntax name, a, b
+      ftype-mem=?: a, b
 
   define
     transform-define-syntax-data-clear! name
@@ -188,13 +189,13 @@ library
     quasisyntax define-syntax when
       :
         unsyntax identifier-append: name, name, syntax -, syntax fill!
-        x
-      ftype-fill!: unsyntax name, x
+        x, v
+      ftype-fill!: unsyntax name, x, v
 
   define
     transform-define-syntax-check-data=? name
     quasisyntax define-syntax when
       :
-        unsyntax identifier-append: name, syntax check, syntax -, syntax name, syntax =?
+        unsyntax identifier-append: name, syntax check, syntax -, name, syntax =?
         a, b
       check-ftype=?: a, b
