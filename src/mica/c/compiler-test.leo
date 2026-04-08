@@ -8,8 +8,22 @@ define
 
 check equal?
   syntax->datum compile: typeof, syntax point
-  'compiled: point-type, point
+  ': point-type, point
 
 check equal?
   syntax->datum compile: typeof, syntax 123
-  'compiled: fixnum, 123
+  ': fixnum, 123
+
+check equal?
+  syntax->datum compile
+    typeof
+    syntax let
+      with
+        v1 t1
+        v2 t2
+      v1, v2
+  ':
+    t2-type
+    let
+      with: v1 t1, v2 t2
+      v1, v2
