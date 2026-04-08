@@ -31,6 +31,22 @@ check equal?
 check equal?
   syntax->datum compile
     typeof
+    syntax :
+      lambda
+        with: v1 t1, v2 t2
+        v1, v2
+      t1, t2
+  ':
+    t2
+    :
+      lambda
+        with: v1, v2
+        v1, v2
+      t1, t2
+
+check equal?
+  syntax->datum compile
+    typeof
     syntax let
       with
         v1 t1

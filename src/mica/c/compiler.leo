@@ -1,7 +1,9 @@
 library
   mica c compiler
   export compile
-  import mica c base
+  import
+    mica c base
+    syntax
 
   define
     typeof+: typeof, bindings
@@ -15,6 +17,17 @@ library
           _ false?
           typeof id
         else ass cadr ass
+
+  define
+    check-type=?: param-type, arg-type, arg
+    comment unless
+      syntax=?: param-type, arg-type
+      syntax-error
+        arg
+        `invalid
+          type` syntax->datum arg-type
+          expected` syntax->datum param-type
+    void:
 
   define
     compile: typeof, stx
@@ -67,6 +80,37 @@ library
               lambda
                 with: ids, ...
                 xs, ..., x
+      when
+        fn: args, ...
+        syntax-case
+          quasisyntax :
+            unsyntax compile: typeof, syntax fn
+            unsyntax-splicing map
+              partial: compile, typeof
+              syntax args ...
+          when
+            : fn-type fn, arg-types args, ...
+            syntax-case
+              syntax fn-type
+              keywords: lambda, with
+              when
+                lambda
+                  with: param-types, ...
+                  return-type
+                begin
+                  for-all
+                    check-type=?
+                    syntax param-types ...
+                    syntax arg-types ...
+                    syntax args ...
+                  syntax :
+                    return-type
+                    fn: args, ...
+              when
+                other
+                syntax-error
+                  syntax fn-type
+                  'not lambda
       when
         id
         keyword? id
