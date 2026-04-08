@@ -132,28 +132,9 @@ library
     syntax-case
       data-ref
       when
-        data-ref: data, expr
-        syntax expr
-      when
-        data-ref: data, expr, accessor, accessors, ...
+        data-ref: data, expr, accessors, ...
         syntax-case
-          transform-access syntax op: data, accessor
+          transform-path syntax path: data, accessors, ...
           when
-            op: ftype
-            if
-              not null? syntax accessors ...
-              then
-                syntax-error
-                  syntax accessors ...
-                  'invalid accessors
-              else quasisyntax ftype-ref
-                unsyntax transform-data syntax data
-                expr, accessor
-          when
-            op: ftype, child-data
-            transform-data-ref quasisyntax data-ref
-              child-data
-              ftype-ref
-                unsyntax transform-data syntax data
-                expr, accessor
-              accessors, ...
+            path: ftype, accessors, ...
+            syntax ftype-ref: ftype, expr, accessors, ...

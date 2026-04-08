@@ -83,7 +83,7 @@ begin
 
   check equal?
     syntax->datum transform-data-ref syntax data-ref: foo, bar
-    'bar
+    'ftype-ref: foo, bar
 
   check equal?
     syntax->datum transform-data-ref syntax data-ref
@@ -108,13 +108,10 @@ begin
         array: 32, int
       expr, 10, 12
     'ftype-ref
-      array: 32, int
-      ftype-ref
-        array
-          16
-          array: 32, int
-        expr, 10
-      12
+      array
+        16
+        array: 32, int
+      expr, 10, 12
 
   check equal?
     syntax->datum transform-data-ref syntax data-ref
@@ -129,8 +126,17 @@ begin
       struct point struct: x int, y int
       expr, point, y
     'ftype-ref
-      struct: x int, y int
-      ftype-ref
-        struct point struct: x int, y int
-        expr, point
-      y
+      struct point struct: x int, y int
+      expr, point, y
+
+  check equal?
+    syntax->datum transform-data-ref syntax data-ref
+      array
+        16
+        struct foo bits enabled? boolean
+      expr, 10, foo, enabled?
+    'ftype-ref
+      array
+        16
+        struct foo bits enabled? unsigned 1
+      expr, 10, foo, enabled?
