@@ -76,62 +76,65 @@ library
         syntax other
 
   define
-    transform-access access
+    transform-access: lookup-data, access
     syntax-case
       access
+      when
+        access: name, accessor
+        keyword? name
+        transform-access
+          lookup-data
+          quasisyntax access
+            unsyntax lookup-data syntax name
+            accessor
       when
         access
           struct: fields, ...
           accessor
         free-keyword? struct
-        quasisyntax access
-          unsyntax transform-data syntax struct: fields, ...
-          unsyntax field-ref
-            syntax fields ...
-            syntax accessor
+        field-ref
+          syntax fields ...
+          syntax accessor
       when
         access
           bits: fields, ...
           accessor
         free-keyword? bits
-        quasisyntax access unsyntax transform-data syntax bits: fields, ...
+        syntax :
       when
         access
           array: size, element-data
           accessor
         free-keyword? array
-        quasisyntax access
-          unsyntax transform-data syntax array: size, element-data
-          element-data
+        syntax element-data
 
   define
-    transform-path path
+    transform-path: lookup-data, path
     syntax-case
       path
       when
         path data
-        quasisyntax path unsyntax transform-data syntax data
+        syntax data
       when
         path: data, accessor, accessors, ...
         syntax-case
-          transform-access syntax access: data, accessor
+          transform-access
+            lookup-data
+            syntax access: data, accessor
           when
-            access: ftype
+            :
             if
               not null? syntax accessors ...
-              then
-                syntax-error
-                  syntax accessors ...
-                  'invalid accessors
+              then syntax-error
+                syntax accessors ...
+                'invalid accessors
               else
-                syntax path: ftype, accessor
+                syntax :
           when
-            access: ftype, child-data
-            syntax-case
-              transform-path syntax path: child-data, accessors, ...
-              when
-                path: _, accessors, ...
-                syntax path: ftype, accessor, accessors, ...
+            child-data
+            transform-path
+              lookup-data
+              syntax path: child-data, accessors, ...
 
   define transform-data-ops list
     syntax ref

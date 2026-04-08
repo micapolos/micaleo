@@ -25,58 +25,74 @@ begin
       16
       struct foo bits enabled? unsigned 1
 
+define
+  lookup-data identifier
+  if
+    free-identifier=?: identifier, syntax point
+    then syntax struct: x int, y int
+    else syntax-error: identifier, 'not data
+
 begin
   comment transform-access
 
   check equal?
-    syntax->datum transform-access syntax access
-      struct: x int, y int
-      x
-    'access
-      struct: x int, y int
-      int
+    syntax->datum transform-access
+      lookup-data
+      syntax access
+        struct: x int, y int
+        x
+    'int
 
   check equal?
-    syntax->datum transform-access syntax access
-      array: 16, int
-      10
-    'access
-      array: 16, int
-      int
+    syntax->datum transform-access
+      lookup-data
+      syntax access
+        array: 16, int
+        10
+    'int
 
   check equal?
-    syntax->datum transform-access syntax access
-      bits: enabled? boolean, value unsigned 7
-      enabled?
-    'access
-      bits: enabled? unsigned 1, value unsigned 7
+    syntax->datum transform-access
+      lookup-data
+      syntax access
+        bits: enabled? boolean, value unsigned 7
+        enabled?
+    null
+
+  check equal?
+    syntax->datum transform-access
+      lookup-data
+      syntax access
+        point
+        x
+    'int
 
 begin
   comment transform-path
 
   check equal?
-    syntax->datum transform-path syntax path int
-    'path int
+    syntax->datum transform-path
+      lookup-data
+      syntax path int
+    'int
 
   check equal?
-    syntax->datum transform-path syntax path
-      struct: x int, y int
-      x
-    'path
-      struct: x int, y int
-      x
+    syntax->datum transform-path
+      lookup-data
+      syntax path
+        struct: x int, y int
+        x
+    'int
 
   check equal?
-    syntax->datum transform-path syntax path
-      array
-        16
-        struct foo bits enabled? boolean
-      10, foo, enabled?
-    'path
-      array
-        16
-        struct foo bits enabled? unsigned 1
-      10, foo, enabled?
+    syntax->datum transform-path
+      lookup-data
+      syntax path
+        array
+          16
+          struct foo bits enabled? boolean
+        10, foo, enabled?
+    null
 
 begin
   comment transform-data-op
