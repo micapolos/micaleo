@@ -57,7 +57,15 @@ begin
       syntax access
         bits: enabled? boolean, value unsigned 7
         enabled?
-    null
+    'boolean
+
+  check equal?
+    syntax->datum transform-access
+      lookup-data
+      syntax access
+        bits: enabled? boolean, value unsigned 7
+        value
+    'unsigned 7
 
   check equal?
     syntax->datum transform-access
@@ -92,7 +100,7 @@ begin
           16
           struct foo bits enabled? boolean
         10, foo, enabled?
-    null
+    'boolean
 
 begin
   comment transform-data-op

@@ -100,7 +100,9 @@ library
           bits: fields, ...
           accessor
         free-keyword? bits
-        syntax :
+        field-ref
+          syntax fields ...
+          syntax accessor
       when
         access
           array: size, element-data
@@ -121,15 +123,6 @@ library
           transform-access
             lookup-data
             syntax access: data, accessor
-          when
-            :
-            if
-              not null? syntax accessors ...
-              then syntax-error
-                syntax accessors ...
-                'invalid accessors
-              else
-                syntax :
           when
             child-data
             transform-path
