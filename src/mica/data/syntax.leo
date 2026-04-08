@@ -1,10 +1,9 @@
 library
   mica data syntax
   export
+    ref, any, &
     transform-data
-    transform-access
-    transform-path
-    transform-data-ref
+    transform-data-op
   import
     leo scheme
 
@@ -69,72 +68,60 @@ library
         other
         syntax other
 
-  define
-    transform-access access
-    syntax-case
-      access
-      when
-        access
-          struct: fields, ...
-          accessor
-        free-keyword? struct
-        quasisyntax access
-          unsyntax transform-data syntax struct: fields, ...
-          unsyntax field-ref
-            syntax fields ...
-            syntax accessor
-      when
-        access
-          bits: fields, ...
-          accessor
-        free-keyword? bits
-        quasisyntax access unsyntax transform-data syntax bits: fields, ...
-      when
-        access
-          array: size, element-data
-          accessor
-        free-keyword? array
-        quasisyntax access
-          unsyntax transform-data syntax array: size, element-data
-          element-data
+  define-keywords: ref, any, &
 
   define
-    transform-path path
+    transform-data-op op
     syntax-case
-      path
+      op
+      keywords: ref, any, *, &, set!
       when
-        path data
-        quasisyntax path unsyntax transform-data syntax data
+        ref: data, expr, accessors, ...
+        quasisyntax ftype-ref
+          unsyntax transform-data syntax data
+          expr, accessors, ...
       when
-        path: data, accessor, accessors, ...
-        syntax-case
-          transform-access syntax access: data, accessor
-          when
-            access: ftype
-            if
-              not null? syntax accessors ...
-              then
-                syntax-error
-                  syntax accessors ...
-                  'invalid accessors
-              else
-                syntax path: ftype, accessor
-          when
-            access: ftype, child-data
-            syntax-case
-              transform-path syntax path: child-data, accessors, ...
-              when
-                path: _, accessors, ...
-                syntax path: ftype, accessor, accessors, ...
-
-  define
-    transform-data-ref data-ref
-    syntax-case
-      data-ref
+        * ref: data, expr, index, accessors, ...
+        quasisyntax ftype*-ref
+          unsyntax transform-data syntax data
+          expr, index, accessors, ...
       when
-        data-ref: data, expr, accessors, ...
-        syntax-case
-          transform-path syntax path: data, accessors, ...
-          when
-            path: ftype, accessors, ...
-            syntax ftype-ref: ftype, expr, accessors, ...
+        & ref: data, expr, accessors, ...
+        quasisyntax ftype-&ref
+          unsyntax transform-data syntax data
+          expr, accessors, ...
+      when
+        * & ref: data, expr, index, accessors, ...
+        quasisyntax ftype*-&ref
+          unsyntax transform-data syntax data
+          expr, index, accessors, ...
+      when
+        any ref: data, expr, accessors, ...
+        quasisyntax ftype-any-ref
+          unsyntax transform-data syntax data
+          expr, accessors, ...
+      when
+        * any ref: data, expr, index, accessors, ...
+        quasisyntax ftype*-any-ref
+          unsyntax transform-data syntax data
+          expr, index, accessors, ...
+      when
+        set!: data, expr, accessors, ...
+        quasisyntax ftype-set!
+          unsyntax transform-data syntax data
+          expr, accessors, ...
+      when
+        * set!: data, expr, accessors, ...
+        quasisyntax ftype*-set!
+          unsyntax transform-data syntax data
+          expr, accessors, ...
+      when
+        any set!: data, expr, accessors, ...
+        quasisyntax ftype-any-set!
+          unsyntax transform-data syntax data
+          expr, accessors, ...
+      when
+        * any set!: data, expr, accessors, ...
+        quasisyntax ftype*-any-set!
+          unsyntax transform-data syntax data
+          expr, accessors, ...
