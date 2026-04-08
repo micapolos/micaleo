@@ -83,3 +83,15 @@ check equal?
     typeof
     syntax fx+: 10, 20
   'fixnum fx+: 10, 20
+
+check raises compile
+  typeof
+  syntax fxzero?: value-a
+
+check raises compile
+  typeof
+  syntax fxzero?: 10, 20
+
+check raises compile
+  typeof
+  syntax fx+: 10, value-a

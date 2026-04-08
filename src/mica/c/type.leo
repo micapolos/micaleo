@@ -4,6 +4,7 @@ library
     type-assignable?
     type-error
     type-check
+    apply-type-check
   import
     leo scheme
     mica c keywords
@@ -21,6 +22,23 @@ library
     unless
       type-assignable?: type, arg-type
       type-error: type, arg-type, arg
+
+  define
+    apply-type-check: stx, param-types, arg-types, args
+    unless
+      =
+        length param-types
+        length arg-types
+      syntax-error
+        stx
+        `invalid
+          argument count` length arg-types
+          expected` length param-types
+    for-each
+      type-check
+      param-types
+      arg-types
+      args
 
   define
     type-assignable?: type, from-type
