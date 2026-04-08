@@ -108,12 +108,37 @@ begin
       struct foo bits enabled? unsigned 1
       x, i, foo, enabled?, v
 
-begin
-  comment transform-data-define-syntax
+check equal?
+  syntax->datum transform-define-syntax-data-op: syntax point, syntax ref
+  'define-syntax
+    when
+      point-ref: x, ...
+      ftype-ref: point, x, ...
 
-  check equal?
-    syntax->datum transform-data-define-syntax: syntax point, syntax ref
-    'define-syntax
-      when
-        point-ref: x, ...
-        ftype-ref: point, x, ...
+check equal?
+  syntax->datum transform-define-syntax-data=?: syntax point
+  'define-syntax
+    when
+      point=?: a, b
+      ftype-mem=?: point, a, b
+
+check equal?
+  syntax->datum transform-define-syntax-data-clear!: syntax point
+  'define-syntax
+    when
+      point-clear! x
+      ftype-clear!: point, x
+
+check equal?
+  syntax->datum transform-define-syntax-data-fill!: syntax point
+  'define-syntax
+    when
+      point-fill! x
+      ftype-fill!: point, x
+
+check equal?
+  syntax->datum transform-define-syntax-check-data=?: syntax point
+  'define-syntax
+    when
+      check-name=?: a, b
+      check-ftype=?: a, b

@@ -19,5 +19,10 @@ library
           define-ftype name unsyntax transform-data syntax spec
           define-property name data syntax spec
           unsyntax-splicing map
-            partial: transform-data-define-syntax, syntax name
+            partial: transform-define-syntax-data-op, syntax name
             transform-data-ops
+          unsyntax transform-define-syntax-data=? syntax name
+          unsyntax transform-define-syntax-data-clear! syntax name
+          unsyntax transform-define-syntax-data-fill! syntax name
+          unsyntax transform-define-syntax-check-data=? syntax name
+          define-syntax let-ftype identifier-syntax let-data

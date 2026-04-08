@@ -4,7 +4,12 @@ library
     transform-data
     transform-data-op
     transform-data-ops
-    transform-data-define-syntax
+    transform-define-syntax-data-op
+    transform-define-syntax-data=?
+    transform-define-syntax-data-clear!
+    transform-define-syntax-data-fill!
+    transform-define-syntax-check-data=?
+
   import
     leo scheme
 
@@ -147,7 +152,7 @@ library
           expr, accessors, ..., v
 
   define
-    transform-data-define-syntax: name, op
+    transform-define-syntax-data-op: name, op
     quasisyntax define-syntax
       when
         :
@@ -161,3 +166,35 @@ library
             unsyntax op
             unsyntax name
             x, ... ...
+
+  define
+    transform-define-syntax-data=? name
+    quasisyntax define-syntax when
+      :
+        unsyntax identifier-append: name, name, syntax =?
+        a, b
+      ftype-mem=?: unsyntax name, a, b
+
+  define
+    transform-define-syntax-data-clear! name
+    quasisyntax define-syntax when
+      :
+        unsyntax identifier-append: name, name, syntax -, syntax clear!
+        x
+      ftype-clear!: unsyntax name, x
+
+  define
+    transform-define-syntax-data-fill! name
+    quasisyntax define-syntax when
+      :
+        unsyntax identifier-append: name, name, syntax -, syntax fill!
+        x
+      ftype-fill!: unsyntax name, x
+
+  define
+    transform-define-syntax-check-data=? name
+    quasisyntax define-syntax when
+      :
+        unsyntax identifier-append: name, syntax check, syntax -, syntax name, syntax =?
+        a, b
+      check-ftype=?: a, b
