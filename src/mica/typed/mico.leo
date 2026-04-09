@@ -1,16 +1,24 @@
 library
   mica typed mico
   export
+    type
+    boolean, integer, float
+    native, overflowing, inexact
+
     define-type
     define-types
+
     mico
   import
     mica typed base
     mica typed compile
-    mica typed keywords
-  export import mica typed keywords
 
   comment mico: simple low-level language inspired by c
+
+  define-keywords
+    type
+    boolean, integer, float
+    native, overflowing, inexact
 
   define-syntax
     when

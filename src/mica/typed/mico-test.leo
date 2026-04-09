@@ -3,7 +3,6 @@ import
     +, zero?
     from mica typed base
   mica typed mico
-  mica typed keywords
 
 define zero? fxzero?
 define + fx+/wraparound
