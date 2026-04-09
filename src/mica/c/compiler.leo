@@ -4,6 +4,7 @@ library
   import
     mica c base
     mica c type
+    mica c keywords
 
   define
     typeof+: typeof, bindings
@@ -22,7 +23,10 @@ library
     compile: typeof, stx
     syntax-case
       stx
-      keywords: lambda, let, with
+      keywords: compiled, lambda, let, with
+      when
+        compiled: t, x
+        syntax : t, x
       when
         let
           with: ids exprs, ...
@@ -107,6 +111,5 @@ library
           unsyntax typeof syntax id
           id
       when
-        fx
-        fixnum? datum fx
-        syntax : fixnum, fx
+        other
+        syntax-error: syntax other, 'compile error

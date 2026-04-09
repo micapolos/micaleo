@@ -1,6 +1,7 @@
 import
   mica c base
   mica c compiler
+  mica c keywords
 
 define
   typeof identifier
@@ -8,13 +9,13 @@ define
     when
       free-identifier=?: identifier, syntax fxzero?
       syntax lambda
-        with: fixnum
+        with: native overflowing integer
         boolean
     when
       free-identifier=?: identifier, syntax fx+
       syntax lambda
-        with: fixnum, fixnum
-        fixnum
+        with: native overflowing integer, native overflowing integer
+        native overflowing integer
     when
       free-identifier=?: identifier, syntax value-a
       syntax type-a
@@ -25,11 +26,19 @@ define
       syntax-error: identifier, 'undefined type
 
 check equal?
+  syntax->datum compile
+    typeof
+    syntax compiled: native int, 123
+  ': native int, 123
+
+check equal?
   syntax->datum compile: typeof, syntax value-a
   'type-a value-a
 
 check equal?
-  syntax->datum compile: typeof, syntax 123
+  syntax->datum compile
+    typeof
+    syntax compiled: fixnum, 123
   'fixnum 123
 
 check equal?
@@ -75,14 +84,18 @@ check equal?
 check equal?
   syntax->datum compile
     typeof
-    syntax fxzero? 123
+    syntax fxzero? compiled: native overflowing integer, 123
   'boolean fxzero? 123
 
 check equal?
   syntax->datum compile
     typeof
-    syntax fx+: 10, 20
-  'fixnum fx+: 10, 20
+    syntax fx+
+      compiled: native overflowing integer, 10
+      compiled: native overflowing integer, 20
+  ':
+    native overflowing integer
+    fx+: 10, 20
 
 check raises compile
   typeof

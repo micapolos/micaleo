@@ -45,7 +45,14 @@ library
     type-assignable?: type, from-type
     syntax-case
       type
-      keywords: char, short, int, long, signed, unsigned, wide, float, double, size, lambda, with
+      keywords: native, overflowing, integer, char, short, int, long, signed, unsigned, wide, float, double, size, lambda, with
+      when
+        native overflowing integer
+        syntax-case
+          from-type
+          keywords: native, overflowing, integer
+          when: native overflowing integer, #t
+          when: _, #f
       when
         char
         syntax-case
