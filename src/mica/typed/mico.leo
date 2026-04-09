@@ -13,7 +13,7 @@ library
     mica typed base
     mica typed compile
 
-  comment mico: simple low-level language inspired by c
+  comment simple low-level language inspired by c
 
   define-keywords
     type
