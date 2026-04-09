@@ -4,7 +4,7 @@ import
   mica c keywords
 
 define
-  typeof identifier
+  type?-of identifier
   cond
     when
       free-identifier=?: identifier, syntax fxzero?
@@ -23,27 +23,27 @@ define
       free-identifier=?: identifier, syntax value-b
       syntax type-b
     else
-      syntax-error: identifier, 'undefined type
+      #f
 
 check equal?
   syntax->datum compile
-    typeof
+    type?-of
     syntax compiled: native int, 123
   ': native int, 123
 
 check equal?
-  syntax->datum compile: typeof, syntax value-a
+  syntax->datum compile: type?-of, syntax value-a
   'type-a value-a
 
 check equal?
   syntax->datum compile
-    typeof
+    type?-of
     syntax compiled: fixnum, 123
   'fixnum 123
 
 check equal?
   syntax->datum compile
-    typeof
+    type?-of
     syntax lambda
       with: value-a type-a, value-b type-b
       value-a, value-b
@@ -57,7 +57,7 @@ check equal?
 
 check equal?
   syntax->datum compile
-    typeof
+    type?-of
     syntax :
       lambda
         with: a1 type-a, a2 type-b
@@ -71,7 +71,7 @@ check equal?
 
 check equal?
   syntax->datum compile
-    typeof
+    type?-of
     syntax let
       with
         a1 value-a
@@ -83,13 +83,13 @@ check equal?
 
 check equal?
   syntax->datum compile
-    typeof
+    type?-of
     syntax fxzero? compiled: native overflowing integer, 123
   'boolean fxzero? 123
 
 check equal?
   syntax->datum compile
-    typeof
+    type?-of
     syntax fx+
       compiled: native overflowing integer, 10
       compiled: native overflowing integer, 20
@@ -98,13 +98,13 @@ check equal?
     fx+: 10, 20
 
 check raises compile
-  typeof
+  type?-of
   syntax fxzero?: value-a
 
 check raises compile
-  typeof
+  type?-of
   syntax fxzero?: 10, 20
 
 check raises compile
-  typeof
+  type?-of
   syntax fx+: 10, value-a

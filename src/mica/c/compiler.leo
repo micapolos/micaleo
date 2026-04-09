@@ -7,7 +7,7 @@ library
     mica c keywords
 
   define
-    typeof+: typeof, bindings
+    type?-of+: type?-of, bindings
     lambda
       with id
       switch
@@ -16,19 +16,21 @@ library
           syntax->list bindings
         when
           _ false?
-          typeof id
+          type?-of id
         else ass cadr ass
 
   define
-    compile: typeof, stx
+    compile: type?-of, stx
     syntax-case
       stx
       keywords: compiled, lambda, let, with
       when
         id
-        keyword? id
+        and
+          keyword? id
+          type?-of syntax id
         quasisyntax :
-          unsyntax typeof syntax id
+          unsyntax type?-of syntax id
           id
       when
         compiled: t, x
@@ -39,7 +41,7 @@ library
           xs, ..., x
         syntax-case
           map
-            partial: compile, typeof
+            partial: compile, type?-of
             syntax exprs ...
           when
             : types exprs, ...
@@ -47,8 +49,8 @@ library
               map
                 partial
                   compile
-                  typeof+
-                    typeof
+                  type?-of+
+                    type?-of
                     syntax : ids types, ...
                 syntax->list syntax : xs, ..., x
               when
@@ -66,8 +68,8 @@ library
           map
             partial
               compile
-              typeof+
-                typeof
+              type?-of+
+                type?-of
                 syntax : ids types, ...
             syntax->list syntax : xs, ..., x
           when
@@ -83,9 +85,9 @@ library
         fn: args, ...
         syntax-case
           quasisyntax :
-            unsyntax compile: typeof, syntax fn
+            unsyntax compile: type?-of, syntax fn
             unsyntax-splicing map
-              partial: compile, typeof
+              partial: compile, type?-of
               syntax args ...
           when
             : fn-type fn, arg-types args, ...
