@@ -25,6 +25,12 @@ library
       stx
       keywords: compiled, lambda, let, with
       when
+        id
+        keyword? id
+        quasisyntax :
+          unsyntax typeof syntax id
+          id
+      when
         compiled: t, x
         syntax : t, x
       when
@@ -104,12 +110,6 @@ library
                 syntax-error
                   syntax fn-type
                   'not lambda
-      when
-        id
-        keyword? id
-        quasisyntax :
-          unsyntax typeof syntax id
-          id
       when
         other
         syntax-error: syntax other, 'compile error
