@@ -39,19 +39,25 @@ define
       other
       #f
 
+define
+  type<=?: a, b
+  free-syntax=?: a, b
+
 check equal?
   syntax->datum compile
     compile?
+    type<=?
     syntax 123
   ': number, 123
 
 check equal?
-  syntax->datum compile: compile?, syntax value-a
+  syntax->datum compile: compile?, type<=?, syntax value-a
   'type-a value-a
 
 check equal?
   syntax->datum compile
     compile?
+    type<=?
     syntax lambda
       with: value-a type-a, value-b type-b
       value-a, value-b
@@ -66,6 +72,7 @@ check equal?
 check equal?
   syntax->datum compile
     compile?
+    type<=?
     syntax :
       lambda
         with: a1 type-a, a2 type-b
@@ -80,6 +87,7 @@ check equal?
 check equal?
   syntax->datum compile
     compile?
+    type<=?
     syntax let
       with
         a1 value-a
@@ -92,12 +100,14 @@ check equal?
 check equal?
   syntax->datum compile
     compile?
+    type<=?
     syntax zero? 123
   'boolean zero? 123
 
 check equal?
   syntax->datum compile
     compile?
+    type<=?
     syntax +: 10, 20
   ':
     number
@@ -109,6 +119,7 @@ begin
   check equal?
     syntax->datum compile
       compile?
+      type<=?
       syntax if: zero? 10, "true", "false"
     ':
       string
@@ -116,24 +127,30 @@ begin
 
   check raises compile
     compile?
+    type<=?
     syntax if: 10, "true", "false"
 
   check raises compile
     compile?
+    type<=?
     syntax if: zero? 10, "true", 20
 
   check raises compile
     compile?
+    type<=?
     syntax if: zero? 10, "true"
 
 check raises compile
   compile?
+  type<=?
   syntax zero?: value-a
 
 check raises compile
   compile?
+  type<=?
   syntax zero?: 10, 20
 
 check raises compile
   compile?
+  type<=?
   syntax +: 10, value-a

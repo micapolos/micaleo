@@ -60,4 +60,5 @@ library
                       type?
                       quasisyntax : unsyntax type?, id
                 when: _, #f
+            free-syntax=?
             syntax x
