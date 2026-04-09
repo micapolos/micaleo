@@ -6,6 +6,12 @@ library
     mica c type
 
   define
+    compile-binding binding
+    quasisyntax :
+      unsyntax cadr binding
+      unsyntax car binding
+
+  define
     compile?+: compile?, bindings
     lambda
       with stx
@@ -13,14 +19,10 @@ library
         and
           identifier? stx
           let
-            with ass? assp
+            with binding? assp
               partial: free-identifier=?, stx
               syntax->list bindings
-            and
-              ass?
-              quasisyntax :
-                unsyntax cadr ass?
-                unsyntax car ass?
+            and: binding?, compile-binding binding?
         compile? stx
 
   define
