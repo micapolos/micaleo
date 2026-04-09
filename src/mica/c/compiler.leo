@@ -1,10 +1,13 @@
 library
   mica c compiler
-  export compile
+  export
+    compile
+    compiled
   import
     mica c base
     mica c type
-    mica c keywords
+
+  define-keywords: compiled
 
   define
     type?-of+: type?-of, bindings

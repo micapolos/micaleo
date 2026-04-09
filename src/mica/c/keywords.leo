@@ -1,7 +1,7 @@
 library
   mica c keywords
   export:
-    compiled, integer
+    integer
     native, overflowing
     unsigned, signed, wide
     char, short, int, long
@@ -12,7 +12,7 @@ library
     mica c base
 
   define-keywords
-    compiled, integer
+    integer
     native, overflowing
     unsigned, signed, wide
     char, short, int, long
