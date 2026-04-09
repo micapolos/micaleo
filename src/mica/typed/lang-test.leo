@@ -1,9 +1,9 @@
 import
   except
     +, zero?
-    from mica c base
-  mica c lang
-  mica c keywords
+    from mica typed base
+  mica typed lang
+  mica typed keywords
 
 define zero? fxzero?
 define + fx+/wraparound

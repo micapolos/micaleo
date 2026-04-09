@@ -1,14 +1,14 @@
 library
-  mica c lang
+  mica typed lang
   export
     define-type
     define-types
     lang
   import
-    mica c base
-    mica c compile
-    mica c keywords
-  export import mica c keywords
+    mica typed base
+    mica typed compile
+    mica typed keywords
+  export import mica typed keywords
 
   define-syntax
     when

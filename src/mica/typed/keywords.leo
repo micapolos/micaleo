@@ -1,5 +1,5 @@
 library
-  mica c keywords
+  mica typed keywords
   export:
     type
     boolean, integer
@@ -10,7 +10,7 @@ library
     float, double
     struct, array, bits
   import
-    mica c base
+    mica typed base
 
   define-keywords
     type

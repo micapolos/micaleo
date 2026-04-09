@@ -1,5 +1,5 @@
 library
-  mica c base
+  mica typed base
   export:
   import leo scheme
   export import

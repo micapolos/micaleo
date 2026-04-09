@@ -1,11 +1,11 @@
 library
-  mica c compile
+  mica typed compile
   export
     compile
     typeof
     valueof
   import
-    mica c base
+    mica typed base
 
   define
     typeof: stx
