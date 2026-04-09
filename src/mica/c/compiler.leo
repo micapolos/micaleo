@@ -6,6 +6,22 @@ library
     mica c type
 
   define
+    typeof: stx
+    syntax-case
+      stx
+      when
+        : t, v
+        syntax t
+
+  define
+    valueof: stx
+    syntax-case
+      stx
+      when
+        : t, v
+        syntax v
+
+  define
     compile-binding binding
     quasisyntax :
       unsyntax cadr binding
@@ -26,12 +42,22 @@ library
         compile? stx
 
   define
+    compile-of: compile?, type, stx
+    syntax-case
+      compile: compile?, stx
+      when
+        : t, v
+        begin
+          type-check: syntax t, type, stx
+          syntax v
+
+  define
     compile: compile?, stx
     or
       compile? stx
       syntax-case
         stx
-        keywords: lambda, let, with
+        keywords: if, lambda, let, with
         when
           let
             with: ids exprs, ...
@@ -78,6 +104,16 @@ library
                 lambda
                   with: ids, ...
                   xs, ..., x
+        when
+          if: a, b, c
+          let*
+            with
+              a compile-of: compile?, syntax boolean, syntax a
+              b compile: compile?, syntax b
+              c compile-of: compile?, typeof b, syntax c
+            quasisyntax :
+              unsyntax typeof b
+              if: unsyntax a, unsyntax valueof b, unsyntax c
         when
           fn: args, ...
           syntax-case

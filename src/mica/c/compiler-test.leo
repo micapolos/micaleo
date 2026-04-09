@@ -8,6 +8,10 @@ define
     stx
     keywords: zero?, +, value-a, value-b
     when
+      s
+      string? datum s
+      syntax : string, s
+    when
       n
       number? datum n
       syntax : number, n
@@ -99,14 +103,37 @@ check equal?
     number
     +: 10, 20
 
-check raises compile
-  compile?
-  syntax fxzero?: value-a
+begin
+  comment if
+
+  check equal?
+    syntax->datum compile
+      compile?
+      syntax if: zero? 10, "true", "false"
+    ':
+      string
+      if: zero? 10, "true", "false"
+
+  check raises compile
+    compile?
+    syntax if: 10, "true", "false"
+
+  check raises compile
+    compile?
+    syntax if: zero? 10, "true", 20
+
+  check raises compile
+    compile?
+    syntax if: zero? 10, "true"
 
 check raises compile
   compile?
-  syntax fxzero?: 10, 20
+  syntax zero?: value-a
 
 check raises compile
   compile?
-  syntax fx+: 10, value-a
+  syntax zero?: 10, 20
+
+check raises compile
+  compile?
+  syntax +: 10, value-a
