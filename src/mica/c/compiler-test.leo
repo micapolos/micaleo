@@ -6,7 +6,7 @@ define
   compile? stx
   syntax-case
     stx
-    keywords: number, zero?, +, value-a, value-b
+    keywords: zero?, +, value-a, value-b
     when
       n
       number? datum n
