@@ -4,5 +4,5 @@ library
   import leo scheme
   export import
     except
-      compile, char
+      compile, inexact, char
       from leo scheme

@@ -1,7 +1,8 @@
 library
   mica c keywords
   export:
-    integer
+    type
+    boolean, integer
     native, overflowing
     unsigned, signed, wide
     char, short, int, long
@@ -12,7 +13,8 @@ library
     mica c base
 
   define-keywords
-    integer
+    type
+    boolean, integer
     native, overflowing
     unsigned, signed, wide
     char, short, int, long

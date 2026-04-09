@@ -2,4 +2,5 @@ import leo scheme
 
 test
   mica c type
-  mica c compiler
+  mica c compile
+  mica c lang

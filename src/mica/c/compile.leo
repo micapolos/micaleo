@@ -1,6 +1,9 @@
 library
-  mica c compiler
-  export compile
+  mica c compile
+  export
+    compile
+    typeof
+    valueof
   import
     mica c base
     mica c type
@@ -143,8 +146,9 @@ library
                 when
                   other
                   syntax-error
-                    syntax fn-type
-                    'not lambda
+                    syntax fn
+                    `invalid type` datum other
+                    `expected lambda
         when
           other
           syntax-error: syntax other, 'compile error
