@@ -28,6 +28,44 @@ library
       define-types: ids ts, ...
       begin: define-type ids ts, ...
 
+  meta define
+    compile?: lookup?, stx
+    syntax-case
+      stx
+      when
+        b
+        boolean? datum b
+        syntax : boolean, b
+      when
+        fx
+        fixnum? datum fx
+        syntax : native overflowing integer, fx
+      when
+        fl
+        flonum? datum fl
+        syntax : native inexact float, fl
+      when
+        ch
+        char? datum ch
+        syntax : char, ch
+      when
+        s
+        string? datum s
+        syntax : string, s
+      when
+        id
+        keyword? id
+        let
+          with type? lookup?: stx, syntax type
+          and
+            type?
+            quasisyntax : unsyntax type?, id
+      when: _, #f
+
+  meta define
+    type<=?: a, b
+    free-syntax=?: a, b
+
   define-syntax
     mico stx
     lambda
@@ -37,38 +75,6 @@ library
         when
           mico x
           valueof compile
-            lambda
-              with stx
-              syntax-case
-                stx
-                when
-                  b
-                  boolean? datum b
-                  syntax : boolean, b
-                when
-                  fx
-                  fixnum? datum fx
-                  syntax : native overflowing integer, fx
-                when
-                  fl
-                  flonum? datum fl
-                  syntax : native inexact float, fl
-                when
-                  ch
-                  char? datum ch
-                  syntax : char, ch
-                when
-                  s
-                  string? datum s
-                  syntax : string, s
-                when
-                  id
-                  keyword? id
-                  let
-                    with type? lookup?: stx, syntax type
-                    and
-                      type?
-                      quasisyntax : unsyntax type?, id
-                when: _, #f
-            free-syntax=?
+            partial: compile?, lookup?
+            type<=?
             syntax x
