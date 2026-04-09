@@ -1,7 +1,6 @@
 import
   mica c base
   mica c compiler
-  mica c keywords
 
 define
   compile? stx
