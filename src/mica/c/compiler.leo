@@ -1,120 +1,112 @@
 library
   mica c compiler
-  export
-    compile
-    compiled
+  export compile
   import
     mica c base
     mica c type
 
-  define-keywords: compiled
-
   define
-    type?-of+: type?-of, bindings
+    compile?+: compile?, bindings
     lambda
-      with id
-      switch
-        assp
-          partial: free-identifier=?, id
-          syntax->list bindings
-        when
-          _ false?
-          type?-of id
-        else ass cadr ass
+      with stx
+      or
+        and
+          identifier? stx
+          let
+            with ass? assp
+              partial: free-identifier=?, stx
+              syntax->list bindings
+            and
+              ass?
+              quasisyntax :
+                unsyntax cadr ass?
+                unsyntax car ass?
+        compile? stx
 
   define
-    compile: type?-of, stx
-    syntax-case
-      stx
-      keywords: compiled, lambda, let, with
-      when
-        id
-        and
-          keyword? id
-          type?-of syntax id
-        quasisyntax :
-          unsyntax type?-of syntax id
-          id
-      when
-        compiled: t, x
-        syntax : t, x
-      when
-        let
-          with: ids exprs, ...
-          xs, ..., x
-        syntax-case
-          map
-            partial: compile, type?-of
-            syntax exprs ...
-          when
-            : types exprs, ...
-            syntax-case
-              map
-                partial
-                  compile
-                  type?-of+
-                    type?-of
-                    syntax : ids types, ...
-                syntax->list syntax : xs, ..., x
-              when
-                : xs-types xs, ..., x-type x
-                syntax :
-                  x-type
-                  let
-                    with: ids exprs, ...
-                    xs, ..., x
-      when
-        lambda
-          with: ids types, ...
-          xs, ..., x
-        syntax-case
-          map
-            partial
-              compile
-              type?-of+
-                type?-of
-                syntax : ids types, ...
-            syntax->list syntax : xs, ..., x
-          when
-            : xs-types xs, ..., x-type x
-            syntax :
-              lambda
-                with: types, ...
-                x-type
-              lambda
-                with: ids, ...
-                xs, ..., x
-      when
-        fn: args, ...
-        syntax-case
-          quasisyntax :
-            unsyntax compile: type?-of, syntax fn
-            unsyntax-splicing map
-              partial: compile, type?-of
-              syntax args ...
-          when
-            : fn-type fn, arg-types args, ...
-            syntax-case
-              syntax fn-type
-              keywords: lambda, with
-              when
-                lambda
-                  with: param-types, ...
-                  return-type
-                begin
-                  apply-type-check
-                    stx
-                    syntax param-types ...
-                    syntax arg-types ...
-                    syntax args ...
+    compile: compile?, stx
+    or
+      compile? stx
+      syntax-case
+        stx
+        keywords: lambda, let, with
+        when
+          let
+            with: ids exprs, ...
+            xs, ..., x
+          syntax-case
+            map
+              partial: compile, compile?
+              syntax exprs ...
+            when
+              : types exprs, ...
+              syntax-case
+                map
+                  partial
+                    compile
+                    compile?+
+                      compile?
+                      syntax : ids types, ...
+                  syntax->list syntax : xs, ..., x
+                when
+                  : xs-types xs, ..., x-type x
                   syntax :
+                    x-type
+                    let
+                      with: ids exprs, ...
+                      xs, ..., x
+        when
+          lambda
+            with: ids types, ...
+            xs, ..., x
+          syntax-case
+            map
+              partial
+                compile
+                compile?+
+                  compile?
+                  syntax : ids types, ...
+              syntax->list syntax : xs, ..., x
+            when
+              : xs-types xs, ..., x-type x
+              syntax :
+                lambda
+                  with: types, ...
+                  x-type
+                lambda
+                  with: ids, ...
+                  xs, ..., x
+        when
+          fn: args, ...
+          syntax-case
+            quasisyntax :
+              unsyntax compile: compile?, syntax fn
+              unsyntax-splicing map
+                partial: compile, compile?
+                syntax args ...
+            when
+              : fn-type fn, arg-types args, ...
+              syntax-case
+                syntax fn-type
+                keywords: lambda, with
+                when
+                  lambda
+                    with: param-types, ...
                     return-type
-                    fn: args, ...
-              when
-                other
-                syntax-error
-                  syntax fn-type
-                  'not lambda
-      when
-        other
-        syntax-error: syntax other, 'compile error
+                  begin
+                    apply-type-check
+                      stx
+                      syntax param-types ...
+                      syntax arg-types ...
+                      syntax args ...
+                    syntax :
+                      return-type
+                      fn: args, ...
+                when
+                  other
+                  syntax-error
+                    syntax fn-type
+                    'not lambda
+        when
+          other
+          syntax-error: syntax other, 'compile error

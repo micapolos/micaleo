@@ -4,46 +4,51 @@ import
   mica c keywords
 
 define
-  type?-of identifier
-  cond
+  compile? stx
+  syntax-case
+    stx
+    keywords: number, zero?, +, value-a, value-b
     when
-      free-identifier=?: identifier, syntax fxzero?
-      syntax lambda
-        with: native overflowing integer
-        boolean
+      n
+      number? datum n
+      syntax : number, n
     when
-      free-identifier=?: identifier, syntax fx+
-      syntax lambda
-        with: native overflowing integer, native overflowing integer
-        native overflowing integer
+      zero?
+      syntax :
+        lambda
+          with: number
+          boolean
+        zero?
     when
-      free-identifier=?: identifier, syntax value-a
-      syntax type-a
+      +
+      syntax :
+        lambda
+          with: number, number
+          number
+        +
     when
-      free-identifier=?: identifier, syntax value-b
-      syntax type-b
-    else
+      value-a
+      syntax : type-a, value-a
+    when
+      value-b
+      syntax : type-b, value-b
+    when
+      other
       #f
 
 check equal?
   syntax->datum compile
-    type?-of
-    syntax compiled: native int, 123
-  ': native int, 123
+    compile?
+    syntax 123
+  ': number, 123
 
 check equal?
-  syntax->datum compile: type?-of, syntax value-a
+  syntax->datum compile: compile?, syntax value-a
   'type-a value-a
 
 check equal?
   syntax->datum compile
-    type?-of
-    syntax compiled: fixnum, 123
-  'fixnum 123
-
-check equal?
-  syntax->datum compile
-    type?-of
+    compile?
     syntax lambda
       with: value-a type-a, value-b type-b
       value-a, value-b
@@ -57,7 +62,7 @@ check equal?
 
 check equal?
   syntax->datum compile
-    type?-of
+    compile?
     syntax :
       lambda
         with: a1 type-a, a2 type-b
@@ -71,7 +76,7 @@ check equal?
 
 check equal?
   syntax->datum compile
-    type?-of
+    compile?
     syntax let
       with
         a1 value-a
@@ -83,28 +88,26 @@ check equal?
 
 check equal?
   syntax->datum compile
-    type?-of
-    syntax fxzero? compiled: native overflowing integer, 123
-  'boolean fxzero? 123
+    compile?
+    syntax zero? 123
+  'boolean zero? 123
 
 check equal?
   syntax->datum compile
-    type?-of
-    syntax fx+
-      compiled: native overflowing integer, 10
-      compiled: native overflowing integer, 20
+    compile?
+    syntax +: 10, 20
   ':
-    native overflowing integer
-    fx+: 10, 20
+    number
+    +: 10, 20
 
 check raises compile
-  type?-of
+  compile?
   syntax fxzero?: value-a
 
 check raises compile
-  type?-of
+  compile?
   syntax fxzero?: 10, 20
 
 check raises compile
-  type?-of
+  compile?
   syntax fx+: 10, value-a
