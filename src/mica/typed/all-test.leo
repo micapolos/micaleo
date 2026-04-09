@@ -2,4 +2,4 @@ import leo scheme
 
 test
   mica typed compile
-  mica typed lang
+  mica typed mico

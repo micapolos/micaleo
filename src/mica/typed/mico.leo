@@ -1,14 +1,16 @@
 library
-  mica typed lang
+  mica typed mico
   export
     define-type
     define-types
-    lang
+    mico
   import
     mica typed base
     mica typed compile
     mica typed keywords
   export import mica typed keywords
+
+  comment mico: simple low-level language inspired by c
 
   define-syntax
     when
@@ -19,13 +21,13 @@ library
       begin: define-type ids ts, ...
 
   define-syntax
-    lang stx
+    mico stx
     lambda
       with lookup?
       syntax-case
         stx
         when
-          lang x
+          mico x
           valueof compile
             lambda
               with stx

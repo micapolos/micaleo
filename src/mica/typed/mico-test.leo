@@ -2,7 +2,7 @@ import
   except
     +, zero?
     from mica typed base
-  mica typed lang
+  mica typed mico
   mica typed keywords
 
 define zero? fxzero?
@@ -30,17 +30,17 @@ define-types
     with: native overflowing integer, native overflowing integer
     native overflowing integer
 
-check equal?: lang #t, #t
-check equal?: lang 123, 123
-check equal?: lang #\a, #\a
-check equal?: lang "foo", "foo"
+check equal?: mico #t, #t
+check equal?: mico 123, 123
+check equal?: mico #\a, #\a
+check equal?: mico "foo", "foo"
 
-check equal?: lang zero? 0, #t
-check equal?: lang zero? 1, #f
+check equal?: mico zero? 0, #t
+check equal?: mico zero? 1, #f
 
-check equal?: lang inc 1, 2
-check equal?: lang dec 2, 1
+check equal?: mico inc 1, 2
+check equal?: mico dec 2, 1
 
 check equal?
-  lang +: 10, 20
+  mico +: 10, 20
   30
