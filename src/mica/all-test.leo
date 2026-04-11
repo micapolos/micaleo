@@ -8,6 +8,7 @@ test
   mica memory
   mica pointer
   mica ftype
+  mica pico
   mica editor all
   mica data
   mica data all

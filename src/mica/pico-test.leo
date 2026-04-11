@@ -5,4 +5,7 @@ import
 pico
   size 1024
   push-u8 255
-  print pop-u8
+  push-u8-u8 12
+  check equal?: pop-u8, 12
+  check equal?: pop-u8, 12
+  check equal?: pop-u8, 255
