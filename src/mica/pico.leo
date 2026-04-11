@@ -33,6 +33,6 @@ library
         with
           implicit: pop-u8, mem, sp
           syntax let
-            with u8 bytevector-u8-ref: mem, sp, u8
+            with u8 bytevector-u8-ref: mem, sp
             set! sp fx+1/wraparound sp
             u8
