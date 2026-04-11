@@ -99,9 +99,9 @@ library
           integer? datum i
           syntax : int, i
         when
-          r
-          real? datum r
-          syntax : float, r
+          i
+          integer? datum i
+          syntax : int, i
         when
           ch
           char? datum ch
