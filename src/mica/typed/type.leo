@@ -3,6 +3,12 @@ library
   export
     type
     int, uint, float
+    int-8, uint-8
+    int-16, uint-16
+    int-32, uint-32
+    int64, uint-64
+    float-32
+    float-64
     type-assignable?
   import
     mica typed base
@@ -10,12 +16,18 @@ library
   define-keywords
     type
     int, uint, float
+    int-8, uint-8
+    int-16, uint-16
+    int-32, uint-32
+    int64, uint-64
+    float-32
+    float-64
 
   define
     type-assignable?: type, from-type
     syntax-case
       type
-      keywords: int, uint, float, lambda, with
+      keywords: lambda, with
       when
         id
         keyword? id
@@ -25,33 +37,6 @@ library
             from-id
             keyword? from-id
             free-identifier=?: syntax id, syntax from-id
-          when: _, #f
-      when
-        int n
-        syntax-case
-          from-type
-          keywords: int
-          when
-            int from-n
-            =: datum n, datum from-n
-          when: _, #f
-      when
-        uint n
-        syntax-case
-          from-type
-          keywords: uint
-          when
-            uint from-n
-            =: datum n, datum from-n
-          when: _, #f
-      when
-        float n
-        syntax-case
-          from-type
-          keywords: float
-          when
-            float from-n
-            =: datum n, datum from-n
           when: _, #f
       when
         lambda

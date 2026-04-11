@@ -6,29 +6,35 @@ import
   mica typed type
 
 define zero? fxzero?
-define + fx+/wraparound
+define add/wrap fx+/wraparound
+define sub/wrap fx-/wraparound
+define fadd/inexact fl+
+define fsub/inexact fl-
 
 define
-  inc fx
-  +: fx, 1
+  inc/wrap int
+  add/wrap: int, 1
 
 define
-  dec fx
-  -: fx, 1
+  dec/wrap int
+  sub/wrap: int, 1
 
 define-types
   zero? lambda
-    with: native-int
+    with: int
     boolean
-  inc lambda
-    with: native-int
-    native-int
-  dec lambda
-    with: native-int
-    native-int
-  + lambda
-    with: native-int, native-int
-    native-int
+  inc/wrap lambda
+    with: int
+    int
+  dec/wrap lambda
+    with: int
+    int
+  add/wrap lambda
+    with: int, int
+    int
+  fadd/inexact lambda
+    with: float, float
+    float
 
 check equal?: mico #t, #t
 check equal?: mico 123, 123
@@ -38,9 +44,9 @@ check equal?: mico "foo", "foo"
 check equal?: mico zero? 0, #t
 check equal?: mico zero? 1, #f
 
-check equal?: mico inc 1, 2
-check equal?: mico dec 2, 1
+check equal?: mico inc/wrap 1, 2
+check equal?: mico dec/wrap 2, 1
 
 check equal?
-  mico +: 10, 20
+  mico add/wrap: 10, 20
   30

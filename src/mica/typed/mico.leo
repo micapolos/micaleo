@@ -25,26 +25,6 @@ library
     syntax-case
       stx
       when
-        b
-        boolean? datum b
-        syntax : boolean, b
-      when
-        fx
-        fixnum? datum fx
-        syntax : native-int, fx
-      when
-        fl
-        flonum? datum fl
-        syntax : native-float, fl
-      when
-        ch
-        char? datum ch
-        syntax : char, ch
-      when
-        s
-        string? datum s
-        syntax : string, s
-      when
         id
         keyword? id
         let
