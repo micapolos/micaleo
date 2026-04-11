@@ -15,7 +15,7 @@ library
     type-assignable?: type, from-type
     syntax-case
       type
-      keywords: boolean, char, int, uint, float, lambda, with
+      keywords: int, uint, float, lambda, with
       when
         id
         keyword? id
