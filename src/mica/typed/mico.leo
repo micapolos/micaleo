@@ -12,7 +12,7 @@ library
 
   comment simple low-level language inspired by c
 
-  define-syntax
+  define-syntax rules
     when
       define-type id t
       define-property id type syntax t

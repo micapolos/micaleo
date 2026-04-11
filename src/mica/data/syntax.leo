@@ -217,7 +217,7 @@ library
 
   define
     transform-define-syntax-data-op: name, op
-    quasisyntax define-syntax
+    quasisyntax define-syntax rules
       when
         :
           unsyntax transform-data-op-identifier: name, op
@@ -230,7 +230,7 @@ library
 
   define
     transform-define-syntax-data-clear! name
-    quasisyntax define-syntax when
+    quasisyntax define-syntax rules when
       :
         unsyntax identifier-append: name, name, syntax -, syntax clear!
         x
@@ -238,7 +238,7 @@ library
 
   define
     transform-define-syntax-data-fill! name
-    quasisyntax define-syntax when
+    quasisyntax define-syntax rules when
       :
         unsyntax identifier-append: name, name, syntax -, syntax fill!
         x, v

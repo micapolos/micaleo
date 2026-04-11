@@ -16,14 +16,14 @@ library
       ftype-pointer->sexpr ftype-pointer-a
       ftype-pointer->sexpr ftype-pointer-b
 
-  define-syntax
+  define-syntax rules
     when
       ftype-clear!: ftype, pointer
       memory-clear!
         ftype-pointer-address pointer
         ftype-sizeof ftype
 
-  define-syntax
+  define-syntax rules
     when
       ftype-fill!: ftype, pointer, u8
       memory-fill!
@@ -33,27 +33,28 @@ library
 
   define-syntax
     keywords with
-    when
-      let-ftype
-        with:
-        x, xs, ...
-      begin: x, xs, ...
-    when
-      let-ftype
-        with: val ftype, bindings, ...
-        x, xs, ...
-      let*
-        with
-          address foreign-alloc ftype-sizeof ftype
-          val make-ftype-pointer: ftype, address
-        dynamic-wind
-          lambda #f
-          lambda let-ftype
-            with: bindings, ...
-            x, xs, ...
-          lambda foreign-free address
+    rules
+      when
+        let-ftype
+          with:
+          x, xs, ...
+        begin: x, xs, ...
+      when
+        let-ftype
+          with: val ftype, bindings, ...
+          x, xs, ...
+        let*
+          with
+            address foreign-alloc ftype-sizeof ftype
+            val make-ftype-pointer: ftype, address
+          dynamic-wind
+            lambda #f
+            lambda let-ftype
+              with: bindings, ...
+              x, xs, ...
+            lambda foreign-free address
 
-  define-syntax
+  define-syntax rules
     when
       check-ftype=?: ftype-a, ftype-b
       let

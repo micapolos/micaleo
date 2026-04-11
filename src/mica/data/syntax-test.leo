@@ -176,21 +176,21 @@ begin
 
 check equal?
   syntax->datum transform-define-syntax-data-op: syntax point, syntax ref
-  'define-syntax
+  'define-syntax rules
     when
       point-ref: x, ...
       ftype-ref: point, x, ...
 
 check equal?
   syntax->datum transform-define-syntax-data-clear!: syntax point
-  'define-syntax
+  'define-syntax rules
     when
       point-clear! x
       ftype-clear!: point, x
 
 check equal?
   syntax->datum transform-define-syntax-data-fill!: syntax point
-  'define-syntax
+  'define-syntax rules
     when
       point-fill!: x, v
       ftype-fill!: point, x, v

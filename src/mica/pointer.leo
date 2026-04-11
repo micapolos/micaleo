@@ -16,7 +16,7 @@ library
     ftype-pointer
     bytevector-slice
 
-  define-syntax
+  define-syntax rules
     when
       ftype-make-pointer ftype
       let*

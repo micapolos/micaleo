@@ -25,7 +25,7 @@ library
 
   define-syntax
     keywords: background, foreground
-    when
+    rules when
       cell: ch, background bg, foreground fg
       make-cell: ch, bg, fg
 

@@ -16,7 +16,7 @@ library
 
   define-keyword data
 
-  define-syntax
+  define-syntax rules
     when
       data-sizeof x
       ftype-sizeof x

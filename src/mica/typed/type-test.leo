@@ -5,7 +5,7 @@ import
 begin
   comment type-size
 
-  define-syntax
+  define-syntax rules
     when
       check-type-size: in, out
       check equal?

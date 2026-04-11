@@ -15,6 +15,6 @@ library
     unless
       fxzero? length
       let
-        with new-length fx-/wraparound: length, 1
+        with new-length fx-1/wraparound length
         foreign-set!: 'unsigned-8, address, new-length, u8
         memory-fill!: address, new-length, u8

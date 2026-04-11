@@ -1,7 +1,6 @@
 library
   mica typed type
   export
-    type-case
     type
     boolean, char
     int, uint, float
@@ -34,26 +33,6 @@ library
     struct
     union
     bits
-
-  define-syntax
-    when
-      type-case: type, patterns, ...
-      syntax-case
-        type
-        keywords
-          boolean, char
-          int, uint, float
-          int-8, uint-8
-          int-16, uint-16
-          int-32, uint-32
-          int-64, uint-64
-          float-32
-          float-64
-          array
-          struct
-          union
-          bits
-        patterns, ...
 
   define
     field-size: native-size, field
@@ -138,12 +117,13 @@ library
 
   define
     type-assignable?: type, from-type
-    type-case
+    syntax-case
       type
+      keywords: lambda, with, array, struct, union, bits
       when
         id
         keyword? id
-        type-case
+        syntax-case
           from-type
           when
             from-id
@@ -156,6 +136,7 @@ library
           result-type
         syntax-case
           from-type
+          keywords: lambda, with
           when
             lambda
               with: from-param-type, ...

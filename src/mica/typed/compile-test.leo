@@ -32,14 +32,14 @@ define
       other
       #f
 
-define-syntax
+define-syntax rules
   when
     check-compiles?: in, type, value
     check equal?
       syntax->datum compile: compile?, syntax in
       ': type, value
 
-define-syntax
+define-syntax rules
   when
     check-compile-error in
     check raises syntax->datum compile: compile?, syntax in
