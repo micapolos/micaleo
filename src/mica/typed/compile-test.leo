@@ -1,6 +1,7 @@
 import
   mica typed base
   mica typed compile
+  mica typed type
 
 define
   compile? stx
@@ -8,26 +9,18 @@ define
     stx
     keywords: zero?, +, value-a, value-b
     when
-      s
-      string? datum s
-      syntax : string, s
-    when
-      n
-      number? datum n
-      syntax : number, n
-    when
       zero?
       syntax :
         lambda
-          with: number
+          with: int
           boolean
         zero?
     when
       +
       syntax :
         lambda
-          with: number, number
-          number
+          with: int, int
+          int
         +
     when
       value-a
@@ -51,7 +44,7 @@ define-syntax
     check-compile-error in
     check raises syntax->datum compile: compile?, syntax in
 
-check-compiles?: 123, number, 123
+check-compiles?: 123, int, 123
 check-compiles?: value-a, type-a, value-a
 
 check-compiles?
@@ -96,7 +89,7 @@ check-compiles?
 
 check-compiles?
   +: 10, 20
-  number
+  int
   +: 10, 20
 
 begin

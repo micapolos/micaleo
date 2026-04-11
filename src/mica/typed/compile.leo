@@ -91,6 +91,26 @@ library
         stx
         keywords: if, lambda, let, with
         when
+          b
+          boolean? datum b
+          syntax : boolean, b
+        when
+          i
+          integer? datum i
+          syntax : int, i
+        when
+          r
+          real? datum r
+          syntax : float, r
+        when
+          ch
+          char? datum ch
+          syntax : char, ch
+        when
+          s
+          string? datum s
+          syntax : string, s
+        when
           let
             with: ids exprs, ...
             xs, ..., x
