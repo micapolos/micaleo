@@ -98,4 +98,3 @@ library
                 syntax result-type
                 syntax from-result-type
           when: _, #f
-      when: _, #f
