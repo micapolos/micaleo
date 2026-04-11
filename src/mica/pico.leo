@@ -3,6 +3,7 @@ library
   export
     pico, size
     push-u8
+    pop-u8
   import
     leo scheme
 
@@ -27,3 +28,11 @@ library
           syntax begin
             set! sp fx-1/wraparound sp
             bytevector-u8-set!: mem, sp, u8
+      when
+        pop-u8
+        with
+          implicit: pop-u8, mem, sp
+          syntax let
+            with u8 bytevector-u8-ref: mem, sp, u8
+            set! sp fx+1/wraparound sp
+            u8
