@@ -39,21 +39,17 @@ define
       other
       #f
 
-define
-  type<=?: a, b
-  free-syntax=?: a, b
-
 define-syntax
   when
     check-compiles?: in, type, value
     check equal?
-      syntax->datum compile: compile?, type<=?, syntax in
+      syntax->datum compile: compile?, syntax in
       ': type, value
 
 define-syntax
   when
     check-compile-error in
-    check raises syntax->datum compile: compile?, type<=?, syntax in
+    check raises syntax->datum compile: compile?, syntax in
 
 check-compiles?: 123, number, 123
 check-compiles?: value-a, type-a, value-a

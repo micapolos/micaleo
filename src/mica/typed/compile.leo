@@ -6,6 +6,7 @@ library
     valueof
   import
     mica typed base
+    mica typed type
 
   define
     typeof: stx
@@ -31,13 +32,13 @@ library
       `expected` syntax->datum type
 
   define
-    type-check: type<=?, type, arg-type, arg
+    type-check: type, arg-type, arg
     unless
-      type<=?: arg-type, type
+      type-assignable?: type, arg-type
       type-error: type, arg-type, arg
 
   define
-    apply-type-check: type<=?, stx, param-types, arg-types, args
+    apply-type-check: stx, param-types, arg-types, args
     unless
       =
         length param-types
@@ -47,7 +48,7 @@ library
         `invalid argument count` length arg-types
         `expected` length param-types
     for-each
-      partial: type-check, type<=?
+      type-check
       param-types
       arg-types
       args
@@ -73,17 +74,17 @@ library
         compile? stx
 
   define
-    compile-of: compile?, type<=?, type, stx
+    compile-of: compile?, type, stx
     syntax-case
-      compile: compile?, type<=?, stx
+      compile: compile?, stx
       when
         : t, v
         begin
-          type-check: type<=?, syntax t, type, stx
+          type-check: syntax t, type, stx
           syntax v
 
   define
-    compile: compile?, type<=?, stx
+    compile: compile?, stx
     or
       compile? stx
       syntax-case
@@ -95,7 +96,7 @@ library
             xs, ..., x
           syntax-case
             map
-              partial: compile, compile?, type<=?
+              partial: compile, compile?
               syntax exprs ...
             when
               : types exprs, ...
@@ -106,7 +107,6 @@ library
                     compile?+
                       compile?
                       syntax : ids types, ...
-                    type<=?
                   syntax->list syntax : xs, ..., x
                 when
                   : xs-types xs, ..., x-type x
@@ -126,7 +126,6 @@ library
                 compile?+
                   compile?
                   syntax : ids types, ...
-                type<=?
               syntax->list syntax : xs, ..., x
             when
               : xs-types xs, ..., x-type x
@@ -141,9 +140,9 @@ library
           if: a, b, c
           let*
             with
-              a compile-of: compile?, type<=?, syntax boolean, syntax a
-              b compile: compile?, type<=?, syntax b
-              c compile-of: compile?, type<=?, typeof b, syntax c
+              a compile-of: compile?, syntax boolean, syntax a
+              b compile: compile?, syntax b
+              c compile-of: compile?, typeof b, syntax c
             quasisyntax :
               unsyntax typeof b
               if: unsyntax a, unsyntax valueof b, unsyntax c
@@ -151,9 +150,9 @@ library
           fn: args, ...
           syntax-case
             quasisyntax :
-              unsyntax compile: compile?, type<=?, syntax fn
+              unsyntax compile: compile?, syntax fn
               unsyntax-splicing map
-                partial: compile, compile?, type<=?
+                partial: compile, compile?
                 syntax args ...
             when
               : fn-type fn, arg-types args, ...
@@ -166,7 +165,6 @@ library
                     return-type
                   begin
                     apply-type-check
-                      type<=?
                       stx
                       syntax param-types ...
                       syntax arg-types ...

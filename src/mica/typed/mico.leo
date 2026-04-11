@@ -1,10 +1,6 @@
 library
   mica typed mico
   export
-    type
-    boolean, integer, float
-    native, overflowing, inexact
-
     define-type
     define-types
 
@@ -12,13 +8,9 @@ library
   import
     mica typed base
     mica typed compile
+    mica typed type
 
   comment simple low-level language inspired by c
-
-  define-keywords
-    type
-    boolean, integer, float
-    native, overflowing, inexact
 
   define-syntax
     when
@@ -39,11 +31,11 @@ library
       when
         fx
         fixnum? datum fx
-        syntax : native overflowing integer, fx
+        syntax : native-int, fx
       when
         fl
         flonum? datum fl
-        syntax : native inexact float, fl
+        syntax : native-float, fl
       when
         ch
         char? datum ch
@@ -76,5 +68,4 @@ library
           mico x
           valueof compile
             partial: compile?, lookup?
-            type<=?
             syntax x

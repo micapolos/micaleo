@@ -3,6 +3,7 @@ import
     +, zero?
     from mica typed base
   mica typed mico
+  mica typed type
 
 define zero? fxzero?
 define + fx+/wraparound
@@ -17,17 +18,17 @@ define
 
 define-types
   zero? lambda
-    with: native overflowing integer
+    with: native-int
     boolean
   inc lambda
-    with: native overflowing integer
-    native overflowing integer
+    with: native-int
+    native-int
   dec lambda
-    with: native overflowing integer
-    native overflowing integer
+    with: native-int
+    native-int
   + lambda
-    with: native overflowing integer, native overflowing integer
-    native overflowing integer
+    with: native-int, native-int
+    native-int
 
 check equal?: mico #t, #t
 check equal?: mico 123, 123
