@@ -27,34 +27,6 @@ library
             free-identifier=?: syntax id, syntax from-id
           when: _, #f
       when
-        boolean
-        syntax-case
-          from-type
-          keywords: boolean
-          when: boolean, #t
-          when: _, #f
-      when
-        int
-        syntax-case
-          from-type
-          keywords: int
-          when: int, #t
-          when: _, #f
-      when
-        float
-        syntax-case
-          from-type
-          keywords: float
-          when: float, #t
-          when: _, #f
-      when
-        char
-        syntax-case
-          from-type
-          keywords: char
-          when: char, #t
-          when: _, #f
-      when
         int n
         syntax-case
           from-type
