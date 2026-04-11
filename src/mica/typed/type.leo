@@ -3,7 +3,6 @@ library
   export
     type
     int, uint, float
-    native-int, native-float
     type-assignable?
   import
     mica typed base
@@ -11,26 +10,42 @@ library
   define-keywords
     type
     int, uint, float
-    native-int, native-float
 
   define
     type-assignable?: type, from-type
     syntax-case
       type
-      keywords: native-int, native-float, char, int, uint, float, lambda, with
+      keywords: boolean, char, int, uint, float, lambda, with
       when
-        native-int
+        id
+        keyword? id
         syntax-case
           from-type
-          keywords: native-int
-          when: native-int, #t
+          when
+            from-id
+            keyword? from-id
+            free-identifier=?: syntax id, syntax from-id
           when: _, #f
       when
-        native-float
+        boolean
         syntax-case
           from-type
-          keywords: native-float
-          when: native-float, #t
+          keywords: boolean
+          when: boolean, #t
+          when: _, #f
+      when
+        int
+        syntax-case
+          from-type
+          keywords: int
+          when: int, #t
+          when: _, #f
+      when
+        float
+        syntax-case
+          from-type
+          keywords: float
+          when: float, #t
           when: _, #f
       when
         char
@@ -65,16 +80,6 @@ library
           when
             float from-n
             =: datum n, datum from-n
-          when: _, #f
-      when
-        id
-        keyword? id
-        syntax-case
-          from-type
-          when
-            from-id
-            keyword? from-id
-            free-identifier=?: syntax id, syntax from-id
           when: _, #f
       when
         lambda
