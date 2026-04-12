@@ -145,6 +145,21 @@ library
               unsyntax identifier-append: syntax id, syntax id, syntax -, syntax label-id
               xs, ...
           when
+            classified
+              verb
+              adverb adverb-id
+            identifier? syntax adverb-id
+            quasisyntax verb
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax adverb-id
+          when
+            classified
+              verb
+              adverb adverb-id: xs, ...
+            identifier? syntax adverb-id
+            quasisyntax noun :
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax adverb-id
+              xs, ...
+          when
             classified: class, _ x
             syntax class id x
       when

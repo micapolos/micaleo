@@ -61,6 +61,8 @@ check-classify
   : number from string, noun string->number
   : number from string s, noun string->number s
 
+  : append quickly, verb append-quickly
+
   : is string, noun string?
   : is string s, noun string? s
   : is my string s, noun my-string? s
