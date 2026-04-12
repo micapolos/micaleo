@@ -11,6 +11,8 @@ library
     mem-u8-set!
     mem-u16-ref
     mem-u16-set!
+    mem-u32-ref
+    mem-u32-set!
   import
     leo scheme
 
@@ -59,3 +61,9 @@ library
     when
       mem-u16-ref addr
       bytevector-u16-native-ref: mem, addr
+    when
+      mem-u32-set!: addr, u32
+      bytevector-u16-native-set!: mem, addr, u32
+    when
+      mem-u32-ref addr
+      bytevector-u32-native-ref: mem, addr
