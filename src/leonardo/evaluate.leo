@@ -1,15 +1,12 @@
 library
   leonardo evaluate
   export
-    evaluated, evaluated?, evaluated-ref
     evaluate
     application-native-refs?
     application-resolve
   import
     mica scheme
     leonardo term
-
-  define-data evaluated ref
 
   define
     append-application-native-refs?: application, native-refs
