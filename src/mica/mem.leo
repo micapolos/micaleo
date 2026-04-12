@@ -56,14 +56,47 @@ library
       mem-u8-ref addr
       bytevector-u8-ref: mem, addr
     when
+      mem-u8-set!: addr, offset, u8
+      bytevector-u8-set!
+        mem
+        fx+/wraparound: addr, offset
+        u8
+    when
+      mem-u8-ref: addr, offset
+      bytevector-u8-ref
+        mem
+        fx+/wraparound: addr, offset
+    when
       mem-u16-set!: addr, u16
       bytevector-u16-native-set!: mem, addr, u16
     when
       mem-u16-ref addr
       bytevector-u16-native-ref: mem, addr
     when
+      mem-u16-set!: addr, offset, u16
+      bytevector-u16-native-set!
+        mem
+        fx+/wraparound: addr, offset
+        u16
+    when
+      mem-u16-ref: addr, offset
+      bytevector-u16-native-ref
+        mem
+        fx+/wraparound: addr, offset
+    when
       mem-u32-set!: addr, u32
       bytevector-u16-native-set!: mem, addr, u32
     when
       mem-u32-ref addr
       bytevector-u32-native-ref: mem, addr
+    when
+      mem-u32-set!: addr, offset, u32
+      bytevector-u16-native-set!
+        mem
+        fx+/wraparound: addr, offset
+        u32
+    when
+      mem-u32-ref: addr, offset
+      bytevector-u32-native-ref
+        mem
+        fx+/wraparound: addr, offset
