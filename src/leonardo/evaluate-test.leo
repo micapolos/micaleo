@@ -3,6 +3,20 @@ import
   leonardo term
   leonardo evaluate
 
+check equal?
+  application-native-refs? application
+    evaluated native zero?
+    evaluated native 123
+  list: zero?, 123
+
+check equal?
+  application-native-refs? application
+    evaluated application
+      evaluated native string-append
+      evaluated native "foo"
+    evaluated native "bar"
+  list: string-append, "foo", "bar"
+
 comment extract detection of native application with given arity
 define
   test-apply: target, argument

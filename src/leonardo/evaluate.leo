@@ -3,11 +3,39 @@ library
   export
     evaluated, evaluated?, evaluated-ref
     evaluate
+    application-native-refs?
   import
     mica scheme
     leonardo term
 
   define-data evaluated ref
+
+  define
+    cons-application-native-refs?: application, native-refs
+    and
+      evaluated? application-argument application
+      native? evaluated-ref application-argument application
+      evaluated? application-target application
+      let
+        with native-refs cons
+          native-ref evaluated-ref application-argument application
+          native-refs
+        cond
+          when
+            native? evaluated-ref application-target application
+            cons
+              native-ref evaluated-ref application-target application
+              native-refs
+          when
+            application? evaluated-ref application-target application
+            cons-application-native-refs?
+              evaluated-ref application-target application
+              native-refs
+          else #f
+
+  define
+    application-native-refs? application
+    cons-application-native-refs?: application, null
 
   define
     evaluate: apply, term

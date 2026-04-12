@@ -1,1 +1,3 @@
-import leonardo term
+import
+  leo scheme
+  leonardo term
