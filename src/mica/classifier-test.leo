@@ -76,7 +76,9 @@ check-classify
 
   : transform x, verb transform x
   : transform slowly x, verb transform-slowly x
-  : transform slowly my string s, verb transform-slowly my-string s
+  : transform slowly string x, verb transform-slowly string x
+  : transform slowly my string, verb transform-slowly my-string
+  : transform slowly string A, verb transform-slowly string-A
 
   : is string, verb string?
   : is string s, verb string? s
