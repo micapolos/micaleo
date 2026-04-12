@@ -146,6 +146,21 @@ library
               xs, ...
           when
             classified
+              adverb
+              adverb adverb-id
+            identifier? syntax adverb-id
+            quasisyntax adverb
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax adverb-id
+          when
+            classified
+              adverb
+              adverb adverb-id: xs, ...
+            identifier? syntax adverb-id
+            quasisyntax adverb :
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax adverb-id
+              xs, ...
+          when
+            classified
               verb
               adverb adverb-id
             identifier? syntax adverb-id
@@ -156,7 +171,7 @@ library
               verb
               adverb adverb-id: xs, ...
             identifier? syntax adverb-id
-            quasisyntax noun :
+            quasisyntax verb :
               unsyntax identifier-append: syntax id, syntax id, syntax -, syntax adverb-id
               xs, ...
           when

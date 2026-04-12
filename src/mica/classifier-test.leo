@@ -8,7 +8,9 @@ define identifier->class make-identifier->class
   append verb
   my adjective
   lucky adjective
-  quickly adverb
+  now adverb
+  later adverb
+  slowly adverb
   A label
   B label
 
@@ -26,7 +28,8 @@ check-classes
   append verb
   my adjective
   lucky adjective
-  quickly adverb
+  now adverb
+  later adverb
   A label
   B label
   foo unclassified
@@ -45,7 +48,7 @@ check-classify
   : number, noun number
   : append, verb append
   : my, adjective my
-  : quickly, adverb quickly
+  : now, adverb now
   : A, label A
 
   : number x, noun number x
@@ -61,7 +64,10 @@ check-classify
   : number from string, noun string->number
   : number from string s, noun string->number s
 
-  : append quickly, verb append-quickly
+  : slowly later, adverb slowly-later
+
+  : append now, verb append-now
+  : append slowly later, verb append-slowly-later
 
   : is string, noun string?
   : is string s, noun string? s
