@@ -63,8 +63,8 @@ check-classify
   : number A, noun number-A
   : my number A, noun my-number-A
 
-  : number from string, noun string->number
-  : number from string s, noun string->number s
+  : number from string, verb string->number
+  : number from string s, verb string->number s
 
   : slowly later, adverb slowly-later
   : slowly foo, adverb slowly foo
@@ -76,12 +76,15 @@ check-classify
   : transform slowly x, verb transform-slowly x
   : transform slowly my string s, verb transform-slowly my-string s
 
-  : is string, noun string?
-  : is string s, noun string? s
-  : is number my lucky number, noun number? my-lucky-number
+  : is string, verb string?
+  : is string s, verb string? s
+  : is number my lucky number, verb number? my-lucky-number
 
-  : is number number A, noun number? number-A
-  : is string string A, noun string? string-A
-  : is string my string A, noun string? my-string-A
+  : is number number A, verb number? number-A
+  : is string string A, verb string? string-A
+  : is string my string A, verb string? my-string-A
+
+  : transform string, verb string-transform
+  : transform string s, verb string-transform s
 
   : foo bar, unclassified foo bar

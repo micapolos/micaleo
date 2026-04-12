@@ -55,11 +55,11 @@ library
           when
             noun noun-id
             identifier? syntax noun-id
-            quasisyntax noun unsyntax identifier-append: syntax id, syntax noun-id, syntax ?
+            quasisyntax verb unsyntax identifier-append: syntax id, syntax noun-id, syntax ?
           when
             noun noun-id: xs, ...
             identifier? syntax noun-id
-            quasisyntax noun :
+            quasisyntax verb :
               unsyntax identifier-append: syntax id, syntax noun-id, syntax ?
               xs, ...
           when
@@ -78,14 +78,14 @@ library
               noun
               noun noun-id
             identifier? syntax noun-id
-            quasisyntax noun
+            quasisyntax verb
               unsyntax identifier-append: syntax id, syntax noun-id, syntax ->, syntax id
           when
             classified
               noun
               noun noun-id: xs, ...
             identifier? syntax noun-id
-            quasisyntax noun :
+            quasisyntax verb :
               unsyntax identifier-append: syntax id, syntax noun-id, syntax ->, syntax id
               xs, ...
           when
@@ -173,6 +173,21 @@ library
             identifier? syntax adverb-id
             quasisyntax verb :
               unsyntax identifier-append: syntax id, syntax id, syntax -, syntax adverb-id
+              xs, ...
+          when
+            classified
+              verb
+              noun noun-id
+            identifier? syntax noun-id
+            quasisyntax verb
+              unsyntax identifier-append: syntax id, syntax noun-id, syntax -, syntax id
+          when
+            classified
+              verb
+              noun noun-id: xs, ...
+            identifier? syntax noun-id
+            quasisyntax verb :
+              unsyntax identifier-append: syntax id, syntax noun-id, syntax -, syntax id
               xs, ...
           when
             classified: class, _ x
