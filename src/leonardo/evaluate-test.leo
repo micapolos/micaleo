@@ -3,6 +3,7 @@ import
   leonardo term
   leonardo evaluate
 
+comment extract detection of native application with given arity
 define
   test-apply: target, argument
   cond
@@ -12,6 +13,20 @@ define
         evaluated? argument
         native? evaluated-ref argument
       native number->string native-ref evaluated-ref argument
+    when
+      and
+        evaluated? target
+        application? evaluated-ref target
+        evaluated application-target evaluated-ref target
+        native? evaluated-ref application-target evaluated-ref target
+        eq?: string-append, native-ref evaluated-ref application-target evaluated-ref target
+        evaluated application-argument evaluated-ref target
+        native? evaluated-ref application-argument evaluated-ref target
+        evaluated? argument
+        native? evaluated-ref argument
+      native string-append
+        native-ref evaluated-ref application-argument evaluated-ref target
+        native-ref evaluated-ref argument
     else
       application: target, argument
 
@@ -43,3 +58,19 @@ check equal?
     native number->string
     native 123
   evaluated native "123"
+
+check equal?
+  test-evaluate application
+    native string-append
+    native "foo"
+  evaluated application
+    evaluated native string-append
+    evaluated native "foo"
+
+check equal?
+  test-evaluate application
+    application
+      native string-append
+      native "foo"
+    native "bar"
+  evaluated native "foobar"
