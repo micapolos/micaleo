@@ -6,6 +6,7 @@ define identifier->class make-identifier->class
   number noun
   string noun
   transform verb
+  increase verb
   my adjective
   lucky adjective
   now adverb
@@ -26,6 +27,7 @@ check-classes
   number noun
   string noun
   transform verb
+  increase verb
   my adjective
   lucky adjective
   now adverb
@@ -86,5 +88,7 @@ check-classify
 
   : transform string, verb string-transform
   : transform string s, verb string-transform s
+  : transform string my string, verb string-transform my-string
+  : increase number my lucky number, verb number-increase my-lucky-number
 
   : foo bar, unclassified foo bar
