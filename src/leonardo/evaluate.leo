@@ -4,6 +4,7 @@ library
     evaluated, evaluated?, evaluated-ref
     evaluate
     application-native-refs?
+    application-resolve
   import
     mica scheme
     leonardo term
@@ -38,9 +39,25 @@ library
     cons-application-native-refs?: application, null
 
   define
-    evaluate: apply, term
+    application-resolve: arity-of, application
     let
-      with evaluate partial: evaluate, apply
+      with native-refs? application-native-refs? application
+      if
+        not native-refs?
+        then application
+        else let
+          with
+            target car native-refs?
+            args cdr native-refs?
+          if
+            =: arity-of target, length args
+            then native apply: target, args
+            else application
+
+  define
+    evaluate: arity-of, term
+    let
+      with evaluate partial: evaluate, arity-of
       switch
         term
         when
@@ -64,14 +81,14 @@ library
         when
           application application?
           term-apply
-            apply
+            arity-of
             evaluate application-target application
             evaluate application-argument application
         else other
           assertion-violation `not term` other
 
   define
-    term-apply: apply, target, argument
+    term-apply: arity-of, target, argument
     switch
       target
       when
@@ -81,4 +98,6 @@ library
         abstraction-type abstraction-type?
         with: abstraction-type-procedure abstraction, argument
       else other
-        evaluated apply: other, argument
+        evaluated application-resolve
+          arity-of
+          application: other, argument
