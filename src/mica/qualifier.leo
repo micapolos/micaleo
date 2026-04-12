@@ -24,7 +24,7 @@ library
                     syntax-violation? raised
                     syntax-error
                       syntax id
-                      'undefined keyword
+                      'undefined
                 lookup?: syntax id, syntax qualifier?
         when
           qualifier? other
