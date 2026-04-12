@@ -15,3 +15,4 @@ test
   mica data
   mica data all
   mica typed all
+  leonardo all
