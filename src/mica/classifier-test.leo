@@ -2,80 +2,68 @@ import
   leo scheme
   mica classifier
 
-define test-classifier make-classifier
-  lambda
-    with identifier
-    or
-      free-identifier=?: identifier, syntax number
-      free-identifier=?: identifier, syntax string
-  lambda
-    with identifier
-    or
-      free-identifier=?: identifier, syntax append
-      free-identifier=?: identifier, syntax downcase
-  lambda
-    with identifier
-    or
-      free-identifier=?: identifier, syntax my
-      free-identifier=?: identifier, syntax lucky
-  lambda
-    with identifier
-    or
-      free-identifier=?: identifier, syntax quickly
-  lambda
-    with identifier
-    or
-      free-identifier=?: identifier, syntax A
-      free-identifier=?: identifier, syntax B
+define identifier->class make-identifier->class
+  number noun
+  string noun
+  append verb
+  my adjective
+  lucky adjective
+  quickly adverb
+  A label
+  B label
 
-comment adjective noun
-check free-syntax=?
-  classifier-transform: test-classifier, syntax my string
-  syntax my-string
+define-syntax rules when
+  check-classes: x class, ...
+  begin
+    check equal?
+      syntax->datum identifier->class syntax x
+      'class
+    ...
 
-comment adjective adjective
-check free-syntax=?
-  classifier-transform: test-classifier, syntax my lucky
-  syntax my-lucky
+check-classes
+  number noun
+  string noun
+  append verb
+  my adjective
+  lucky adjective
+  quickly adverb
+  A label
+  B label
+  foo unclassified
 
-comment adjective ...
-check free-syntax=?
-  classifier-transform: test-classifier, syntax my foo
-  syntax my foo
+define-syntax rules when
+  check-classify
+    : in, out
+    ...
+  begin
+    check equal?
+      syntax->datum classify: identifier->class, syntax in
+      'out
+    ...
 
-comment adjective adjective noun
-check free-syntax=?
-  classifier-transform: test-classifier, syntax my lucky string
-  syntax my-lucky-string
+check-classify
+  : number, noun number
+  : append, verb append
+  : my, adjective my
+  : quickly, adverb quickly
+  : A, label A
 
-comment verb noun
-check free-syntax=?
-  classifier-transform: test-classifier, syntax append string
-  syntax string-append
+  : number x, noun number x
+  : string x, noun string x
 
-comment verb noun: arg, ...
-check free-syntax=?
-  classifier-transform
-    test-classifier
-    syntax append string: "foo", "bar"
-  syntax string-append: "foo", "bar"
+  : my number, noun my-number
+  : my lucky, adjective my-lucky
+  : my lucky number, noun my-lucky-number
 
-comment noun label
-check free-syntax=?
-  classifier-transform: test-classifier, syntax string A
-  syntax string-A
+  : number A, noun number-A
+  : my number A, noun my-number-A
 
-comment noun arg
-check free-syntax=?
-  classifier-transform: test-classifier, syntax string x
-  syntax ensure: string?, x
+  : number from string, noun string->number
+  : number from string x, noun string->number x
 
-comment noun from noun
-check free-syntax=?
-  classifier-transform: test-classifier, syntax number from string
-  syntax string->number
+  : is string, noun string?
+  : is string x, noun string? x
 
-comment noun from noun: args, ...
-check free-syntax=?
-  classifier-transform: test-classifier, syntax number from string x
-  syntax string->number x
+  : is my string x, noun my-string? x
+
+  : foo bar, unclassified foo bar

@@ -1,250 +1,152 @@
 library
   mica classifier
   export
-    make-classifier
-    classifier-transform
+    is
+    noun, verb, adjective, adverb, label, unclassified
+    unclassified-identifier->class
+    identifier->class+
+    make-identifier->class
+    classify
   import leo scheme
 
-  define-record classifier with
-    noun?-procedure
-    verb?-procedure
-    adjective?-procedure
-    adverb?-procedure
-    label?-procedure
+  define-keywords: is, noun, verb, adjective, adverb, label, unclassified
+
+  define unclassified-identifier->class
+    lambda
+      with identifier
+      syntax unclassified
 
   define
-    classifier-noun?: classifier, identifier
-    with
-      classifier-noun?-procedure classifier
-      identifier
+    identifier->class+: identifier->class, new-identifier, class
+    lambda
+      with identifier
+      if
+        free-identifier=?: identifier, new-identifier
+        then class
+        else identifier->class identifier
+
+  define-syntax rules
+    when
+      make-identifier->class:
+      unclassified-identifier->class
+    when
+      make-identifier->class: xs, ..., identifier class
+      identifier->class+
+        make-identifier->class: xs, ...
+        syntax identifier
+        syntax class
 
   define
-    classifier-verb?: classifier, identifier
-    with
-      classifier-verb?-procedure classifier
-      identifier
-
-  define
-    classifier-adjective?: classifier, identifier
-    with
-      classifier-adjective?-procedure classifier
-      identifier
-
-  define
-    classifier-adverb?: classifier, identifier
-    with
-      classifier-adverb?-procedure classifier
-      identifier
-
-  define
-    classifier-label?: classifier, identifier
-    with
-      classifier-label?-procedure classifier
-      identifier
-
-  define
-    classifier+noun: classifier, noun
-    make-classifier
-      lambda
-        with identifier
-        or
-          free-identifier=?: identifier, noun
-          classifier-adjective?: classifier, noun
-      classifier-verb?-procedure classifier
-      classifier-adjective?-procedure classifier
-      classifier-adverb?-procedure classifier
-      classifier-label?-procedure classifier
-
-  define
-    classifier+verb: classifier, verb
-    make-classifier
-      classifier-noun?-procedure classifier
-      lambda
-        with identifier
-        or
-          free-identifier=?: identifier, verb
-          classifier-adjective?: classifier, verb
-      classifier-adjective?-procedure classifier
-      classifier-adverb?-procedure classifier
-      classifier-label?-procedure classifier
-
-  define
-    classifier+adverb: classifier, adverb
-    make-classifier
-      classifier-noun?-procedure classifier
-      classifier-verb?-procedure classifier
-      classifier-adjective?-procedure classifier
-      lambda
-        with identifier
-        or
-          free-identifier=?: identifier, adverb
-          classifier-adverb?: classifier, adverb
-      classifier-label?-procedure classifier
-
-  define
-    classifier+adjective: classifier, adjective
-    make-classifier
-      classifier-noun?-procedure classifier
-      classifier-verb?-procedure classifier
-      lambda
-        with identifier
-        or
-          free-identifier=?: identifier, adjective
-          classifier-adjective?: classifier, adjective
-      classifier-adverb?-procedure classifier
-      classifier-label?-procedure classifier
-
-  define
-    classifier-transform: classifier, stx
+    classify: identifier->class, stx
     syntax-case
       stx
-      keywords: from
+      keywords: is, from
       when
-        id1 id2
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-adjective?: classifier, syntax id1
-          classifier-adjective?: classifier, syntax id2
-        identifier-append: syntax id1, syntax id1, syntax -, syntax id2
+        id
+        identifier? syntax id
+        syntax-case
+          identifier->class syntax id
+          when: class, syntax class id
       when
-        id1 id2: xs, ...
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-adjective?: classifier, syntax id1
-          classifier-adjective?: classifier, syntax id2
-        let
-          with adjective identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-          classifier-transform
-            classifier+adjective: classifier, adjective
-            quasisyntax : unsyntax adjective, xs, ...
+        is x
+        syntax-case
+          classify: identifier->class, syntax x
+          keywords: noun, verb, adjective, adverb, label, unclassified
+          when
+            noun noun-id
+            identifier? syntax noun-id
+            quasisyntax noun unsyntax identifier-append: syntax id, syntax noun-id, syntax ?
+          when
+            noun noun-id: xs, ...
+            identifier? syntax noun-id
+            quasisyntax noun :
+              unsyntax identifier-append: syntax id, syntax noun-id, syntax ?
+              xs, ...
+          when
+            _ x
+            syntax unclassified is x
       when
-        id1 id2
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-adjective?: classifier, syntax id1
-          classifier-noun?: classifier, syntax id2
-        identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-      when
-        id1 id2: xs, ...
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-adjective?: classifier, syntax id1
-          classifier-noun?: classifier, syntax id2
-        let
-          with noun identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-          classifier-transform
-            classifier+noun: classifier, noun
-            quasisyntax : unsyntax noun, xs, ...
-      when
-        id1 id2
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-adverb?: classifier, syntax id1
-          classifier-adverb?: classifier, syntax id2
-        identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-      when
-        id1 id2: xs, ...
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-adverb?: classifier, syntax id1
-          classifier-adverb?: classifier, syntax id2
-        let
-          with adverb identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-          classifier-transform
-            classifier+adverb: classifier, adverb
-            quasisyntax : unsyntax adverb, xs, ...
-      when
-        id1 id2
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-adverb?: classifier, syntax id1
-          classifier-verb?: classifier, syntax id2
-        identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-      when
-        id1 id2: xs, ...
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-adverb?: classifier, syntax id1
-          classifier-verb?: classifier, syntax id2
-        let
-          with verb identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-          classifier-transform
-            classifier+verb: classifier, verb
-            quasisyntax : unsyntax verb, xs, ...
-      when
-        id1 id2
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-noun?: classifier, syntax id1
-          classifier-label?: classifier, syntax id2
-        identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-      when
-        id1 from id2
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-noun?: classifier, syntax id1
-          classifier-noun?: classifier, syntax id2
-        identifier-append: syntax id1, syntax id2, syntax ->, syntax id1
-      when
-        id1 from id2: xs, ...
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-noun?: classifier, syntax id1
-          classifier-noun?: classifier, syntax id2
-        let
-          with noun identifier-append: syntax id1, syntax id2, syntax ->, syntax id1
-          quasisyntax : unsyntax noun, xs, ...
-      when
-        id1 id2: xs, ...
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-noun?: classifier, syntax id1
-          classifier-label?: classifier, syntax id2
-        let
-          with noun identifier-append: syntax id1, syntax id1, syntax -, syntax id2
-          classifier-transform
-            classifier+noun: classifier, noun
-            quasisyntax : unsyntax noun, xs, ...
+        id from x
+        identifier? syntax id
+        syntax-case
+          quasisyntax classified
+            unsyntax identifier->class syntax id
+            unsyntax classify: identifier->class, syntax x
+          keywords: noun, verb, adjective, adverb, label, unclassified
+          when
+            classified
+              noun
+              noun noun-id
+            identifier? syntax noun-id
+            quasisyntax noun
+              unsyntax identifier-append: syntax id, syntax noun-id, syntax ->, syntax id
+          when
+            classified
+              noun
+              noun noun-id: xs, ...
+            identifier? syntax noun-id
+            quasisyntax noun :
+              unsyntax identifier-append: syntax id, syntax noun-id, syntax ->, syntax id
+              xs, ...
+          when
+            classified: class, _ x
+            syntax class id from x
       when
         id x
-        and
-          identifier? syntax id
-          classifier-noun?: classifier, syntax id
-        let
-          with predicate identifier-append: syntax id, syntax id, syntax ?
-          quasisyntax ensure: unsyntax predicate, x
-      when
-        id1 id2
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-verb?: classifier, syntax id1
-          classifier-noun?: classifier, syntax id2
-        identifier-append: syntax id1, syntax id2, syntax -, syntax id1
-      when
-        id1 id2: xs, ...
-        and
-          identifier? syntax id1
-          identifier? syntax id2
-          classifier-verb?: classifier, syntax id1
-          classifier-noun?: classifier, syntax id2
-        let
-          with verb identifier-append: syntax id1, syntax id2, syntax -, syntax id1
-          classifier-transform
-            classifier+verb: classifier, verb
-            quasisyntax : unsyntax verb, xs, ...
+        identifier? syntax id
+        syntax-case
+          quasisyntax classified
+            unsyntax identifier->class syntax id
+            unsyntax classify: identifier->class, syntax x
+          keywords: noun, verb, adjective, adverb, label, unclassified
+          when
+            classified
+              adjective
+              adjective adjective-id
+            identifier? syntax adjective-id
+            quasisyntax adjective
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax adjective-id
+          when
+            classified
+              adjective
+              adjective adjective-id: xs, ...
+            identifier? syntax adjective-id
+            quasisyntax adjective :
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax adjective-id
+              xs, ...
+          when
+            classified
+              adjective
+              noun noun-id
+            identifier? syntax noun-id
+            quasisyntax noun
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax noun-id
+          when
+            classified
+              adjective
+              noun noun-id: xs, ...
+            identifier? syntax noun-id
+            quasisyntax noun :
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax noun-id
+              xs, ...
+          when
+            classified
+              noun
+              label label-id
+            identifier? syntax x-id
+            quasisyntax noun
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax label-id
+          when
+            classified
+              noun
+              label label-id: xs, ...
+            identifier? syntax x-id
+            quasisyntax noun :
+              unsyntax identifier-append: syntax id, syntax id, syntax -, syntax label-id
+              xs, ...
+          when
+            classified: class, _ x
+            syntax class id x
       when
         other
-        syntax other
+        syntax unclassified other
