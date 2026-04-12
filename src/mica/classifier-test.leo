@@ -59,11 +59,13 @@ check-classify
   : my number A, noun my-number-A
 
   : number from string, noun string->number
-  : number from string x, noun string->number x
+  : number from string s, noun string->number s
 
   : is string, noun string?
-  : is string x, noun string? x
-  : is my string x, noun my-string? x
-  : is my lucky number x, noun my-lucky-number? x
+  : is string s, noun string? s
+  : is my string s, noun my-string? s
+  : is my lucky number n, noun my-lucky-number? n
+  : is string my string, noun string? my-string
+  : is number my lucky number, noun number? my-lucky-number
 
   : foo bar, unclassified foo bar
