@@ -4,7 +4,7 @@ library
     native, native?, native-ref
     native-type, native-type?, native-type-ref
     abstraction, abstraction?, abstraction-procedure
-    abstraction-type, abstraction-type?, abstraction-type-param, abstraction-type-procedure
+    abstraction-type, abstraction-type?, abstraction-type-parameter, abstraction-type-procedure
     application, application?, application-target, application-argument
   import mica scheme
 
@@ -12,7 +12,7 @@ library
     native ref
     native-type ref
     abstraction procedure
-    abstraction-type: param, procedure
+    abstraction-type: parameter, procedure
     application: target, argument
 
   define-union term
