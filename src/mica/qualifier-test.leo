@@ -2,9 +2,9 @@ import
   leo scheme
   mica qualifier
 
-define-keywords: my, lucky
-define-qualifiers: my, lucky
+define-qualifier my
+define-qualifier? string
 
-check equal?: qualifier? +, false
 check equal?: qualifier? my, true
-check equal?: qualifier? lucky, true
+check equal?: qualifier? string, true
+check equal?: qualifier? append, false

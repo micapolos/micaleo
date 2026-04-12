@@ -2,6 +2,7 @@ library
   mica qualifier
   export
     qualifier?
+    define-qualifier?
     define-qualifier
     define-qualifiers
   import leo scheme
@@ -14,28 +15,20 @@ library
         stx
         when
           qualifier? id
-          keyword? id
+          identifier? syntax id
           datum->syntax
-            syntax qualifier?
-            not-false?
-              guard
-                raised
-                  when
-                    syntax-violation? raised
-                    syntax-error
-                      syntax id
-                      'undefined
-                lookup?: syntax id, syntax qualifier?
-        when
-          qualifier? other
-          syntax-error
-            syntax other
-            'expected keyword
+            syntax id
+            not-false? lookup?: syntax id, syntax qualifier?
 
-  define-syntax rules when
-    define-qualifier id
-    define-property id qualifier? #t
-
-  define-syntax rules when
-    define-qualifiers: id, ...
-    begin: define-qualifier id, ...
+  define-syntax rules
+    when
+      define-qualifier? id
+      define-property id qualifier? #t
+    when
+      define-qualifier id
+      begin
+        define-keyword id
+        define-qualifier? id
+    when
+      define-qualifiers: id, ...
+      begin: define-qualifier id, ...
