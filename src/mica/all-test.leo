@@ -9,8 +9,7 @@ test
   mica pointer
   mica ftype
   mica mem
-  mica qualifier
-  mica qualified
+  mica classifier
   mica mem all
   mica editor all
   mica data
