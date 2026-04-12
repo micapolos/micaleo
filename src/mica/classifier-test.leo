@@ -63,7 +63,7 @@ check-classify
 
   : is string, noun string?
   : is string x, noun string? x
-
   : is my string x, noun my-string? x
+  : is my lucky number x, noun my-lucky-number? x
 
   : foo bar, unclassified foo bar
