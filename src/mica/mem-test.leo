@@ -48,7 +48,7 @@ let
   check fx=: mem-used, 16
   check fx=: mem-available, 0
 
-mem-free 2
+mem-free 14
 check fx=: mem-size, 16
 check fx=: mem-used, 2
 check fx=: mem-available, 14

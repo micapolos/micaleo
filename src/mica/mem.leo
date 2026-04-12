@@ -47,8 +47,8 @@ library
         set! mem-top fx+/wraparound: mem-top, size
         addr
     when
-      mem-free addr
-      set! mem-top addr
+      mem-free size
+      set! mem-top fx-/wraparound: mem-top, size
     when
       mem-u8-set!: addr, u8
       bytevector-u8-set!: mem, addr, u8
