@@ -1,6 +1,8 @@
 library
   leonardo evaluate
-  export evaluate
+  export
+    evaluated, evaluated?, evaluated-ref
+    evaluate
   import
     mica scheme
     leonardo term
@@ -35,7 +37,7 @@ library
           evaluate application-target application
           evaluate application-argument application
       else other
-        error: 'evaluate, "not term", other
+        assertion-violation `not term` other
 
 
 
