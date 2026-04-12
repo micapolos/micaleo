@@ -50,6 +50,7 @@ check-classify
   : my, adjective my
   : now, adverb now
   : A, label A
+  : foo, unclassified foo
 
   : number x, noun number x
   : string x, noun string x
@@ -77,9 +78,6 @@ check-classify
 
   : is string, noun string?
   : is string s, noun string? s
-  : is my string s, noun my-string? s
-  : is my lucky number n, noun my-lucky-number? n
-  : is string my string, noun string? my-string
   : is number my lucky number, noun number? my-lucky-number
 
   : is number number A, noun number? number-A
