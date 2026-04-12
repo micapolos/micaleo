@@ -5,7 +5,7 @@ import
 define identifier->class make-identifier->class
   number noun
   string noun
-  append verb
+  transform verb
   my adjective
   lucky adjective
   now adverb
@@ -25,7 +25,7 @@ define-syntax rules when
 check-classes
   number noun
   string noun
-  append verb
+  transform verb
   my adjective
   lucky adjective
   now adverb
@@ -46,7 +46,7 @@ define-syntax rules when
 
 check-classify
   : number, noun number
-  : append, verb append
+  : transform, verb transform
   : my, adjective my
   : now, adverb now
   : A, label A
@@ -57,6 +57,7 @@ check-classify
   : my number, noun my-number
   : my lucky, adjective my-lucky
   : my lucky number, noun my-lucky-number
+  : my lucky number n, noun my-lucky-number n
 
   : number A, noun number-A
   : my number A, noun my-number-A
@@ -65,9 +66,14 @@ check-classify
   : number from string s, noun string->number s
 
   : slowly later, adverb slowly-later
+  : slowly foo, adverb slowly foo
 
-  : append now, verb append-now
-  : append slowly later, verb append-slowly-later
+  : transform now, verb transform-now
+  : transform slowly later, verb transform-slowly-later
+
+  : transform x, verb transform x
+  : transform slowly x, verb transform-slowly x
+  : transform slowly my string s, verb transform-slowly my-string s
 
   : is string, noun string?
   : is string s, noun string? s
