@@ -12,7 +12,7 @@ library
   define-data evaluated ref
 
   define
-    cons-application-native-refs?: application, native-refs
+    append-application-native-refs?: application, native-refs
     and
       evaluated? application-argument application
       native? evaluated-ref application-argument application
@@ -29,14 +29,14 @@ library
               native-refs
           when
             application? evaluated-ref application-target application
-            cons-application-native-refs?
+            append-application-native-refs?
               evaluated-ref application-target application
               native-refs
           else #f
 
   define
     application-native-refs? application
-    cons-application-native-refs?: application, null
+    append-application-native-refs?: application, null
 
   define
     application-resolve: arity-of, application
