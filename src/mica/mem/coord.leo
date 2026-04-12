@@ -1,5 +1,5 @@
 library
-  mica coord
+  mica mem coord
   export
     coord-size
     coord-x-offset
