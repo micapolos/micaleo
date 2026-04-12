@@ -67,5 +67,6 @@ check-classify
   : is my lucky number n, noun my-lucky-number? n
   : is string my string, noun string? my-string
   : is number my lucky number, noun number? my-lucky-number
+  : is string string A, noun string? string-A
 
   : foo bar, unclassified foo bar
