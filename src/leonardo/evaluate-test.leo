@@ -47,6 +47,20 @@ check equal?
 
 check equal?
   term->datum test-evaluate make-application
+    make-application
+      make-abstraction lambda
+        with argument-a
+        make-abstraction lambda
+          with argument-b
+          make-application: argument-a, argument-b
+      make-native "foo"
+    make-native "bar"
+  'evaluated native resolved application
+    evaluated native "foo"
+    evaluated native "bar"
+
+check equal?
+  term->datum test-evaluate make-application
     make-abstraction-type
       make-native "foo"
       lambda: with argument, argument
