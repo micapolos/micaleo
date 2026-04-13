@@ -7,6 +7,8 @@ library
     make-application, application?, application-target, application-argument
     make-evaluated, evaluated?, evaluated-ref
     make-variable, variable?, variable-depth
+    make-annotated, annotated?, annotated-annotation, annotated-ref
+    term-unpeel
   import mica scheme
 
   define-data*
@@ -16,3 +18,17 @@ library
     application: target, argument
     evaluated ref
     variable depth
+    annotated: annotation, ref
+
+  define
+    term-unpeel term
+    switch
+      term
+      when
+        annotated annotated?
+        term-unpeel annotated-ref annotated
+      when
+        evaluated evaluated?
+        term-unpeel evaluated-ref evaluated
+      else other
+        other

@@ -41,6 +41,11 @@ library
       when
         evaluated evaluated?
         `evaluated` depth-term->datum: depth, evaluated-ref evaluated
+      when
+        annotated annotated?
+        `annotated`
+          depth-term->datum: depth, annotated-annotation annotated
+          depth-term->datum: depth, annotated-ref annotated
       else other
         assertion-violation `not term` other
 

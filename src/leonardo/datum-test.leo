@@ -42,3 +42,11 @@ check equal?
 check equal?
   term->datum make-evaluated make-native 10
   'evaluated native 10
+
+check equal?
+  term->datum make-annotated
+    make-native "annotation"
+    make-native "term"
+  'annotated
+    native "annotation"
+    native "term"

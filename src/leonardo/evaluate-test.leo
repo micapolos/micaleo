@@ -102,3 +102,11 @@ check equal?
       evaluated native resolved application
         evaluated native fn
         evaluated variable 0
+
+check equal?
+  term->datum test-evaluate make-annotated
+    make-native "annotation"
+    make-native "term"
+  'evaluated annotated
+    evaluated native "annotation"
+    evaluated native "term"

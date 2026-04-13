@@ -37,6 +37,11 @@ library
             application-resolve
             evaluate: application-resolve, application-target application
             evaluate: application-resolve, application-argument application
+      when
+        annotated annotated?
+        make-evaluated make-annotated
+          evaluate: application-resolve, annotated-annotation annotated
+          evaluate: application-resolve, annotated-ref annotated
       else other
         assertion-violation `not term` other
 
