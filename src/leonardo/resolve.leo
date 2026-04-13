@@ -9,26 +9,22 @@ library
 
   define
     append-application-native-refs?: application, native-refs
-    and
-      evaluated? application-argument application
-      native? evaluated-ref application-argument application
-      evaluated? application-target application
-      let
-        with native-refs cons
-          native-ref evaluated-ref application-argument application
-          native-refs
-        cond
-          when
-            native? evaluated-ref application-target application
-            cons
-              native-ref evaluated-ref application-target application
-              native-refs
-          when
-            application? evaluated-ref application-target application
-            append-application-native-refs?
-              evaluated-ref application-target application
-              native-refs
-          else #f
+    switch
+      term-unpeel application-argument application
+      when
+        argument-native native?
+        let
+          with native-refs cons: native-ref argument-native, native-refs
+          switch
+            term-unpeel application-target application
+            when
+              target-native native?
+              cons: native-ref target-native, native-refs
+            when
+              target-application application?
+              append-application-native-refs?: target-application, native-refs
+            else _ #f
+      else _ #f
 
   define
     application-native-refs? application

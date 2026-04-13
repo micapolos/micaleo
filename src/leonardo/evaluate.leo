@@ -56,18 +56,12 @@ library
   define
     term-apply: application-resolve, target, argument
     switch
-      target
+      term-unpeel target
       when
-        evaluated evaluated?
-        switch
-          evaluated-ref evaluated
-          when
-            abstraction abstraction?
-            with: abstraction-procedure abstraction, argument
-          when
-            abstraction-type abstraction-type?
-            with: abstraction-type-procedure abstraction-type, argument
-          else _
-            application-resolve make-application: target, argument
+        abstraction abstraction?
+        with: abstraction-procedure abstraction, argument
+      when
+        abstraction-type abstraction-type?
+        with: abstraction-type-procedure abstraction-type, argument
       else _
         application-resolve make-application: target, argument
