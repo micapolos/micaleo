@@ -1,11 +1,11 @@
 library
   leonardo term
   export
-    native, native?, native-ref
-    abstraction, abstraction?, abstraction-procedure
-    abstraction-type, abstraction-type?, abstraction-type-parameter, abstraction-type-procedure
-    application, application?, application-target, application-argument
-    evaluated, evaluated?, evaluated-ref
+    rename native make-native, native?, native-ref
+    rename abstraction make-abstraction, abstraction?, abstraction-procedure
+    rename abstraction-type make-abstraction-type, abstraction-type?, abstraction-type-parameter, abstraction-type-procedure
+    rename application make-application, application?, application-target, application-argument
+    rename evaluated make-evaluated, evaluated?, evaluated-ref
   import mica scheme
 
   define-data*

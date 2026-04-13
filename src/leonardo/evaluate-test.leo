@@ -3,99 +3,55 @@ import
   leonardo term
   leonardo evaluate
 
+define identity lambda: with argument, argument
+
 define
-  arity-of x
-  cond
-    when
-      equal?: x, number->string
-      1
-    when
-      equal?: x, string-append
-      2
-    else 0
+  test-application-resolve application
+  make-native application
 
-begin
-  comment application-native-refs?
+define
+  test-evaluate term
+  evaluate: test-application-resolve, term
 
-  check equal?
-    application-native-refs? application
-      evaluated native zero?
-      evaluated native 123
-    list: zero?, 123
+check raises
+  test-evaluate "not term"
 
-  check equal?
-    application-native-refs? application
-      evaluated application
-        evaluated native string-append
-        evaluated native "foo"
-      evaluated native "bar"
-    list: string-append, "foo", "bar"
+check equal?
+  test-evaluate make-evaluated "foo"
+  make-evaluated "foo"
 
-begin
-  comment application-resolve
+check equal?
+  test-evaluate make-native "foo"
+  make-evaluated make-native "foo"
 
-  define
-    test-application-resolve application
-    application-resolve: arity-of, application
+check equal?
+  test-evaluate make-abstraction identity
+  make-evaluated make-abstraction identity
 
-  check equal?
-    test-application-resolve application
-      evaluated native number->string
-      evaluated native 123
-    native "123"
+check equal?
+  test-evaluate make-abstraction-type
+    make-native "foo"
+    identity
+  make-evaluated make-abstraction-type
+    make-evaluated make-native "foo"
+    identity
 
-  check equal?
-    test-application-resolve application
-      evaluated application
-        evaluated native string-append
-        evaluated native "foo"
-      evaluated native "bar"
-    native "foobar"
+check equal?
+  test-evaluate make-application
+    make-abstraction identity
+    make-native "foo"
+  make-evaluated make-native "foo"
 
-begin
-  comment evaluate
+check equal?
+  test-evaluate make-application
+    make-abstraction-type: make-native "foo", identity
+    make-native "foo"
+  make-evaluated make-native "foo"
 
-  define
-    test-evaluate term
-    evaluate: arity-of, term
-
-  check raises
-    test-evaluate "not term"
-
-  check equal?
-    test-evaluate evaluated "foo"
-    evaluated "foo"
-
-  check equal?
-    test-evaluate native "foo"
-    evaluated native "foo"
-
-  check equal?
-    test-evaluate application
-      native zero?
-      native 123
-    evaluated application
-      evaluated native zero?
-      evaluated native 123
-
-  check equal?
-    test-evaluate application
-      native number->string
-      native 123
-    evaluated native "123"
-
-  check equal?
-    test-evaluate application
-      native string-append
-      native "foo"
-    evaluated application
-      evaluated native string-append
-      evaluated native "foo"
-
-  check equal?
-    test-evaluate application
-      application
-        native string-append
-        native "foo"
-      native "bar"
-    evaluated native "foobar"
+check equal?
+  test-evaluate make-application
+    make-native zero?
+    make-native 123
+  make-evaluated make-native make-application
+    make-evaluated make-native zero?
+    make-evaluated make-native 123

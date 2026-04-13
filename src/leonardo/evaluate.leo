@@ -2,59 +2,14 @@ library
   leonardo evaluate
   export
     evaluate
-    application-native-refs?
-    application-resolve
   import
     mica scheme
     leonardo term
 
   define
-    append-application-native-refs?: application, native-refs
-    and
-      evaluated? application-argument application
-      native? evaluated-ref application-argument application
-      evaluated? application-target application
-      let
-        with native-refs cons
-          native-ref evaluated-ref application-argument application
-          native-refs
-        cond
-          when
-            native? evaluated-ref application-target application
-            cons
-              native-ref evaluated-ref application-target application
-              native-refs
-          when
-            application? evaluated-ref application-target application
-            append-application-native-refs?
-              evaluated-ref application-target application
-              native-refs
-          else #f
-
-  define
-    application-native-refs? application
-    append-application-native-refs?: application, null
-
-  define
-    application-resolve: arity-of, application
+    evaluate: application-resolve, term
     let
-      with native-refs? application-native-refs? application
-      if
-        not native-refs?
-        then application
-        else let
-          with
-            target car native-refs?
-            args cdr native-refs?
-          if
-            =: arity-of target, length args
-            then native apply: target, args
-            else application
-
-  define
-    evaluate: arity-of, term
-    let
-      with evaluate partial: evaluate, arity-of
+      with evaluate partial: evaluate, application-resolve
       switch
         term
         when
@@ -62,39 +17,39 @@ library
           evaluated
         when
           native native?
-          evaluated native
+          make-evaluated native
         when
           abstraction abstraction?
-          evaluated abstraction lambda
-            with argument
-            evaluate argument
+          make-evaluated abstraction
         when
           abstraction-type abstraction-type?
-          evaluated abstraction-type
-            evaluate abstraction-type-parameter
-            lambda
-              with argument
-              evaluate argument
+          make-evaluated make-abstraction-type
+            evaluate abstraction-type-parameter abstraction-type
+            abstraction-type-procedure abstraction-type
         when
           application application?
-          term-apply
-            arity-of
+          evaluate term-apply
+            application-resolve
             evaluate application-target application
             evaluate application-argument application
         else other
           assertion-violation `not term` other
 
   define
-    term-apply: arity-of, target, argument
+    term-apply: application-resolve, target, argument
     switch
       target
       when
-        abstraction abstraction?
-        with: abstraction-procedure abstraction, argument
-      when
-        abstraction-type abstraction-type?
-        with: abstraction-type-procedure abstraction, argument
-      else other
-        evaluated application-resolve
-          arity-of
-          application: other, argument
+        evaluated evaluated?
+        switch
+          evaluated-ref evaluated
+          when
+            abstraction abstraction?
+            with: abstraction-procedure abstraction, argument
+          when
+            abstraction-type abstraction-type?
+            with: abstraction-type-procedure abstraction-type, argument
+          else _
+            application-resolve make-application: target, argument
+      else _
+        application-resolve make-application: target, argument
