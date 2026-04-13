@@ -8,32 +8,45 @@ library
 
   define
     evaluate: application-resolve, term
-    let
-      with evaluate partial: evaluate, application-resolve
-      switch
-        term
-        when
-          evaluated evaluated?
-          evaluated
-        when
-          native native?
-          make-evaluated native
-        when
-          abstraction abstraction?
-          make-evaluated abstraction
-        when
-          abstraction-type abstraction-type?
-          make-evaluated make-abstraction-type
-            evaluate abstraction-type-parameter abstraction-type
-            abstraction-type-procedure abstraction-type
-        when
-          application application?
-          evaluate term-apply
+    switch
+      term
+      when
+        evaluated evaluated?
+        evaluated
+      when
+        native native?
+        make-evaluated native
+      when
+        variable variable?
+        make-evaluated variable
+      when
+        abstraction abstraction?
+        make-evaluated make-abstraction evaluate-procedure
+          application-resolve
+          abstraction-procedure abstraction
+      when
+        abstraction-type abstraction-type?
+        make-evaluated make-abstraction-type
+          evaluate: application-resolve, abstraction-type-parameter abstraction-type
+          evaluate-procedure: application-resolve, abstraction-type-procedure abstraction-type
+      when
+        application application?
+        evaluate
+          application-resolve
+          term-apply
             application-resolve
-            evaluate application-target application
-            evaluate application-argument application
-        else other
-          assertion-violation `not term` other
+            evaluate: application-resolve, application-target application
+            evaluate: application-resolve, application-argument application
+      else other
+        assertion-violation `not term` other
+
+  define
+    evaluate-procedure: application-resolve, procedure
+    lambda
+      with argument
+      evaluate
+        application-resolve
+        with: procedure, argument
 
   define
     term-apply: application-resolve, target, argument

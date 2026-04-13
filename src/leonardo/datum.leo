@@ -41,5 +41,7 @@ library
       when
         evaluated evaluated?
         `evaluated` depth-term->datum: depth, evaluated-ref evaluated
+      else other
+        assertion-violation `not term` other
 
   define term->datum partial: depth-term->datum, 0
