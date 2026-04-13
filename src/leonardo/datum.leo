@@ -38,9 +38,6 @@ library
           depth-term->datum: depth, application-target application
           depth-term->datum: depth, application-argument application
       when
-        evaluated evaluated?
-        `evaluated` depth-term->datum: depth, evaluated-ref evaluated
-      when
         annotated annotated?
         `annotated`
           depth-term->datum: depth, annotated-annotation annotated

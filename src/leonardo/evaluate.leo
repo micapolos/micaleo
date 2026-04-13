@@ -1,31 +1,31 @@
 library
   leonardo evaluate
-  export
-    evaluate
+  export evaluate
   import
     mica scheme
     leonardo term
+    leonardo evaluated
 
   define
     evaluate: resolve, term
     switch term
       when
-        evaluated evaluated?
+        evaluated term-evaluated?
         evaluated
       when
         native native?
-        make-evaluated native
+        make-evaluated-term native
       when
         variable variable?
-        make-evaluated variable
+        make-evaluated-term variable
       when
         abstraction abstraction?
-        make-evaluated make-abstraction evaluate-procedure
+        make-evaluated-term make-abstraction evaluate-procedure
           resolve
           abstraction-procedure abstraction
       when
         abstraction-type abstraction-type?
-        make-evaluated make-abstraction-type
+        make-evaluated-term make-abstraction-type
           evaluate: resolve, abstraction-type-parameter abstraction-type
           evaluate-procedure: resolve, abstraction-type-procedure abstraction-type
       when
@@ -38,7 +38,7 @@ library
             evaluate: resolve, application-argument application
       when
         annotated annotated?
-        make-evaluated make-annotated
+        make-evaluated-term make-annotated
           evaluate: resolve, annotated-annotation annotated
           evaluate: resolve, annotated-ref annotated
       else other

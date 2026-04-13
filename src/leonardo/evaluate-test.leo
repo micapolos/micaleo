@@ -1,52 +1,87 @@
 import
   leo scheme
   leonardo term
+  leonardo evaluated
   leonardo evaluate
   leonardo datum
 
 define
   test-resolve application
-  make-native `resolved` term->datum application
+  make-native `resolved` application
 
 define
   test-evaluate term
   evaluate: test-resolve, term
 
+define-syntax rules when
+  check-evaluates: in, out
+  check equal?
+    term->datum test-evaluate in
+    term->datum out
+
 check raises
   test-evaluate "not term"
 
-check equal?
-  term->datum test-evaluate make-evaluated make-native "foo"
-  'evaluated native "foo"
+check-evaluates
+  make-evaluated-term make-native "foo"
+  make-annotated
+    make-native evaluated
+    make-native "foo"
 
-check equal?
-  term->datum test-evaluate make-native "foo"
-  'evaluated native "foo"
+check-evaluates
+  make-native "foo"
+  make-evaluated-term make-native "foo"
 
-check equal?
-  term->datum test-evaluate make-native zero?
-  `evaluated native` zero?
+check-evaluates
+  make-native zero?
+  make-evaluated-term make-native zero?
 
-check equal?
-  term->datum test-evaluate make-abstraction lambda: with argument, argument
-  'evaluated abstraction lambda: with variable 0, evaluated variable 0
+check-evaluates
+  make-abstraction lambda: with argument, argument
+  make-evaluated-term make-abstraction lambda
+    with argument
+    make-evaluated-term argument
 
-check equal?
-  term->datum test-evaluate make-abstraction-type
+check-evaluates
+  make-abstraction-type
     make-native "foo"
     lambda: with argument, argument
-  'evaluated abstraction-type
-    evaluated native "foo"
-    lambda: with variable 0, evaluated variable 0
+  make-evaluated-term make-abstraction-type
+    make-evaluated-term make-native "foo"
+    lambda: with argument, make-evaluated-term argument
 
-check equal?
-  term->datum test-evaluate make-application
+check-evaluates
+  make-application
     make-abstraction lambda: with argument, argument
     make-native "foo"
-  'evaluated native "foo"
+  make-evaluated-term make-native "foo"
 
-check equal?
-  term->datum test-evaluate make-application
+check-evaluates
+  make-application
+    make-abstraction-type
+      make-native "foo"
+      lambda: with argument, argument
+    make-native "foo"
+  make-evaluated-term make-native "foo"
+
+check-evaluates
+  make-annotated
+    make-native "annotation"
+    make-native "term"
+  make-evaluated-term make-annotated
+    make-evaluated-term make-native "annotation"
+    make-evaluated-term make-native "term"
+
+check-evaluates
+  make-application
+    make-native 10
+    make-native 20
+  make-evaluated-term make-native `resolved` make-application
+    make-evaluated-term make-native 10
+    make-evaluated-term make-native 20
+
+check-evaluates
+  make-application
     make-application
       make-abstraction lambda
         with argument-a
@@ -55,58 +90,34 @@ check equal?
           make-application: argument-a, argument-b
       make-native "foo"
     make-native "bar"
-  'evaluated native resolved application
-    evaluated native "foo"
-    evaluated native "bar"
+  make-evaluated-term make-native `resolved` make-application
+    make-evaluated-term make-native "foo"
+    make-evaluated-term make-native "bar"
 
-check equal?
-  term->datum test-evaluate make-application
-    make-abstraction-type
-      make-native "foo"
-      lambda: with argument, argument
-    make-native "foo"
-  'evaluated native "foo"
-
-check equal?
-  term->datum test-evaluate make-application
-    make-native 'fn
-    make-native 'arg
-  'evaluated native resolved application
-    evaluated native fn
-    evaluated native arg
-
-check equal?
-  term->datum test-evaluate make-abstraction lambda
+check-evaluates
+  make-abstraction lambda
     with argument
     make-application
       make-native 'fn
       argument
-  'evaluated abstraction lambda
-    with variable 0
-    evaluated native resolved application
-      evaluated native fn
-      evaluated variable 0
+  make-evaluated-term make-abstraction lambda
+    with argument
+    make-evaluated-term make-native `resolved` make-application
+      make-evaluated-term make-native 'fn
+      make-evaluated-term argument
 
-check equal?
-  term->datum test-evaluate make-abstraction-type
+check-evaluates
+  make-abstraction-type
     make-native 'string
     lambda
       with argument
       make-application
         make-native 'fn
         argument
-  'evaluated abstraction-type
-    evaluated native string
+  make-evaluated-term make-abstraction-type
+    make-evaluated-term make-native 'string
     lambda
-      with variable 0
-      evaluated native resolved application
-        evaluated native fn
-        evaluated variable 0
-
-check equal?
-  term->datum test-evaluate make-annotated
-    make-native "annotation"
-    make-native "term"
-  'evaluated annotated
-    evaluated native "annotation"
-    evaluated native "term"
+      with argument
+      make-evaluated-term make-native `resolved` make-application
+        make-evaluated-term make-native 'fn
+        make-evaluated-term argument

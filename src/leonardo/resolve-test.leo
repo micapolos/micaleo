@@ -5,16 +5,28 @@ import
 
 check equal?
   application-native-refs? make-application
-    make-evaluated make-native zero?
-    make-evaluated make-native 123
+    make-annotated
+      make-native "annotation"
+      make-native zero?
+    make-annotated
+      make-native "annotation"
+      make-native 123
   list: zero?, 123
 
 check equal?
   application-native-refs? make-application
-    make-evaluated make-application
-      make-evaluated make-native string-append
-      make-evaluated make-native "foo"
-    make-evaluated make-native "bar"
+    make-annotated
+      make-native "annotation"
+      make-application
+        make-annotated
+          make-native "annotation"
+          make-native string-append
+        make-annotated
+          make-native "annotation"
+          make-native "foo"
+    make-annotated
+      make-native "annotation"
+      make-native "bar"
   list: string-append, "foo", "bar"
 
 define
@@ -35,33 +47,61 @@ define
 comment resolved single argument application
 check equal?
   test-application-resolve make-application
-    make-evaluated make-native number->string
-    make-evaluated make-native 123
+    make-annotated
+      make-native "annotation"
+      make-native number->string
+    make-annotated
+      make-native "annotation"
+      make-native 123
   make-native "123"
 
 comment unresolved single argument application
 check equal?
   test-application-resolve make-application
-    make-evaluated make-native number->string
-    make-evaluated make-variable 0
+    make-annotated
+      make-native "annotation"
+      make-native number->string
+    make-annotated
+      make-native "annotation"
+      make-variable 0
   make-application
-    make-evaluated make-native number->string
-    make-evaluated make-variable 0
+    make-annotated
+      make-native "annotation"
+      make-native number->string
+    make-annotated
+      make-native "annotation"
+      make-variable 0
 
 comment partially resolved two argument application
 check equal?
   test-application-resolve make-application
-    make-evaluated make-native string-append
-    make-evaluated make-native "foo"
+    make-annotated
+      make-native "annotation"
+      make-native string-append
+    make-annotated
+      make-native "annotation"
+      make-native "foo"
   make-application
-    make-evaluated make-native string-append
-    make-evaluated make-native "foo"
+    make-annotated
+      make-native "annotation"
+      make-native string-append
+    make-annotated
+      make-native "annotation"
+      make-native "foo"
 
 comment resolved two argument application
 check equal?
   test-application-resolve make-application
-    make-evaluated make-application
-      make-evaluated make-native string-append
-      make-evaluated make-native "foo"
-    make-evaluated make-native "bar"
+    make-annotated
+      make-native "annotation"
+      make-application
+        make-annotated
+          make-native "annotation"
+          make-native string-append
+        make-annotated
+          make-native "annotation"
+          make-native "foo"
+    make-annotated
+      make-native "annotation"
+      make-native "bar"
   make-native "foobar"

@@ -13,19 +13,21 @@ check equal?
   make-native "foo"
 
 check equal?
-  term-unpeel make-evaluated make-native "foo"
-  make-native "foo"
-
-check equal?
-  term-unpeel make-evaluated make-annotated
+  term-unpeel make-annotated
     make-native "annotation"
-    make-evaluated make-native "foo"
+    make-annotated
+      make-native "annotation"
+      make-native "foo"
   make-native "foo"
 
 check equal?
   term-unpeel make-application
     make-native "foo"
-    make-evaluated make-native "bar"
+    make-annotated
+      make-native "annotation"
+      make-native "bar"
   make-application
     make-native "foo"
-    make-evaluated make-native "bar"
+    make-annotated
+      make-native "annotation"
+      make-native "bar"
