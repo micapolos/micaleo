@@ -32,12 +32,32 @@ define
   test-application-resolve application
   application-resolve: arity-of, application
 
+comment resolved single argument application
 check equal?
   test-application-resolve make-application
     make-evaluated make-native number->string
     make-evaluated make-native 123
   make-native "123"
 
+comment unresolved single argument application
+check equal?
+  test-application-resolve make-application
+    make-evaluated make-native number->string
+    make-evaluated make-variable 0
+  make-application
+    make-evaluated make-native number->string
+    make-evaluated make-variable 0
+
+comment resolved two argument application
+check equal?
+  test-application-resolve make-application
+    make-evaluated make-native string-append
+    make-evaluated make-native "foo"
+  make-application
+    make-evaluated make-native string-append
+    make-evaluated make-native "foo"
+
+comment partially resolved two argument application
 check equal?
   test-application-resolve make-application
     make-evaluated make-application
