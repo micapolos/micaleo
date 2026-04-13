@@ -48,7 +48,7 @@ check equal?
     make-evaluated make-native number->string
     make-evaluated make-variable 0
 
-comment resolved two argument application
+comment partially resolved two argument application
 check equal?
   test-application-resolve make-application
     make-evaluated make-native string-append
@@ -57,7 +57,7 @@ check equal?
     make-evaluated make-native string-append
     make-evaluated make-native "foo"
 
-comment partially resolved two argument application
+comment resolved two argument application
 check equal?
   test-application-resolve make-application
     make-evaluated make-application
