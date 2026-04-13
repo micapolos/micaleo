@@ -7,7 +7,7 @@ library
     leonardo term
 
   define
-    evaluate: application-resolve, term
+    evaluate: resolve, term
     switch term
       when
         evaluated evaluated?
@@ -21,39 +21,39 @@ library
       when
         abstraction abstraction?
         make-evaluated make-abstraction evaluate-procedure
-          application-resolve
+          resolve
           abstraction-procedure abstraction
       when
         abstraction-type abstraction-type?
         make-evaluated make-abstraction-type
-          evaluate: application-resolve, abstraction-type-parameter abstraction-type
-          evaluate-procedure: application-resolve, abstraction-type-procedure abstraction-type
+          evaluate: resolve, abstraction-type-parameter abstraction-type
+          evaluate-procedure: resolve, abstraction-type-procedure abstraction-type
       when
         application application?
         evaluate
-          application-resolve
+          resolve
           term-apply
-            application-resolve
-            evaluate: application-resolve, application-target application
-            evaluate: application-resolve, application-argument application
+            resolve
+            evaluate: resolve, application-target application
+            evaluate: resolve, application-argument application
       when
         annotated annotated?
         make-evaluated make-annotated
-          evaluate: application-resolve, annotated-annotation annotated
-          evaluate: application-resolve, annotated-ref annotated
+          evaluate: resolve, annotated-annotation annotated
+          evaluate: resolve, annotated-ref annotated
       else other
         assertion-violation `not term` other
 
   define
-    evaluate-procedure: application-resolve, procedure
+    evaluate-procedure: resolve, procedure
     lambda
       with argument
       evaluate
-        application-resolve
+        resolve
         with: procedure, argument
 
   define
-    term-apply: application-resolve, target, argument
+    term-apply: resolve, target, argument
     switch
       term-unpeel target
       when
@@ -63,4 +63,4 @@ library
         abstraction-type abstraction-type?
         with: abstraction-type-procedure abstraction-type, argument
       else _
-        application-resolve make-application: target, argument
+        resolve make-application: target, argument

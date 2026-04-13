@@ -5,12 +5,12 @@ import
   leonardo datum
 
 define
-  test-application-resolve application
+  test-resolve application
   make-native `resolved` term->datum application
 
 define
   test-evaluate term
-  evaluate: test-application-resolve, term
+  evaluate: test-resolve, term
 
 check raises
   test-evaluate "not term"
