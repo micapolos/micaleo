@@ -8,8 +8,7 @@ library
 
   define
     evaluate: application-resolve, term
-    switch
-      term
+    switch term
       when
         evaluated evaluated?
         evaluated

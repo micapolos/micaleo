@@ -22,8 +22,7 @@ library
 
   define
     term-unpeel term
-    switch
-      term
+    switch term
       when
         annotated annotated?
         term-unpeel annotated-ref annotated

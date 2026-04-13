@@ -17,8 +17,7 @@ library
 
   define
     depth-term->datum: depth, term
-    switch
-      term
+    switch term
       when
         native native?
         `native` native-ref native
