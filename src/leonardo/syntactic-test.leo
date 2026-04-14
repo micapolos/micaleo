@@ -15,5 +15,5 @@ check free-syntax=?
   syntax foo
 
 check free-syntax=?
-  syntactic-syntax make-syntactic syntax foo
+  syntactic-syntax make-native-syntactic syntax foo
   syntax foo

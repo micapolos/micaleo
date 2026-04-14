@@ -41,7 +41,7 @@ library
         id? identifier-append: id, id, syntax ?
         ided? identifier-append: id, ided, syntax ?
         make-ided identifier-append: id, syntax make, syntax -, ided
-        make-self-ided identifier-append: id, syntax make, syntax -, syntax self, syntax -, ided
+        make-native-ided identifier-append: id, syntax make, syntax -, syntax native, syntax -, ided
         ided-id identifier-append: id, ided, syntax -, id
         ided-ref identifier-append: id, ided, syntax -, syntax ref
       quasisyntax begin
@@ -70,7 +70,7 @@ library
             term
 
         define
-          : unsyntax make-self-ided, unsyntax id
+          : unsyntax make-native-ided, unsyntax id
           : unsyntax make-ided, unsyntax id, make-native unsyntax id
 
   define-syntax rules when

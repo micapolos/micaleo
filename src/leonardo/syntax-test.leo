@@ -17,8 +17,8 @@ check-term->syntax
 
 check-term->syntax
   make-application
-    make-syntactic syntax foo
-    make-syntactic syntax bar
+    make-native-syntactic syntax foo
+    make-native-syntactic syntax bar
   foo bar
 
 check-term->syntax

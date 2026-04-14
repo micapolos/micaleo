@@ -53,9 +53,9 @@ check equal?
   make-native 'my-string
 
 check equal?
-  stringed-string make-self-stringed: "foo"
+  stringed-string make-native-stringed: "foo"
   "foo"
 
 check equal?
-  stringed-ref make-self-stringed: "foo"
+  stringed-ref make-native-stringed: "foo"
   make-native "foo"

@@ -29,7 +29,7 @@ library
       with
         symbol string->symbol string-append: "v", number->string depth
         identifier datum->syntax: syntax variable, symbol
-        variable make-syntactic identifier
+        variable make-native-syntactic identifier
       quasisyntax lambda
         with unsyntax identifier
         unsyntax depth/term->syntax
