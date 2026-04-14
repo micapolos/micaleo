@@ -1,12 +1,11 @@
 library
   leonardo syntactic
   export
-    make-syntax-term
+    make-syntactic
     syntactic?
     syntactic-syntax
     syntactic-ref
     term->syntax
-    make-syntactic
   import
     mica scheme
     leonardo term
@@ -29,15 +28,17 @@ library
     syntactic-ref term
     native-ref annotated-ref term
 
-  define
-    make-syntactic: syntax, term
-    make-annotated
-      make-native syntax
-      term
-
-  define
-    make-syntax-term: syntax
-    make-syntactic: syntax, make-native syntax->datum syntax
+  define make-syntactic case-lambda
+    :
+      : syntax, term
+      make-annotated
+        make-native syntax
+        term
+    :
+      : syntax
+      make-syntactic
+        syntax
+        make-native syntax->datum syntax
 
   define
     depth/term->syntax: depth, term
@@ -62,7 +63,7 @@ library
       with
         symbol string->symbol string-append: "v", number->string depth
         identifier datum->syntax: syntax variable, symbol
-        variable make-syntax-term identifier
+        variable make-syntactic identifier
       quasisyntax lambda
         with unsyntax identifier
         unsyntax depth/term->syntax

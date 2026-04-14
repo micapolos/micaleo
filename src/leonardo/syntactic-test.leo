@@ -15,7 +15,7 @@ check free-syntax=?
   syntax foo
 
 check free-syntax=?
-  syntactic-syntax make-syntax-term syntax foo
+  syntactic-syntax make-syntactic syntax foo
   syntax foo
 
 define-syntax rules when
@@ -30,8 +30,8 @@ check-term->syntax
 
 check-term->syntax
   make-application
-    make-syntax-term syntax foo
-    make-syntax-term syntax bar
+    make-syntactic syntax foo
+    make-syntactic syntax bar
   foo bar
 
 check-term->syntax
