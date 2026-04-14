@@ -37,44 +37,42 @@ library
     defines: make-named, named?, named-name, named-ref, make-native-named
   define-syntax case when
     define-term named name
-    let*
-      with
-        ided syntax named
-        id syntax name
-        id? identifier-append: id, id, syntax ?
-        ided? identifier-append: id, ided, syntax ?
-        make-ided identifier-append: id, syntax make, syntax -, ided
-        make-native-ided identifier-append: id, syntax make, syntax -, syntax native, syntax -, ided
-        ided-id identifier-append: id, ided, syntax -, id
-        ided-ref identifier-append: id, ided, syntax -, syntax ref
-      quasisyntax begin
+    with-syntax
+      :
+        name? keyword-append: name, name, ?
+        named? keyword-append: name, named, ?
+        make-named keyword-append: name, make, -, named
+        make-native-named keyword-append: name, make, -, native, -, named
+        named-name keyword-append: name, named, -, name
+        named-ref keyword-append: name, named, -, ref
+      syntax begin
         define
-          : unsyntax ided?, term
+          named? term
           switch? term when
             annotated annotated?
             switch?
               annotated-annotation annotated
               when
                 native native?
-                : unsyntax id?, native-ref native
+                name? native-ref native
 
         define
-          : unsyntax ided-id, term
+          named-name term
           native-ref annotated-annotation term
 
         define
-          : unsyntax ided-ref, term
+          named-ref term
           annotated-ref term
 
         define
-          : unsyntax make-ided, unsyntax id, term
+          make-named: name, term
           make-annotated
-            make-native unsyntax id
+            make-native name
             term
 
         define
-          : unsyntax make-native-ided, unsyntax id
-          : unsyntax make-ided, unsyntax id, make-native unsyntax id
+          make-native-named name
+          make-named: name, make-native name
 
   define-syntax rules when
     define-terms: named name, ...
