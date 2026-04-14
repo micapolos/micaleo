@@ -32,6 +32,9 @@ library
       else other
         other
 
+  comment
+    requires: name?
+    defines: make-named, named?, named-name, named-ref, make-native-named
   define-syntax case when
     define-term named name
     let*
