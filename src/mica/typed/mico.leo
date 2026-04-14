@@ -42,6 +42,6 @@ library
       with lookup?
       syntax-case stx when
         mico x
-        valueof compile
+        value-of compile
           partial: compile?, lookup?
           syntax x

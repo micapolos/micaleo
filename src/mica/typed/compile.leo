@@ -2,18 +2,18 @@ library
   mica typed compile
   export
     compile
-    typeof
-    valueof
+    type-of
+    value-of
   import
     mica typed base
     mica typed type
 
   define
-    typeof: stx
+    type-of: stx
     syntax-case stx when: t v, syntax t
 
   define
-    valueof: stx
+    value-of: stx
     syntax-case stx when: t v, syntax v
 
   define
@@ -153,10 +153,10 @@ library
             with
               a compile-of: compile?, syntax boolean, syntax a
               b compile: compile?, syntax b
-              c compile-of: compile?, typeof b, syntax c
+              c compile-of: compile?, type-of b, syntax c
             quasisyntax :
-              unsyntax typeof b
-              if: unsyntax a, unsyntax valueof b, unsyntax c
+              unsyntax type-of b
+              if: unsyntax a, unsyntax value-of b, unsyntax c
         when
           fn: args, ...
           syntax-case
