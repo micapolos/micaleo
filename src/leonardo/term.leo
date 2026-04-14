@@ -38,7 +38,7 @@ library
   define-syntax case when
     define-term named name
     with-syntax
-      :
+      with
         name? keyword-append: name, name, ?
         named? keyword-append: name, named, ?
         make-named keyword-append: name, make, -, named
