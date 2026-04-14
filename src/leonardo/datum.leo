@@ -12,7 +12,7 @@ library
       `lambda`
         `with` depth-term->datum: depth, variable
         depth-term->datum
-          +: depth, 1
+          fx+/wraparound: depth, 1
           with: procedure, variable
 
   define

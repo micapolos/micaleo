@@ -9,13 +9,13 @@ library
 
   define
     append-application-native-refs?: application, native-refs
-    switch
+    switch?
       term-unpeel application-argument application
       when
         argument-native native?
         let
           with native-refs cons: native-ref argument-native, native-refs
-          switch
+          switch?
             term-unpeel application-target application
             when
               target-native native?
@@ -23,8 +23,6 @@ library
             when
               target-application application?
               append-application-native-refs?: target-application, native-refs
-            else _ #f
-      else _ #f
 
   define
     application-native-refs? application
@@ -42,6 +40,6 @@ library
             target car native-refs?
             args cdr native-refs?
           if
-            =: arity-of target, length args
+            fx=: arity-of target, length args
             then make-native apply: target, args
             else application
