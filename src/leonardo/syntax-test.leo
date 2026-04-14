@@ -25,6 +25,10 @@ define-syntax rules when
     'out
 
 check-term->syntax
+  term+syntax: make-native 'zero?, syntax fxzero?
+  fxzero?
+
+check-term->syntax
   make-syntax-term: syntax zero?
   zero?
 
