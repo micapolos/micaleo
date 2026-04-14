@@ -31,3 +31,31 @@ check equal?
     make-annotated
       make-native "annotation"
       make-native "bar"
+
+define-term stringed string
+
+define-terms
+  numbered number
+  booleaned boolean
+
+check stringed? make-stringed: "foo", make-native 'my-string
+check numbered? make-numbered: 123, make-native 'my-number
+check booleaned? make-booleaned: true, make-native 'my-boolean
+
+check not stringed? make-numbered: 123, make-native 'my-number
+
+check equal?
+  stringed-string make-stringed: "foo", make-native 'my-string
+  "foo"
+
+check equal?
+  stringed-ref make-stringed: "foo", make-native 'my-string
+  make-native 'my-string
+
+check equal?
+  stringed-string make-self-stringed: "foo"
+  "foo"
+
+check equal?
+  stringed-ref make-self-stringed: "foo"
+  make-native "foo"
