@@ -7,3 +7,4 @@ test
   leonardo evaluated
   leonardo evaluate
   leonardo syntactic
+  leonardo syntax
