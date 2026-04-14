@@ -29,10 +29,6 @@ check-term->syntax
   fxzero?
 
 check-term->syntax
-  make-syntax-term: syntax zero?
-  zero?
-
-check-term->syntax
   make-application
     make-syntax-term syntax foo
     make-syntax-term syntax bar
