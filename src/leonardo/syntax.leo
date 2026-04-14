@@ -26,11 +26,10 @@ library
   define
     depth/procedure->syntax: depth, procedure
     let*
-      with
-        symbol string->symbol string-append: "v", number->string depth
-        identifier datum->syntax: syntax variable, symbol
-        variable make-native-syntactic identifier
-      quasisyntax lambda
+      symbol string->symbol string-append: "v", number->string depth
+      identifier datum->syntax: syntax variable, symbol
+      variable make-native-syntactic identifier
+      in quasisyntax lambda
         with unsyntax identifier
         unsyntax depth/term->syntax
           fx+/wraparound: depth, 1

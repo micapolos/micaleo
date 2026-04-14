@@ -8,8 +8,8 @@ library
   define
     depth-procedure->datum: depth, procedure
     let
-      with variable make-variable depth
-      `lambda`
+      variable make-variable depth
+      in `lambda`
         `with` depth-term->datum: depth, variable
         depth-term->datum
           fx+/wraparound: depth, 1

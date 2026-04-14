@@ -37,15 +37,14 @@ library
     defines: make-named, named?, named-name, named-ref, make-native-named
   define-syntax case when
     define-term named name
-    with-syntax
-      with
-        name? keyword-append: name, name, ?
-        named? keyword-append: name, named, ?
-        make-named keyword-append: name, make, -, named
-        make-native-named keyword-append: name, make, -, native, -, named
-        named-name keyword-append: name, named, -, name
-        named-ref keyword-append: name, named, -, ref
-      syntax begin
+    with-identifier
+      name? keyword-append: name, name, ?
+      named? keyword-append: name, named, ?
+      make-named keyword-append: name, make, -, named
+      make-native-named keyword-append: name, make, -, native, -, named
+      named-name keyword-append: name, named, -, name
+      named-ref keyword-append: name, named, -, ref
+      in syntax begin
         define
           named? term
           switch? term when

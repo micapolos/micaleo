@@ -14,8 +14,8 @@ library
       when
         argument-native native?
         let
-          with native-refs cons: native-ref argument-native, native-refs
-          switch?
+          native-refs cons: native-ref argument-native, native-refs
+          in switch?
             term-unpeel application-target application
             when
               target-native native?
@@ -31,8 +31,8 @@ library
   define
     application-resolve: arity-of, application
     let
-      with native-refs? application-native-refs? application
-      if
+      native-refs? application-native-refs? application
+      in if
         not native-refs?
         then application
         else let
