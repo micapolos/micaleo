@@ -10,19 +10,11 @@ library
 
   define
     typeof: stx
-    syntax-case
-      stx
-      when
-        : t, v
-        syntax t
+    syntax-case stx when: t v, syntax t
 
   define
     valueof: stx
-    syntax-case
-      stx
-      when
-        : t, v
-        syntax v
+    syntax-case stx when: t v, syntax v
 
   define
     type-error: type, arg-type, arg
@@ -40,7 +32,7 @@ library
   define
     apply-type-check: stx, param-types, arg-types, args
     unless
-      =
+      fx=
         length param-types
         length arg-types
       syntax-error
@@ -87,8 +79,7 @@ library
     compile: compile?, stx
     or
       compile? stx
-      syntax-case
-        stx
+      syntax-case stx
         keywords: if, lambda, let, with
         when
           b

@@ -22,8 +22,7 @@ library
 
   meta define
     compile?: lookup?, stx
-    syntax-case
-      stx
+    syntax-case? stx
       when
         id
         keyword? id
@@ -32,7 +31,6 @@ library
           and
             type?
             quasisyntax : unsyntax type?, id
-      when: _, #f
 
   meta define
     type<=?: a, b
@@ -42,10 +40,8 @@ library
     mico stx
     lambda
       with lookup?
-      syntax-case
-        stx
-        when
-          mico x
-          valueof compile
-            partial: compile?, lookup?
-            syntax x
+      syntax-case stx when
+        mico x
+        valueof compile
+          partial: compile?, lookup?
+          syntax x
