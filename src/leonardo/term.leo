@@ -55,21 +55,17 @@ library
               when
                 native native?
                 name? native-ref native
-
         define
           named-name term
           native-ref annotated-annotation term
-
         define
           named-ref term
           annotated-ref term
-
         define
           make-named: name, term
           make-annotated
             make-native name
             term
-
         define
           make-native-named name
           make-named: name, make-native name
