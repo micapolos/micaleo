@@ -15,7 +15,7 @@ library
   comment can we remove: variable, abstraction-type?
   comment it seems that annotated can handle it all
 
-  define-data*
+  define-datas
     native ref
     abstraction procedure
     abstraction-type: parameter, procedure

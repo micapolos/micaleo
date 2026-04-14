@@ -7,7 +7,7 @@ library
       leo scheme
       rename
         data define-data
-        data* define-data*
+        data* define-datas
         from data
       rename
         union define-union
