@@ -6,4 +6,4 @@ test
   leonardo resolve
   leonardo evaluated
   leonardo evaluate
-  leonardo syntax
+  leonardo syntactic

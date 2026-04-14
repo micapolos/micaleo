@@ -1,17 +1,18 @@
 library
-  leonardo syntax
+  leonardo syntactic
   export
-    term->syntax
-    term+syntax
     make-syntax-term
-    syntax-term?
-    term-syntax
+    syntactic?
+    syntactic-syntax
+    syntactic-ref
+    term->syntax
+    make-syntactic
   import
     mica scheme
     leonardo term
 
   define
-    syntax-term? term
+    syntactic? term
     switch? term when
       annotated annotated?
       switch?
@@ -21,25 +22,29 @@ library
           syntax? native-ref native
 
   define
-    term-syntax term
+    syntactic-syntax term
     native-ref annotated-annotation term
 
   define
-    term+syntax: term, syntax
+    syntactic-ref term
+    native-ref annotated-ref term
+
+  define
+    make-syntactic: syntax, term
     make-annotated
       make-native syntax
       term
 
   define
     make-syntax-term: syntax
-    term+syntax: make-native syntax->datum syntax, syntax
+    make-syntactic: syntax, make-native syntax->datum syntax
 
   define
     depth/term->syntax: depth, term
     switch term
       when
-        syntax-term syntax-term?
-        term-syntax syntax-term
+        syntax-term syntactic?
+        syntactic-syntax syntax-term
       when
         application application?
         quasisyntax :

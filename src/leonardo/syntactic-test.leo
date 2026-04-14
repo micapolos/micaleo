@@ -2,20 +2,20 @@ import
   mica scheme
   leonardo term
   leonardo datum
-  leonardo syntax
+  leonardo syntactic
 
-check syntax-term? make-annotated
+check syntactic? make-annotated
   make-native syntax foo
   make-native 123
 
 check free-syntax=?
-  term-syntax make-annotated
+  syntactic-syntax make-annotated
     make-native syntax foo
     make-native 123
   syntax foo
 
 check free-syntax=?
-  term-syntax make-syntax-term syntax foo
+  syntactic-syntax make-syntax-term syntax foo
   syntax foo
 
 define-syntax rules when
@@ -25,7 +25,7 @@ define-syntax rules when
     'out
 
 check-term->syntax
-  term+syntax: make-native 'zero?, syntax fxzero?
+  make-syntactic: syntax fxzero?, make-native 'zero?
   fxzero?
 
 check-term->syntax
