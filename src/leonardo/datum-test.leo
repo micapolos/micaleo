@@ -8,10 +8,6 @@ check equal?
   `native` zero?
 
 check equal?
-  term->datum make-variable 10
-  'variable 10
-
-check equal?
   term->datum make-application
     make-native 10
     make-native 20
@@ -23,9 +19,15 @@ check equal?
   term->datum make-abstraction lambda
     with argument
     make-application: argument, argument
-  'abstraction lambda
-    with variable 0
-    application: variable 0, variable 0
+  'abstraction application: variable 0, variable 0
+
+check equal?
+  term->datum make-abstraction lambda
+    with argument-a
+    make-abstraction lambda
+      with argument-b
+      make-application: argument-a, argument-b
+  'abstraction abstraction application: variable 1, variable 0
 
 check equal?
   term->datum make-abstraction-type
@@ -35,9 +37,7 @@ check equal?
       make-application: argument, argument
   'abstraction-type
     native "string"
-    lambda
-      with variable 0
-      application: variable 0, variable 0
+    application: variable 0, variable 0
 
 check equal?
   term->datum make-annotated

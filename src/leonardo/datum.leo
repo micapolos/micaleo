@@ -7,13 +7,12 @@ library
 
   define
     depth-procedure->datum: depth, procedure
-    let
+    let*
+      depth fx+/wraparound: depth, 1
       variable make-variable depth
-      in `lambda`
-        `with` depth-term->datum: depth, variable
-        depth-term->datum
-          fx+/wraparound: depth, 1
-          with: procedure, variable
+      in depth-term->datum
+        depth
+        with: procedure, variable
 
   define
     depth-term->datum: depth, term
@@ -23,7 +22,7 @@ library
         `native` native-ref native
       when
         variable variable?
-        `variable` variable-depth variable
+        `variable` fx-/wraparound: depth, variable-depth variable
       when
         abstraction abstraction?
         `abstraction` depth-procedure->datum: depth, abstraction-procedure abstraction

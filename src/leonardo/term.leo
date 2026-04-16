@@ -12,7 +12,7 @@ library
     define-terms
   import mica scheme
 
-  comment can we remove: variable, abstraction-type?
+  comment can we remove abstraction-type?
   comment it seems that annotated can handle it all
 
   define-datas
