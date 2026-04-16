@@ -1,6 +1,8 @@
 library
   leonardo datum
-  export term->datum
+  export
+    depth-term->datum
+    term->datum
   import
     leo scheme
     leonardo term

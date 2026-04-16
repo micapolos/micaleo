@@ -4,6 +4,10 @@ import
   leonardo datum
 
 check equal?
+  depth-term->datum: 5, make-variable 3
+  'variable 2
+
+check equal?
   term->datum make-native zero?
   `native` zero?
 
