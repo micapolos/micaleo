@@ -25,8 +25,8 @@ library
         values: term->datum with procedure, 'b
       in unless
         equal?: term-datum, expected-datum
-        assertion-violation `check-term=?
-          unquote-splicing sources
-          expression` datum
-          expected` expected-datum
-          actual` term-datum
+        assertion-violation `check-term=?`...
+          sources
+          `expression` datum
+          `expected` expected-datum
+          `actual` term-datum
