@@ -8,7 +8,7 @@ library
     readable-read
     readable-char/eof
     readable-char
-    readable-let
+    let-readable
   import
     mica scheme
 
@@ -59,10 +59,10 @@ library
     keywords: in
     rules
       when
-        readable-let in x
+        let-readable in x
         x
       when
-        readable-let
+        let-readable
           id r
           in x
         let
@@ -78,7 +78,7 @@ library
                 in readable-read: x, port, line, column
 
   define readable-char
-    readable-let
+    let-readable
       char/eof readable-char/eof
       in switch char/eof
         when
@@ -100,7 +100,7 @@ library
         then char
         else error `unexpected
 
-    readable-let
+    let-readable
       char/eof readable-char/eof
       in switch char/eof
         when
