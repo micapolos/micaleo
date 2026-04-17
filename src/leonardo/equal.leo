@@ -15,25 +15,18 @@ library
       term->datum term-b
 
   define-syntax rules when
-    check-term=?: actual, expected
+    check-term=?: a, b
     let*-values
       with
-        values: term, source, path?, line?, column?
-        sourced actual
+        values: procedure, datum, sources
+        sourced a
       with
         values: term-datum, expected-datum
-        values: term->datum actual, 'expected
+        values: term->datum with procedure, 'b
       in unless
         equal?: term-datum, expected-datum
-        if
-          and: path?, line?, column?
-          then assertion-violation `check
-            in` path?
-            at: line` line?, column` column?
-            expression` source
-            expected` expected-datum
-            actual` term-datum
-          else assertion-violation `check
-            expression` source
-            expected` expected-datum
-            actual` term-datum
+        assertion-violation `check-term=?
+          unquote-splicing sources
+          expression` datum
+          expected` expected-datum
+          actual` term-datum
