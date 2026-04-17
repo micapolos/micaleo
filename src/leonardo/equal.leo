@@ -22,7 +22,15 @@ library
         sourced a
       with
         values: term-datum, expected-datum
-        values: term->datum with procedure, 'b
+        values
+          guard
+            else exception
+              assertion-violation `check-term=?
+                unquote-splicing sources
+                expression` datum
+                raised` exception
+            in term->datum with procedure
+          'b
       in unless
         equal?: term-datum, expected-datum
         assertion-violation `check-term=?
