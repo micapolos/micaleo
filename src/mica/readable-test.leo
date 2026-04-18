@@ -178,7 +178,7 @@ readable
       column column
       unused ":"
       unused string
-      in `colon at: line` line, column` column
+      in `first colon at: line` line, column` column
     reads
       "10:foo:bar"
-      as 'colon at: line 1, column 3
+      as 'first colon at: line 1, column 3
