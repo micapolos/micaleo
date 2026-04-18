@@ -6,104 +6,104 @@ readable
   check
     nothing
     cases
-      error ""
-      error "a"
+      fails ""
+      fails "a"
 
   check
     eof
     cases
-      ok: "", eof
-      error "a"
+      reads: "", eof
+      fails "a"
 
   check
     char
     cases
-      error: ""
-      ok: "f", char f
-      error "foo"
+      fails: ""
+      reads: "f", char f
+      fails "foo"
 
   check
     char or eof
     cases
-      ok: "", eof
-      ok: "a", char a
-      error "ab"
+      reads: "", eof
+      reads: "a", char a
+      fails "ab"
 
   check
     char passing char-numeric?
     cases
-      ok: "1", char 1
-      error ""
-      error "a"
-      error "12"
+      reads: "1", char 1
+      fails ""
+      fails "a"
+      fails "12"
 
   check
     digit
     cases
-      ok: "1", 1
-      error ""
-      error "a"
-      error "12"
+      reads: "1", 1
+      fails ""
+      fails "a"
+      fails "12"
 
   check
     char a
     cases
-      ok: "a", char a
-      error ""
-      error "b"
-      error "ab"
+      reads: "a", char a
+      fails ""
+      fails "b"
+      fails "ab"
 
   check
     cons: digit, char !
     cases
-      ok
+      reads
         "1!"
         cons: 1, char !
-      error ""
-      error "1"
-      error "12"
-      error "a"
-      error "ab"
+      fails ""
+      fails "1"
+      fails "12"
+      fails "a"
+      fails "ab"
 
   check
     map: string, string-length
     cases
-      ok: "", 0
-      ok: "abc", 3
+      reads: "", 0
+      reads: "abc", 3
 
   check
     fold: number+digit, digit, digit
     cases
-      error ""
-      ok: "1", 1
-      ok: "12", 12
+      fails ""
+      reads: "1", 1
+      reads: "12", 12
 
   check
     nonnegative integer
     cases
-      error ""
-      ok: "1", 1
-      ok: "12", 12
+      fails ""
+      reads: "1", 1
+      reads: "12", 12
 
   check
     list of digit
     cases
-      ok: "", null
-      ok
+      reads: "", null
+      reads
         "1"
         list: 1
-      ok
+      reads
         "12"
         list: 1, 2
 
   check
     nonempty list of digit
     cases
-      error ""
-      ok
+      fails ""
+      reads
         "1"
         list: 1
-      ok
+      reads
         "12"
         list: 1, 2
 
@@ -111,102 +111,102 @@ readable
   check
     separated list of: ", ", nonnegative integer
     cases
-      ok: "", null
-      ok
+      reads: "", null
+      reads
         "123"
         list: 123
-      ok
+      reads
         "123, 124"
         list: 123, 124
-      ok
+      reads
         "123, 124, 125"
         list: 123, 124, 125
 
   check
     nonempty separated list of: ", ", nonnegative integer
     cases
-      error ""
-      ok
+      fails ""
+      reads
         "123"
         list: 123
-      ok
+      reads
         "123, 124"
         list: 123, 124
-      ok
+      reads
         "123, 124, 125"
         list: 123, 124, 125
 
   check
     list: digit, "+", char
     cases
-      ok
+      reads
         "1+!"
         list: 1, "+", char !
-      error "1+"
-      error "1+!a"
+      fails "1+"
+      fails "1+!a"
 
   check
     string
     cases
-      ok: "", ""
-      ok: "123", "123"
+      reads: "", ""
+      reads: "123", "123"
 
   check
     "123"
     cases
-      ok: "123", "123"
-      error "12"
-      error "124"
-      error "1234"
+      reads: "123", "123"
+      fails "12"
+      fails "124"
+      fails "1234"
 
   check
     string of char passing char-numeric?
     cases
-      ok: "", ""
-      ok: "123", "123"
-      error "abc"
-      error "123a"
+      reads: "", ""
+      reads: "123", "123"
+      fails "abc"
+      fails "123a"
 
   check
     nonempty string of char passing char-numeric?
     cases
-      ok: "123", "123"
-      error ""
-      error "abc"
-      error "123a"
+      reads: "123", "123"
+      fails ""
+      fails "abc"
+      fails "123a"
 
   check
     prefixed: "- ", nonnegative integer
     cases
-      ok: "- 123", 123
-      error ""
-      error "-"
-      error "- "
-      error "- abc"
-      error "123"
+      reads: "- 123", 123
+      fails ""
+      fails "-"
+      fails "- "
+      fails "- abc"
+      fails "123"
 
   check
     suffixed: nonnegative integer, "!"
     cases
-      ok: "123!", 123
-      error ""
-      error "!"
-      error "123"
-      error "abc!"
+      reads: "123!", 123
+      fails ""
+      fails "!"
+      fails "123"
+      fails "abc!"
 
   check
     first of:
     cases
-      error ""
-      error "a"
+      fails ""
+      fails "a"
 
   check
     first of
       prefixed: "number ", nonnegative integer
       prefixed: "word ", alphabetic string
     cases
-      ok: "number 123", 123
-      ok: "word abc", "abc"
+      reads: "number 123", 123
+      reads: "word abc", "abc"
 
   check
     let
@@ -216,5 +216,5 @@ readable
       suffix "!"
       in add: n1, n2
     cases
-      ok: "10 + 20!", 30
-      error "10 - 20!"
+      reads: "10 + 20!", 30
+      fails "10 - 20!"

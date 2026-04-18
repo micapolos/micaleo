@@ -20,6 +20,8 @@ library
     suffixed
     passing
     all
+    fails
+    reads
   import leo scheme
 
   define-keywords
@@ -42,3 +44,5 @@ library
     suffixed
     passing
     all
+    fails
+    reads

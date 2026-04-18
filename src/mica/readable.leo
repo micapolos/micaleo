@@ -467,26 +467,26 @@ library
       non-empty-list-of-readable char?->readable char?
       list->string
 
-  define-syntax rules
-    when
-      check-readable-case
-        readable
-        ok: string, out
-      free-keyword? ok
-      check equal?
-        readable-read-all: readable, open-input-string string
-        out
-    when
-      check-readable-case
-        readable
-        error string
-      free-keyword? error
-      check raises readable-read-all: readable, open-input-string string
-    when
-      check-readable
-        readable
-        cases: case, ...
-      free-keyword? cases
-      begin
-        check-readable-case: readable, case
-        ...
+  define-syntax
+    keywords: fails, reads
+    rules
+      when
+        check-readable-case
+          readable
+          reads: string, out
+        check equal?
+          readable-read-all: readable, open-input-string string
+          out
+      when
+        check-readable-case
+          readable
+          fails string
+        check raises readable-read-all: readable, open-input-string string
+      when
+        check-readable
+          readable
+          cases: case, ...
+        free-keyword? cases
+        begin
+          check-readable-case: readable, case
+          ...
