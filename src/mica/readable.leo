@@ -3,7 +3,7 @@ library
   export readable
   import mica scheme
 
-  comment
+  comment todo
     inline all functions in syntax-case
     add nongreedy? property to readable-record
 
