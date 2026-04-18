@@ -176,14 +176,14 @@ readable
 
   check
     let
-      first nonnegative integer
+      first-integer nonnegative integer
       colon-line line
       colon-column column
       unused ":"
-      second nonnegative integer
+      second-integer nonnegative integer
       in `we have`
-        first
-        second
+        first-integer
+        second-integer
         `and colon at
           line` colon-line
           column` colon-column
