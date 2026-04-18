@@ -197,6 +197,9 @@ library
           syntax begin
             check-readable: readable item, cases
             ...
+        when
+          readable x
+          syntax readable-with x
 
   define
     char/eof-advance: char/eof, line, column

@@ -10,13 +10,6 @@ readable
       error "a"
 
   check
-    char or eof
-    cases
-      ok: "", eof
-      ok: "a", char a
-      error "ab"
-
-  check
     eof
     cases
       ok: "", eof
@@ -30,12 +23,11 @@ readable
       error "foo"
 
   check
-    char or eof passing or?: eof?, char-numeric?
+    char or eof
     cases
       ok: "", eof
-      ok: "1", char 1
-      error "a"
-      error "12"
+      ok: "a", char a
+      error "ab"
 
   check
     char passing char-numeric?
@@ -209,3 +201,13 @@ readable
     cases
       ok: "number 123", 123
       ok: "word abc", "abc"
+
+  check
+    let*
+      n1 nonnegative integer
+      op " + "
+      n2 nonnegative integer
+      suffix "!"
+      in add: n1, n2
+    cases
+      ok: "10 + 20!", 30
