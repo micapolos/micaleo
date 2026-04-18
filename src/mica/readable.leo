@@ -65,6 +65,7 @@ library
           list
           of
           eof
+          char/eof
           nonempty
           fold
           char
@@ -105,6 +106,9 @@ library
         when
           readable digit
           syntax digit-readable
+        when
+          readable char/eof
+          syntax char/eof-readable
         when
           readable eof
           syntax char/eof?->readable eof?

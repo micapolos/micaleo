@@ -12,6 +12,7 @@ library
     nonnegative
     nonpositive
     integer
+    char/eof
   import leo scheme
 
   define-keywords
@@ -26,3 +27,4 @@ library
     nonnegative
     nonpositive
     integer
+    char/eof

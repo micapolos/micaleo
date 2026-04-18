@@ -9,6 +9,13 @@ check-readable
     error "a"
 
 check-readable
+  readable char/eof
+  cases
+    ok: "", eof
+    ok: "a", #\a
+    error "ab"
+
+check-readable
   readable eof
   cases
     ok: "", eof
