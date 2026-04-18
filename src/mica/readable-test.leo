@@ -3,7 +3,7 @@ import
   mica readable
 
 check-readable
-  error-readable
+  readable nothing
   cases
     error ""
     error "a"

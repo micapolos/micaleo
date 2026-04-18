@@ -76,6 +76,7 @@ library
           alphabetic
           numeric
           whitespace
+          nothing
         when
           readable ch
           char? datum ch
@@ -103,6 +104,9 @@ library
         when
           readable with x
           syntax readable-with x
+        when
+          readable nothing
+          syntax error-readable
         when
           readable digit
           syntax digit-readable
