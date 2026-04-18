@@ -14,6 +14,7 @@ library
     peek-char-readable
     char/eof-readable
     char-readable
+    string-readable
     error-readable
     let-readable
     check-readable
@@ -85,6 +86,9 @@ library
         when
           readable char
           syntax char-readable
+        when
+          readable string
+          syntax string-readable
 
   define
     char/eof-advance: char/eof, line, column
@@ -240,11 +244,7 @@ library
                   column
 
   define char-readable
-    let-readable
-      char/eof char/eof-readable
-      in switch char/eof
-        when: eof eof?, error `eof
-        else char readable-with char
+    char/eof?->readable char?
 
   define peek-char-readable
     let-readable
@@ -361,6 +361,11 @@ library
     cons-readable
       readable
       list-of-readable readable
+
+  define string-readable
+    readable-map
+      list-of-readable char-readable
+      list->string
 
   define
     char?->string-readable char?
