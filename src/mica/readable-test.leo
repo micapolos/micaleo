@@ -174,11 +174,13 @@ readable
   check
     let
       unused nonnegative integer
-      line line
-      column column
+      colon-line line
+      colon-column column
       unused ":"
       unused string
-      in `first colon at: line` line, column` column
+      in `colon at
+        line` colon-line
+        column` colon-column
     reads
       "10:foo:bar"
-      as 'first colon at: line 1, column 3
+      as `colon at: line 1, column 3
