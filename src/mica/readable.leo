@@ -12,13 +12,32 @@ library
     check-readable
     char/eof?->readable
     char?->readable
+    char->readable
     digit-readable
+    alphabetic-readable
+    readable-map
+    cons-readable
   import
     mica scheme
 
   define-data readable
     first-char/eof?-procedure
     read-procedure
+
+  define
+    char/eof-advance: char/eof, line, column
+    switch char/eof
+      when
+        eof eof?
+        values: line, column
+      when
+        newline char-newline?
+        values
+          fx+: line, 1
+          1
+      else char values
+        line
+        fx+: column, 1
 
   define
     readable-with value
@@ -59,21 +78,13 @@ library
       char/eof?
       lambda
         with: port, line, column
-        switch
-          read-char port
-          when
-            eof eof?
-            values: eof, line, column
-          when
-            newline char-newline?
-            values
-              newline
-              fx+: line, 1
-              1
-          else char values
-            char
-            line
-            fx+: column, 1
+        let
+          char/eof read-char port
+          in call-with-values
+            lambda char/eof-advance: char/eof, line, column
+            lambda
+              with: line, column
+              values: char/eof, line, column
 
   define
     char?->readable char?
@@ -82,10 +93,25 @@ library
   define readable-char/eof
     char/eof?->readable lambda: with _, true
 
-  define digit-readable
+  define
+    char->readable char
+    char?->readable partial: char=?, char
+
+  define
+    readable-map: readable, procedure
     let-readable
-      char char?->readable char-numeric?
-      in readable-with subtract: char->integer char, char->integer #\0
+      value readable
+      in readable-with with: procedure, value
+
+  define digit-readable
+    readable-map
+      char?->readable char-numeric?
+      lambda
+        with char
+        subtract: char->integer char, char->integer #\0
+
+  define alphabetic-readable
+    char?->readable char-alphabetic?
 
   define-syntax
     keywords: in
@@ -94,9 +120,7 @@ library
         let-readable in x
         x
       when
-        let-readable
-          id r
-          in x
+        let-readable: id r, binding, ..., in x
         let
           rid r
           in make-readable
@@ -107,7 +131,11 @@ library
                 with
                   values: id, line, column
                   readable-read: rid, port, line, column
-                in readable-read: x, port, line, column
+                in readable-read
+                  let-readable: binding, ..., in x
+                  port
+                  line
+                  column
 
   define readable-char
     let-readable
@@ -115,6 +143,13 @@ library
       in switch char/eof
         when: eof eof?, error `eof
         else char readable-with char
+
+  define
+    cons-readable: car-readable, cdr-readable
+    let-readable
+      car car-readable
+      cdr cdr-readable
+      in readable-with cons: car, cdr
 
   define-syntax rules
     when

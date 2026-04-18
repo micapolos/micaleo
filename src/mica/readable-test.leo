@@ -39,3 +39,23 @@ check-readable
     error ""
     error "a"
     error "12"
+
+check-readable
+  char->readable char a
+  cases
+    ok: "a", char a
+    error ""
+    error "b"
+    error "ab"
+
+check-readable
+  cons-readable: digit-readable, alphabetic-readable
+  cases
+    ok
+      "1a"
+      cons: 1, char a
+    error ""
+    error "1"
+    error "12"
+    error "a"
+    error "ab"
