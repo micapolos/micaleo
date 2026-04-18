@@ -177,8 +177,8 @@ readable
       line line
       column column
       unused ":"
-      second-integer nonnegative integer
+      unused string
       in `colon at: line` line, column` column
     reads
-      "10:20"
+      "10:foobar"
       as 'colon at: line 1, column 3
