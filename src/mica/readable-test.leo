@@ -164,9 +164,9 @@ readable
   check
     let
       n1 nonnegative integer
-      op " + "
+      _ " + "
       n2 nonnegative integer
-      suffix "!"
+      _ "!"
       in add: n1, n2
     reads: "10 + 20!", as 30
     fails for "10 - 20!"
