@@ -65,9 +65,9 @@ library
           list
           of
           eof
-          char/eof
           nonempty
           fold
+          char/eof
           char
           string
           digit
@@ -83,6 +83,7 @@ library
           first
           prefixed
           suffixed
+          passing
         when
           readable ch
           char? datum ch
@@ -126,8 +127,20 @@ library
           readable char
           syntax char-readable
         when
+          readable char/eof passing test?
+          syntax char/eof?->readable test?
+        when
+          readable char passing test?
+          syntax char?->readable test?
+        when
           readable string
           syntax string-readable
+        when
+          readable string of char passing test?
+          syntax char?->string-readable test?
+        when
+          readable nonempty string of char passing test?
+          syntax char?->non-empty-string-readable test?
         when
           readable alphabetic string
           syntax char?->string-readable char-alphabetic?

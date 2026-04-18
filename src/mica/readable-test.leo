@@ -29,7 +29,7 @@ check-readable
     error "foo"
 
 check-readable
-  char/eof?->readable or?: eof?, char-numeric?
+  readable char/eof passing or?: eof?, char-numeric?
   cases
     ok: "", eof
     ok: "1", #\1
@@ -37,7 +37,7 @@ check-readable
     error "12"
 
 check-readable
-  char?->readable char-numeric?
+  readable char passing char-numeric?
   cases
     ok: "1", #\1
     error ""
@@ -146,15 +146,6 @@ check-readable
     error "1+!a"
 
 check-readable
-  list->readable list: digit-readable, alphabetic-readable, char-readable
-  cases
-    ok
-      "1a!"
-      list: 1, char a, char !
-    error "1a"
-    error "1a!a"
-
-check-readable
   readable string
   cases
     ok: "", ""
@@ -169,7 +160,7 @@ check-readable
     error "1234"
 
 check-readable
-  char?->string-readable char-numeric?
+  readable string of char passing char-numeric?
   cases
     ok: "", ""
     ok: "123", "123"
@@ -177,7 +168,7 @@ check-readable
     error "123a"
 
 check-readable
-  char?->non-empty-string-readable char-numeric?
+  readable nonempty string of char passing char-numeric?
   cases
     ok: "123", "123"
     error ""
