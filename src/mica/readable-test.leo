@@ -180,5 +180,5 @@ readable
       unused string
       in `colon at: line` line, column` column
     reads
-      "10:foobar"
+      "10:foo:bar"
       as 'colon at: line 1, column 3
