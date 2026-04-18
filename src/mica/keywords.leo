@@ -14,6 +14,7 @@ library
     nonnegative
     nonpositive
     integer
+    rational
     char/eof
     nothing
     anything
@@ -46,6 +47,7 @@ library
     nonnegative
     nonpositive
     integer
+    rational
     char/eof
     nothing
     anything

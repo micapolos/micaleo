@@ -196,32 +196,35 @@ readable
         20
         and colon at: line 1, column 3
 
-comment todo
-  it does not yet work as expected
+readable define rules
+  when
+    integer
+    first of
+      prefixed
+        "+"
+        nonnegative integer
+      prefixed
+        "-"
+        map: nonnegative integer, partial -
+      nonnegative integer
+  when
+    rational
+    let
+      numerator integer
+      unused "/"
+      denominator integer
+      in divide: numerator, denominator
 
-  readable
-    define rules
-      when
-        integer
-        first of
-          prefixed
-            "+"
-            nonnegative integer
-          prefixed
-            "-"
-            map: nonnegative integer, partial -
-          nonnegative integer
-      when
-        rational
-        let
-          numerator integer
-          unused "/"
-          denominator integer
-          in divide: numerator, denominator
+readable
+  check
+    integer
+    reads: "10", as 10
+    reads: "+10", as 10
+    reads: "-10", as - 10
+    fails for: "", "+", "-", "++10", "--10", "a", "+a"
 
-    check
-      integer
-      reads: "10", as 10
-      reads: "+10", as 10
-      reads: "-10", as - 10
-      fails for: "", "+", "-", "++10", "--10", "a", "+a"
+  check
+    rational
+    reads
+      "10/20"
+      as divide: 10, 20
