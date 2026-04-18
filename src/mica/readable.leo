@@ -78,6 +78,7 @@ library
           whitespace
           nothing
           cons
+          separated
         when
           readable ch
           char? datum ch
@@ -150,6 +151,12 @@ library
         when
           readable cons: car, cdr
           syntax cons-readable: readable car, readable cdr
+        when
+          readable separated list of: separator, item
+          syntax separated-list-of-readable: readable separator, readable item
+        when
+          readable nonempty separated list of: separator, item
+          syntax non-empty-separated-list-of-readable: readable separator, readable item
 
   define
     char/eof-advance: char/eof, line, column

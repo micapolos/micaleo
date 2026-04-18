@@ -14,6 +14,7 @@ library
     integer
     char/eof
     nothing
+    separated
   import leo scheme
 
   define-keywords
@@ -30,3 +31,4 @@ library
     integer
     char/eof
     nothing
+    separated
