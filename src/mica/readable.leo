@@ -81,7 +81,11 @@ library
             syntax : id, arg, ...
         when
           readable with x
-          syntax readable-with x
+          syntax make-readable
+            lambda: with _, true
+            lambda
+              with: port, line, column
+              values: x, line, column
         when
           readable line
           syntax make-readable
@@ -200,7 +204,7 @@ library
           syntax readable-read-all: readable rd, port
         when
           readable x
-          syntax readable-with x
+          syntax readable with x
 
   define
     char/eof-advance: char/eof, line, column
@@ -216,14 +220,6 @@ library
       else char values
         line
         fx+: column, 1
-
-  define
-    readable-with value
-    make-readable
-      lambda: with _, true
-      lambda
-        with: port, line, column
-        values: value, line, column
 
   define
     lazy-readable: readable
@@ -309,10 +305,10 @@ library
     char?->readable partial: char=?, char
 
   define
-    readable-map: readable, procedure
+    readable-map: mapped-readable, procedure
     let-readable
-      value readable
-      in readable-with with: procedure, value
+      value mapped-readable
+      in readable with with: procedure, value
 
   define digit-readable
     readable-map
@@ -356,7 +352,7 @@ library
       char/eof peek-char/eof-readable
       in switch char/eof
         when: eof eof?, error `eof
-        else char readable-with char
+        else char readable with char
 
   define
     first-of-readable and readables
@@ -382,11 +378,11 @@ library
     switch readables
       when
         null null?
-        readable-with null
+        readable with null
       else readables let-readable
         item car readables
         items list->readable cdr readables
-        in readable-with cons: item, items
+        in readable with cons: item, items
 
   define
     readable-append and readables
@@ -403,7 +399,7 @@ library
     let-readable
       car car-readable
       cdr cdr-readable
-      in readable-with cons: car, cdr
+      in readable with cons: car, cdr
 
   define
     fold-readable: combine, start-readable, item-readable
@@ -414,23 +410,23 @@ library
           item item-readable
           in fold-readable
             combine
-            readable-with combine: start, item
+            readable with combine: start, item
             item-readable
-        readable-with start
+        readable with start
 
   define
     prefixed-readable: prefix-readable, item-readable
     let-readable
       _ prefix-readable
       item item-readable
-      in readable-with item
+      in readable with item
 
   define
     suffixed-readable: item-readable, suffix-readable
     let-readable
       item item-readable
       _ suffix-readable
-      in readable-with item
+      in readable with item
 
   define
     non-empty-separated-list-of-readable: separator-readable, item-readable
@@ -440,7 +436,7 @@ library
         prefixed-readable
           separator-readable
           separated-list-of-readable: separator-readable, item-readable
-        readable-with null
+        readable with null
 
   define
     separated-list-of-readable: separator-readable, item-readable
@@ -448,17 +444,17 @@ library
       cons-readable
         item-readable
         list-of-readable prefixed-readable: separator-readable, item-readable
-      readable-with null
+      readable with null
 
   define
-    list-of-readable: readable
+    list-of-readable: item-readable
     readable-map
       fold-readable
         lambda
           with: folded, item
           cons: item, folded
-        readable-with null
-        readable
+        readable with null
+        item-readable
       reverse
 
   define
