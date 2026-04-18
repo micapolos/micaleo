@@ -57,6 +57,7 @@ library
     lambda
       with lookup?
       syntax-case stx
+        keywords: char, string
         when
           readable ch
           char? datum ch
@@ -81,14 +82,8 @@ library
           with
             lookup?: syntax id, syntax readable
             syntax : id, arg, ...
-
-  define-property char readable
-    lambda
-      with stx
-      syntax-case stx
         when
-          char
-          keyword? char
+          readable char
           syntax char-readable
 
   define

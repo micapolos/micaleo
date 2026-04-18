@@ -23,6 +23,13 @@ check-readable
     error "foo"
 
 check-readable
+  readable char
+  cases
+    error: ""
+    ok: "f", #\f
+    error "foo"
+
+check-readable
   char/eof?->readable or?: eof?, char-numeric?
   cases
     ok: "", eof
