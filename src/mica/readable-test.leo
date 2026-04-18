@@ -53,14 +53,6 @@ check-readable
     error "12"
 
 check-readable
-  char->readable char a
-  cases
-    ok: "a", char a
-    error ""
-    error "b"
-    error "ab"
-
-check-readable
   readable #\a
   cases
     ok: "a", char a
