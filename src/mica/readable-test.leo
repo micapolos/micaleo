@@ -3,14 +3,20 @@ import
   mica readable
 
 check-readable
-  readable-char/eof
+  error-readable
+  cases
+    error ""
+    error "a"
+
+check-readable
+  char/eof-readable
   cases
     ok: "", eof
     ok: "f", #\f
     error "foo"
 
 check-readable
-  readable-char
+  char-readable
   cases
     error: ""
     ok: "f", #\f
@@ -59,3 +65,21 @@ check-readable
     error "12"
     error "a"
     error "ab"
+
+
+check-readable
+  first-of-readable:
+  cases
+    error ""
+    error "a"
+
+check-readable
+  first-of-readable: digit-readable, alphabetic-readable, char->readable char ?
+  cases
+    ok: "1", 1
+    ok: "a", char a
+    ok: "?", char ?
+    error: " "
+    error: "$"
+    error: "11"
+    error: "aa"

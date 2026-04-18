@@ -5,11 +5,17 @@ library
     readable?
     readable-first-char/eof?-procedure
     readable-read-procedure
+    readable-first-char/eof?
     readable-read
-    readable-char/eof
-    readable-char
+    peek-char/eof-readable
+    peek-char-readable
+    char/eof-readable
+    char-readable
+    error-readable
     let-readable
     check-readable
+    peek-char/eof?->readable
+    peek-char?->readable
     char/eof?->readable
     char?->readable
     char->readable
@@ -17,6 +23,7 @@ library
     alphabetic-readable
     readable-map
     cons-readable
+    first-of-readable
   import
     mica scheme
 
@@ -47,6 +54,13 @@ library
         with: port, line, column
         values: value, line, column
 
+  define error-readable
+    make-readable
+      lambda: with _, false
+      lambda
+        with: port, line, number
+        void:
+
   define
     readable-read: readable, port, line, column
     switch
@@ -62,6 +76,10 @@ library
             column` column
 
   define
+    readable-first-char/eof?: readable, char/eof
+    with: readable-first-char/eof?-procedure readable, char/eof
+
+  define
     readable-read-all: readable, port
     call-with-values
       lambda readable-read: readable, port, 1, 1
@@ -71,6 +89,18 @@ library
           port-eof? port
           error `more at: line` line, column` column
         value
+
+  define
+    peek-char/eof?->readable char/eof?
+    make-readable
+      char/eof?
+      lambda
+        with: port, line, column
+        values: peek-char port, line, column
+
+  define
+    peek-char?->readable char?
+    peek-char/eof?->readable and?: not? eof?, char?
 
   define
     char/eof?->readable char/eof?
@@ -90,7 +120,10 @@ library
     char?->readable char?
     char/eof?->readable and?: not? eof?, char?
 
-  define readable-char/eof
+  define peek-char/eof-readable
+    peek-char/eof?->readable lambda: with _, true
+
+  define char/eof-readable
     char/eof?->readable lambda: with _, true
 
   define
@@ -137,9 +170,16 @@ library
                   line
                   column
 
-  define readable-char
+  define char-readable
     let-readable
-      char/eof readable-char/eof
+      char/eof char/eof-readable
+      in switch char/eof
+        when: eof eof?, error `eof
+        else char readable-with char
+
+  define peek-char-readable
+    let-readable
+      char/eof peek-char/eof-readable
       in switch char/eof
         when: eof eof?, error `eof
         else char readable-with char
@@ -150,6 +190,25 @@ library
       car car-readable
       cdr cdr-readable
       in readable-with cons: car, cdr
+
+  define
+    first-of-readable and readables
+    switch readables
+      when
+        _ null?
+        error-readable
+      else readables
+        let
+          readable car readables
+          readables cdr readables
+          in let-readable
+            char/eof peek-char/eof-readable
+            in cond
+              when
+                readable-first-char/eof?: readable, char/eof
+                readable
+              else
+                apply: first-of-readable, readables
 
   define-syntax rules
     when
