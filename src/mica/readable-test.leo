@@ -197,27 +197,31 @@ readable
         and colon at: line 1, column 3
 
 comment todo
-  readable define rules are still ugly
-  make it work without readable prefix in rule definitions
-  allow defining different keywords in different rules
-  allow mixing check and define rules within single readable block
+  it does not yet work as expected
 
-readable define rules
-  when
-    readable integer
-    readable first of
-      prefixed
-        "+"
-        nonnegative integer
-      prefixed
-        "-"
-        map: nonnegative integer, partial -
-      nonnegative integer
+  readable
+    define rules
+      when
+        integer
+        first of
+          prefixed
+            "+"
+            nonnegative integer
+          prefixed
+            "-"
+            map: nonnegative integer, partial -
+          nonnegative integer
+      when
+        rational
+        let
+          numerator integer
+          unused "/"
+          denominator integer
+          in divide: numerator, denominator
 
-readable
-  check
-    integer
-    reads: "10", as 10
-    reads: "+10", as 10
-    reads: "-10", as - 10
-    fails for: "", "+", "-", "++10", "--10", "a", "+a"
+    check
+      integer
+      reads: "10", as 10
+      reads: "+10", as 10
+      reads: "-10", as - 10
+      fails for: "", "+", "-", "++10", "--10", "a", "+a"
