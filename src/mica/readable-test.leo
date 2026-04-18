@@ -2,18 +2,19 @@ import
   mica scheme
   mica readable
 
-readable check
-  nothing
-  cases
-    error ""
-    error "a"
+readable
+  check
+    nothing
+    cases
+      error ""
+      error "a"
 
-readable check
-  char/eof
-  cases
-    ok: "", eof
-    ok: "a", #\a
-    error "ab"
+  check
+    char/eof
+    cases
+      ok: "", eof
+      ok: "a", #\a
+      error "ab"
 
 readable check
   eof
