@@ -161,10 +161,10 @@ library
           syntax suffixed-readable: readable item, readable suffix
         when
           readable:
-            check: item, cases
+            check: item, xs, ...
             ...
           syntax begin
-            check-readable: readable item, cases
+            check-readable: readable item, xs, ...
             ...
         when
           readable read: rd, str
@@ -473,22 +473,23 @@ library
     keywords: fails, reads
     rules
       when
-        check-readable-case
-          readable
-          reads: string, out
-        check equal?
-          readable-read-all: readable, open-input-string string
-          out
-      when
-        check-readable-case
-          readable
-          fails string
-        check raises readable-read-all: readable, open-input-string string
+        check-readable readable
+        with void
       when
         check-readable
           readable
-          cases: case, ...
-        free-keyword? cases
+          reads: string, out
+          xs, ...
         begin
-          check-readable-case: readable, case
-          ...
+          check equal?
+            readable-read-all: readable, open-input-string string
+            out
+          check-readable: readable, xs, ...
+      when
+        check-readable
+          readable
+          fails string
+          xs, ...
+        begin
+          check raises readable-read-all: readable, open-input-string string
+          check-readable: readable, xs, ...
