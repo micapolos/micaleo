@@ -1,7 +1,7 @@
 library
   mica readable
   export
-    rename %readable readable
+    readable
     make-readable
     readable?
     readable-first-char/eof?-procedure
@@ -53,7 +53,7 @@ library
       prefix "readable-"
 
   define-syntax
-    %readable stx
+    readable stx
     lambda
       with lookup?
       syntax-case stx
@@ -66,8 +66,18 @@ library
           string? datum s
           syntax string->readable s
         when
+          readable id
+          and
+            keyword? id
+            lookup?: syntax id, syntax readable
+          with
+            lookup?: syntax id, syntax readable
+            syntax id
+        when
           readable: id, arg, ...
-          lookup?: syntax id, syntax readable
+          and
+            keyword? id
+            lookup?: syntax id, syntax readable
           with
             lookup?: syntax id, syntax readable
             syntax : id, arg, ...
