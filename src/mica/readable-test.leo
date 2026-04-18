@@ -10,7 +10,7 @@ readable
       error "a"
 
   check
-    char/eof
+    char or eof
     cases
       ok: "", eof
       ok: "a", char a
@@ -30,7 +30,7 @@ readable
       error "foo"
 
   check
-    char/eof passing or?: eof?, char-numeric?
+    char or eof passing or?: eof?, char-numeric?
     cases
       ok: "", eof
       ok: "1", char 1

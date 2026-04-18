@@ -64,10 +64,10 @@ library
           in
           list
           of
+          or
           eof
           nonempty
           fold
-          char/eof
           char
           string
           digit
@@ -119,7 +119,7 @@ library
           readable digit
           syntax digit-readable
         when
-          readable char/eof
+          readable char or eof
           syntax char/eof-readable
         when
           readable eof
@@ -128,7 +128,7 @@ library
           readable char
           syntax char-readable
         when
-          readable char/eof passing test?
+          readable char or eof passing test?
           syntax char/eof?->readable test?
         when
           readable char passing test?
