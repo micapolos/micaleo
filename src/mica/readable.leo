@@ -222,16 +222,6 @@ library
         fx+: column, 1
 
   define
-    lazy-readable: readable
-    make-readable
-      lambda
-        with char/eof
-        readable-first-char/eof?: readable, char/eof
-      lambda
-        with: port, line, number
-        readable-read: readable, port, line, number
-
-  define
     readable-read: readable, port, line, column
     switch
       peek-char port
