@@ -22,7 +22,7 @@ library
       syntax-case stx
         keywords
           with
-          let*
+          let
           in
           list
           of
@@ -122,7 +122,7 @@ library
           readable nonnegative integer
           syntax fold-readable: number+digit, readable digit, readable digit
         when
-          readable let*: id a, ..., in b
+          readable let: id a, ..., in b
           syntax let-readable: id readable a, ..., in readable b
         when
           readable map: item, procedure

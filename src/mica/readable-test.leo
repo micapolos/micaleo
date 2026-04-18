@@ -209,7 +209,7 @@ readable
       ok: "word abc", "abc"
 
   check
-    let*
+    let
       n1 nonnegative integer
       op " + "
       n2 nonnegative integer
