@@ -1,7 +1,9 @@
 library
   mica keywords
   export
+    as
     of
+    for
     nonempty
     digit
     alphabetic
@@ -25,7 +27,9 @@ library
   import leo scheme
 
   define-keywords
+    as
     of
+    for
     nonempty
     digit
     alphabetic

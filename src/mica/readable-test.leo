@@ -5,183 +5,157 @@ import
 readable
   check
     nothing
-    fails ""
-    fails "a"
+    fails for: "", "a"
 
   check
     eof
-    reads: "", eof
-    fails "a"
+    reads: "", as eof
+    fails for "a"
 
   check
     char
-    fails ""
-    reads: "f", char f
-    fails "foo"
+    reads: "f", as char f
+    fails for: "", "foo"
 
   check
     char or eof
-    reads: "", eof
-    reads: "a", char a
-    fails "ab"
+    reads: "", as eof
+    reads: "a", as char a
+    fails for "ab"
 
   check
     char passing char-numeric?
-    reads: "1", char 1
-    fails ""
-    fails "a"
-    fails "12"
+    reads: "1", as char 1
+    fails for: "", "a", "12"
 
   check
     digit
-    reads: "1", 1
-    fails ""
-    fails "a"
-    fails "12"
+    reads: "1", as 1
+    fails for: "", "a", "12"
 
   check
     char a
-    reads: "a", char a
-    fails ""
-    fails "b"
-    fails "ab"
+    reads: "a", as char a
+    fails for: "", "b", "ab"
 
   check
     cons: digit, char !
     reads
       "1!"
-      cons: 1, char !
-    fails ""
-    fails "1"
-    fails "12"
-    fails "a"
-    fails "ab"
+      as cons: 1, char !
+    fails for: "", "1", "12", "a", "ab"
 
   check
     map: string, string-length
-    reads: "", 0
-    reads: "abc", 3
+    reads: "", as 0
+    reads: "abc", as 3
 
   check
     fold: number+digit, digit, digit
-    fails ""
-    reads: "1", 1
-    reads: "12", 12
+    reads: "1", as 1
+    reads: "12", as 12
+    fails for ""
 
   check
     nonnegative integer
-    fails ""
-    reads: "1", 1
-    reads: "12", 12
+    reads: "1", as 1
+    reads: "12", as 12
+    fails for ""
 
   check
     list of digit
-    reads: "", null
+    reads: "", as null
     reads
       "1"
-      list: 1
+      as list: 1
     reads
       "12"
-      list: 1, 2
+      as list: 1, 2
 
   check
     nonempty list of digit
-    fails ""
     reads
       "1"
-      list: 1
+      as list: 1
     reads
       "12"
-      list: 1, 2
+      as list: 1, 2
+    fails for ""
 
   check
     separated list of: ", ", nonnegative integer
-    reads: "", null
+    reads: "", as null
     reads
       "123"
-      list: 123
+      as list: 123
     reads
       "123, 124"
-      list: 123, 124
+      as list: 123, 124
     reads
       "123, 124, 125"
-      list: 123, 124, 125
+      as list: 123, 124, 125
 
   check
     nonempty separated list of: ", ", nonnegative integer
-    fails ""
     reads
       "123"
-      list: 123
+      as list: 123
     reads
       "123, 124"
-      list: 123, 124
+      as list: 123, 124
     reads
       "123, 124, 125"
-      list: 123, 124, 125
+      as list: 123, 124, 125
+    fails for ""
 
   check
     list: digit, "+", char
     reads
       "1+!"
-      list: 1, "+", char !
-    fails "1+"
-    fails "1+!a"
+      as list: 1, "+", char !
+    fails for: "1+", "1+!a"
 
   check
     string
-    reads: "", ""
-    reads: "123", "123"
+    reads: "", as ""
+    reads: "123", as "123"
 
   check
     "123"
-    reads: "123", "123"
-    fails "12"
-    fails "124"
-    fails "1234"
+    reads: "123", as "123"
+    fails for: "12", "124", "1234"
 
   check
     string of char passing char-numeric?
-    reads: "", ""
-    reads: "123", "123"
-    fails "abc"
-    fails "123a"
+    reads: "", as ""
+    reads: "123", as "123"
+    fails for: "abc", "123a"
 
   check
     nonempty string of char passing char-numeric?
-    reads: "123", "123"
-    fails ""
-    fails "abc"
-    fails "123a"
+    reads: "123", as "123"
+    fails for: "", "abc", "123a"
 
   check
     prefixed: "- ", nonnegative integer
-    reads: "- 123", 123
-    fails ""
-    fails "-"
-    fails "- "
-    fails "- abc"
-    fails "123"
+    reads: "- 123", as 123
+    fails for: "", "-", "- ", "- abc", "123"
 
   check
     suffixed: nonnegative integer, "!"
-    reads: "123!", 123
-    fails ""
-    fails "!"
-    fails "123"
-    fails "abc!"
+    reads: "123!", as 123
+    fails for: "", "!", "123", "abc!"
 
   check
     first of:
-    fails ""
-    fails "a"
+    fails for: "", "a"
 
   check
     first of
       prefixed: "number ", nonnegative integer
       prefixed: "word ", alphabetic string
-    reads: "number 123", 123
-    reads: "word abc", "abc"
+    reads: "number 123", as 123
+    reads: "word abc", as "abc"
 
   check
     let
@@ -190,5 +164,5 @@ readable
       n2 nonnegative integer
       suffix "!"
       in add: n1, n2
-    reads: "10 + 20!", 30
-    fails "10 - 20!"
+    reads: "10 + 20!", as 30
+    fails for "10 - 20!"

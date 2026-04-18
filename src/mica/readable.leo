@@ -470,7 +470,7 @@ library
       list->string
 
   define-syntax
-    keywords: fails, reads
+    keywords: fails, reads, for, as
     rules
       when
         check-readable readable
@@ -478,7 +478,7 @@ library
       when
         check-readable
           readable
-          reads: string, out
+          reads: string, as out
           xs, ...
         begin
           check equal?
@@ -488,8 +488,10 @@ library
       when
         check-readable
           readable
-          fails string
+          fails for: string, ...
           xs, ...
         begin
-          check raises readable-read-all: readable, open-input-string string
+          begin
+            check raises readable-read-all: readable, open-input-string string
+            ...
           check-readable: readable, xs, ...
