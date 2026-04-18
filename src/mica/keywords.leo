@@ -16,6 +16,8 @@ library
     nothing
     separated
     first
+    prefixed
+    suffixed
   import leo scheme
 
   define-keywords
@@ -34,3 +36,5 @@ library
     nothing
     separated
     first
+    prefixed
+    suffixed

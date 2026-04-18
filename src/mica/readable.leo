@@ -81,6 +81,8 @@ library
           separated
           append
           first
+          prefixed
+          suffixed
         when
           readable ch
           char? datum ch
@@ -165,6 +167,12 @@ library
         when
           readable first of: item, ...
           syntax first-of-readable: readable item, ...
+        when
+          readable prefixed: prefix, item
+          syntax prefixed-readable: readable prefix, readable item
+        when
+          readable suffixed: item, suffix
+          syntax suffixed-readable: readable item, readable suffix
 
   define
     char/eof-advance: char/eof, line, column

@@ -185,21 +185,34 @@ check-readable
     error "123a"
 
 check-readable
-  first-of-readable:
+  readable prefixed: "- ", nonnegative integer
+  cases
+    ok: "- 123", 123
+    error ""
+    error "-"
+    error "- "
+    error "- abc"
+    error "123"
+
+check-readable
+  readable suffixed: nonnegative integer, "!"
+  cases
+    ok: "123!", 123
+    error ""
+    error "!"
+    error "123"
+    error "abc!"
+
+check-readable
+  readable first of:
   cases
     error ""
     error "a"
 
 check-readable
-  suffixed-readable
-    first-of-readable
-      prefixed-readable
-        string->readable "digits "
-        char?->string-readable char-numeric?
-      prefixed-readable
-        string->readable "letters "
-        char?->string-readable char-alphabetic?
-    char->readable char !
+  readable first of
+    prefixed: "number ", nonnegative integer
+    prefixed: "word ", alphabetic string
   cases
-    ok: "digits 123!", "123"
-    ok: "letters abc!", "abc"
+    ok: "number 123", 123
+    ok: "word abc", "abc"
