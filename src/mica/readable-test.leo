@@ -18,7 +18,7 @@ readable
   check
     char
     cases
-      fails: ""
+      fails ""
       reads: "f", char f
       fails "foo"
 
