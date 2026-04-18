@@ -211,3 +211,4 @@ readable
       in add: n1, n2
     cases
       ok: "10 + 20!", 30
+      error "10 - 20!"
