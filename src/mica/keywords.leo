@@ -1,6 +1,7 @@
 library
   mica keywords
   export
+    of
     digit
     alphabetic
     numeric
@@ -13,6 +14,7 @@ library
   import leo scheme
 
   define-keywords
+    of
     digit
     alphabetic
     numeric
