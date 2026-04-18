@@ -17,7 +17,7 @@ library
     mica editor cell
     mica editor bytebuffer
 
-  define-record cellbuffer with bytebuffer
+  define-record cellbuffer bytebuffer
 
   define cellbuffer-shift 2
 

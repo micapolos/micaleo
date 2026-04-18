@@ -6,11 +6,11 @@ library
   comment inline all functions in syntax-case
 
   define-record readable-record
-    with
+    required
       immutable first-char/eof?-procedure
       immutable read-procedure
-    with:
-    with
+    optional:
+    options
       constructor make-readable
       predicate readable?
       prefix "readable-"
@@ -48,6 +48,7 @@ library
           passing
           check
           read
+          map
         when
           readable ch
           char? datum ch
@@ -123,6 +124,9 @@ library
         when
           readable let*: id a, ..., in b
           syntax let-readable: id readable a, ..., in readable b
+        when
+          readable map: item, procedure
+          syntax readable-map: readable item, procedure
         when
           readable fold: combine, start, item
           syntax fold-readable: combine, readable start, readable item

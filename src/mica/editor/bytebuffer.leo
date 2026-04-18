@@ -42,7 +42,7 @@ library
     mica bytevector
     mica pot
 
-  define-record bytebuffer with
+  define-record bytebuffer
     mutable bytevector
     mutable unsigned slack-start
     mutable unsigned slack-end

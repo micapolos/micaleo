@@ -66,6 +66,12 @@ readable
       error "ab"
 
   check
+    map: string, string-length
+    cases
+      ok: "", 0
+      ok: "abc", 3
+
+  check
     fold: number+digit, digit, digit
     cases
       error ""

@@ -11,7 +11,7 @@ library
   import
     leo scheme
 
-  define-record bytevector-slice with
+  define-record bytevector-slice
     bytevector
     start
     length

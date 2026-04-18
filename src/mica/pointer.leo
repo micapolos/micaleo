@@ -12,7 +12,7 @@ library
     leo scheme
     mica bytevector-slice
 
-  define-record pointer with
+  define-record pointer
     ftype-pointer
     bytevector-slice
 
