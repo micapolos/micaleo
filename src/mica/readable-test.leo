@@ -163,10 +163,10 @@ readable
 
   check
     let
-      n1 nonnegative integer
-      _ " + "
-      n2 nonnegative integer
-      _ "!"
-      in add: n1, n2
+      first-integer nonnegative integer
+      ignore " + "
+      second-integer nonnegative integer
+      ignore "!"
+      in add: first-integer, second-integer
     reads: "10 + 20!", as 30
     fails for "10 - 20!"
