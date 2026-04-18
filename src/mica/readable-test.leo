@@ -197,8 +197,9 @@ readable
         and colon at: line 1, column 3
 
 comment todo
+  readable define rules are still ugly
   make it work without readable prefix in rule definitions
-  and allow defining different keywords in different rules
+  allow defining different keywords in different rules
 
 readable define rules
   when
