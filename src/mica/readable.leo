@@ -124,8 +124,8 @@ library
           readable fold: combine, start, item
           syntax fold-readable: combine, start, item
         when
-          readable list of item
-          syntax list-of-readable item
+          readable nonempty list of item
+          syntax non-empty-list-of-readable item
 
   define
     char/eof-advance: char/eof, line, column
