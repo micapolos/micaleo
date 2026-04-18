@@ -164,9 +164,9 @@ readable
   check
     let
       first-integer nonnegative integer
-      ignore " + "
+      unused " + "
       second-integer nonnegative integer
-      ignore "!"
+      unused "!"
       in add: first-integer, second-integer
     reads: "10 + 20!", as 30
     fails for "10 - 20!"
