@@ -195,3 +195,23 @@ readable
         10
         20
         and colon at: line 1, column 3
+
+readable define rules
+  when
+    readable integer
+    readable first of
+      prefixed
+        "+"
+        nonnegative integer
+      prefixed
+        "-"
+        map: nonnegative integer, partial -
+      nonnegative integer
+
+readable
+  check
+    integer
+    reads: "10", as 10
+    reads: "+10", as 10
+    reads: "-10", as - 10
+    fails for: "+", "-", "++10", "--10"

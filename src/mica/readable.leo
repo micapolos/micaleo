@@ -38,6 +38,7 @@ library
       with lookup?
       syntax-case stx
         keywords
+          define
           with
           let
           in
@@ -74,6 +75,10 @@ library
           column
           next
           char=?
+          keywords
+          rules
+          when
+          readable
         when
           readable ch
           char? datum ch
@@ -89,7 +94,7 @@ library
             lookup?: syntax id, syntax readable
           with
             lookup?: syntax id, syntax readable
-            syntax id
+            syntax readable id
         when
           readable: id, arg, ...
           and
@@ -97,7 +102,37 @@ library
             lookup?: syntax id, syntax readable
           with
             lookup?: syntax id, syntax readable
-            syntax : id, arg, ...
+            syntax readable: id, arg, ...
+        when
+          readable define
+            keywords: ks, ...
+            rules
+              when
+                readable: id, params, ...
+                bodies, ...
+              when
+                readable: id*, params*, ...
+                bodies*, ...
+              ...
+          syntax readable define id
+            syntax-rules
+              keywords: ks, ...
+              when
+                readable: id, params, ...
+                bodies, ...
+              when
+                readable: id*, params*, ...
+                bodies*, ...
+              ...
+        when
+          readable define rules: xs, ...
+          syntax readable define
+            keywords:
+            rules: xs, ...
+        when
+          readable define id x
+          keyword? id
+          syntax define-property id readable x
         when
           readable with x
           syntax make-readable
@@ -240,13 +275,6 @@ library
             prefix
             suffixed: item, suffix
         when
-          readable:
-            check: item, xs, ...
-            ...
-          syntax begin
-            check-readable: readable item, xs, ...
-            ...
-        when
           readable read: rd, str
           string? datum str
           syntax readable-read-string: readable rd, str
@@ -256,6 +284,13 @@ library
         when
           readable read all: rd, port
           syntax readable-read-all: readable rd, port
+        when
+          readable:
+            check: item, xs, ...
+            ...
+          syntax begin
+            check-readable: readable item, xs, ...
+            ...
         when
           readable x
           syntax readable with x
