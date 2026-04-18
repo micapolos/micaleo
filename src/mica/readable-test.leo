@@ -73,16 +73,6 @@ check-readable
     error "ab"
 
 check-readable
-  fold-readable
-    number+digit
-    digit-readable
-    digit-readable
-  cases
-    error ""
-    ok: "1", 1
-    ok: "12", 12
-
-check-readable
   readable fold: number+digit, digit, digit
   cases
     error ""
