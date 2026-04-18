@@ -200,6 +200,7 @@ comment todo
   readable define rules are still ugly
   make it work without readable prefix in rule definitions
   allow defining different keywords in different rules
+  allow mixing check and define rules within single readable block
 
 readable define rules
   when
