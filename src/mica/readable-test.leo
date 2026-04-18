@@ -169,23 +169,23 @@ readable
   check
     let
       first-integer nonnegative integer
-      unused " + "
-      second-integer nonnegative integer
-      unused "!"
+      second-integer wrapped: " + ", nonnegative integer, "!"
       in add: first-integer, second-integer
     reads: "10 + 20!", as 30
     fails for "10 - 20!"
 
   check
-    let
-      unused nonnegative integer
-      colon-line line
-      colon-column column
-      unused ":"
-      unused string
-      in `colon at
-        line` colon-line
-        column` colon-column
+    wrapped
+      nonnegative integer
+      suffixed
+        let
+          colon-line line
+          colon-column column
+          in `colon at
+            line` colon-line
+            column` colon-column
+        ":"
+      nonnegative integer
     reads
-      "10:foo:bar"
+      "10:20"
       as `colon at: line 1, column 3
