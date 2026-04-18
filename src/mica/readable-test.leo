@@ -170,3 +170,15 @@ readable
       in add: first-integer, second-integer
     reads: "10 + 20!", as 30
     fails for "10 - 20!"
+
+  check
+    let
+      unused nonnegative integer
+      line line
+      column column
+      unused ":"
+      second-integer nonnegative integer
+      in `colon at: line` line, column` column
+    reads
+      "10:20"
+      as 'colon at: line 1, column 3

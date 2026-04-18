@@ -53,6 +53,8 @@ library
           map
           separated
           by
+          line
+          column
         when
           readable ch
           char? datum ch
@@ -80,6 +82,20 @@ library
         when
           readable with x
           syntax readable-with x
+        when
+          readable line
+          syntax make-readable
+            lambda: with _, true
+            lambda
+              with: port, line, column
+              values: line, line, column
+        when
+          readable column
+          syntax make-readable
+            lambda: with _, true
+            lambda
+              with: port, line, column
+              values: column, line, column
         when
           readable nothing
           syntax error-readable

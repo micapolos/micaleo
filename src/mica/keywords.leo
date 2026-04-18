@@ -25,6 +25,8 @@ library
     fails
     reads
     by
+    line
+    column
   import leo scheme
 
   define-keywords
@@ -52,3 +54,5 @@ library
     fails
     reads
     by
+    line
+    column
