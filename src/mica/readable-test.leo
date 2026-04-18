@@ -92,6 +92,13 @@ check-readable
     ok: "12", 12
 
 check-readable
+  readable nonnegative integer
+  cases
+    error ""
+    ok: "1", 1
+    ok: "12", 12
+
+check-readable
   list-of-readable digit-readable
   cases
     ok: "", null

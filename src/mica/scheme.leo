@@ -6,6 +6,7 @@ library
     import
       leo scheme
       mica number
+      mica keywords
       rename
         data define-data
         data* define-datas

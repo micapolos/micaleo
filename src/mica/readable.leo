@@ -58,7 +58,7 @@ library
     lambda
       with lookup?
       syntax-case stx
-        keywords: char, string
+        keywords: char, string, digit, nonnegative, integer
         when
           readable ch
           char? datum ch
@@ -84,11 +84,17 @@ library
             lookup?: syntax id, syntax readable
             syntax : id, arg, ...
         when
+          readable digit
+          syntax digit-readable
+        when
           readable char
           syntax char-readable
         when
           readable string
           syntax string-readable
+        when
+          readable nonnegative integer
+          syntax fold-readable: number+digit, readable digit, readable digit
 
   define
     char/eof-advance: char/eof, line, column
