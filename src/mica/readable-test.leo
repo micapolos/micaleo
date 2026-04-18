@@ -107,7 +107,6 @@ readable
         "12"
         list: 1, 2
 
-
   check
     separated list of: ", ", nonnegative integer
     cases
