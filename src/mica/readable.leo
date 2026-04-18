@@ -10,6 +10,9 @@ library
     readable-char
     let-readable
     check-readable
+    char/eof?->readable
+    char?->readable
+    digit-readable
   import
     mica scheme
 
@@ -50,25 +53,39 @@ library
           error `more at: line` line, column` column
         value
 
-  define readable-char/eof make-readable
-    lambda: with _, true
-    lambda
-      with: port, line, column
-      switch
-        read-char port
-        when
-          eof eof?
-          values: eof, line, column
-        when
-          newline char-newline?
-          values
-            newline
-            fx+: line, 1
-            1
-        else char values
-          char
-          line
-          fx+: column, 1
+  define
+    char/eof?->readable char/eof?
+    make-readable
+      char/eof?
+      lambda
+        with: port, line, column
+        switch
+          read-char port
+          when
+            eof eof?
+            values: eof, line, column
+          when
+            newline char-newline?
+            values
+              newline
+              fx+: line, 1
+              1
+          else char values
+            char
+            line
+            fx+: column, 1
+
+  define
+    char?->readable char?
+    char/eof?->readable and?: not? eof?, char?
+
+  define readable-char/eof
+    char/eof?->readable lambda: with _, true
+
+  define digit-readable
+    let-readable
+      char char?->readable char-numeric?
+      in readable-with subtract: char->integer char, char->integer #\0
 
   define-syntax
     keywords: in
