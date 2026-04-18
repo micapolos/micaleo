@@ -56,6 +56,7 @@ library
           numeric
           whitespace
           nothing
+          anything
           cons
           separated
           append
@@ -124,6 +125,11 @@ library
             lambda
               with: port, line, number
               void:
+        when
+          readable anything
+          syntax readable let
+            _ readable char or eof
+            in readable anything
         when
           readable next char or eof passing test?
           syntax make-readable

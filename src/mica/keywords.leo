@@ -16,6 +16,7 @@ library
     integer
     char/eof
     nothing
+    anything
     separated
     first
     prefixed
@@ -46,6 +47,7 @@ library
     integer
     char/eof
     nothing
+    anything
     separated
     first
     prefixed
