@@ -15,6 +15,7 @@ library
     char/eof
     nothing
     separated
+    first
   import leo scheme
 
   define-keywords
@@ -32,3 +33,4 @@ library
     char/eof
     nothing
     separated
+    first

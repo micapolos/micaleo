@@ -80,6 +80,7 @@ library
           cons
           separated
           append
+          first
         when
           readable ch
           char? datum ch
@@ -161,6 +162,9 @@ library
         when
           readable list: item, ...
           syntax readable-append: readable item, ...
+        when
+          readable first of: item, ...
+          syntax first-of-readable: readable item, ...
 
   define
     char/eof-advance: char/eof, line, column
