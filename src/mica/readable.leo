@@ -98,7 +98,11 @@ library
               values: column, line, column
         when
           readable nothing
-          syntax error-readable
+          syntax make-readable
+            lambda: with _, false
+            lambda
+              with: port, line, number
+              void:
         when
           readable digit
           syntax digit-readable
@@ -231,13 +235,6 @@ library
         with: port, line, number
         readable-read: readable, port, line, number
 
-  define error-readable
-    make-readable
-      lambda: with _, false
-      lambda
-        with: port, line, number
-        void:
-
   define
     readable-read: readable, port, line, column
     switch
@@ -366,7 +363,7 @@ library
     switch readables
       when
         _ null?
-        error-readable
+        readable nothing
       else readables
         let
           readable car readables
