@@ -175,17 +175,21 @@ readable
     fails for "10 - 20!"
 
   check
-    wrapped
-      nonnegative integer
-      suffixed
-        let
-          colon-line line
-          colon-column column
-          in `colon at
-            line` colon-line
-            column` colon-column
-        ":"
-      nonnegative integer
+    let
+      first-integer nonnegative integer
+      colon-line line
+      colon-column column
+      unused ":"
+      second-integer nonnegative integer
+      in `we have`
+        first-integer
+        second-integer
+        `and colon at
+          line` colon-line
+          column` colon-column
     reads
       "10:20"
-      as `colon at: line 1, column 3
+      as `we have
+        10
+        20
+        and colon at: line 1, column 3
