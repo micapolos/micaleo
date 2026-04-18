@@ -74,7 +74,7 @@ library
         when
           readable ch
           char? datum ch
-          syntax char->readable ch
+          syntax readable char passing partial: char=?, ch
         when
           readable s
           string? datum s
@@ -157,13 +157,15 @@ library
           syntax char/eof-readable
         when
           readable eof
-          syntax char/eof?->readable eof?
+          syntax readable char or eof passing eof?
         when
           readable char
           syntax char-readable
         when
           readable char: xs, ...
-          syntax char->readable char: xs, ...
+          syntax readable char passing partial
+            char=?
+            char: xs, ...
         when
           readable string
           syntax string-readable
