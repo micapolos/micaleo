@@ -82,6 +82,15 @@ library
             lookup?: syntax id, syntax readable
             syntax : id, arg, ...
 
+  define-property char readable
+    lambda
+      with stx
+      syntax-case stx
+        when
+          char
+          keyword? char
+          syntax char-readable
+
   define
     char/eof-advance: char/eof, line, column
     switch char/eof
