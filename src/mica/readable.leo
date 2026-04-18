@@ -71,6 +71,7 @@ library
           line
           column
           next
+          char=?
         when
           readable ch
           char? datum ch
@@ -166,6 +167,9 @@ library
           syntax readable char passing partial
             char=?
             char: xs, ...
+        when
+          readable char=? ch
+          syntax readable char passing partial: char=?, ch
         when
           readable string
           syntax string-readable
