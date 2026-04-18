@@ -214,4 +214,4 @@ readable
     reads: "10", as 10
     reads: "+10", as 10
     reads: "-10", as - 10
-    fails for: "+", "-", "++10", "--10"
+    fails for: "", "+", "-", "++10", "--10", "a", "+a"
