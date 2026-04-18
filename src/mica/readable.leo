@@ -353,13 +353,6 @@ library
                   line
                   column
 
-  define peek-char-readable
-    let-readable
-      char/eof peek-char/eof-readable
-      in switch char/eof
-        when: eof eof?, error `eof
-        else char readable with char
-
   define
     first-of-readable and readables
     switch readables
