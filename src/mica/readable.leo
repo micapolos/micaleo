@@ -59,6 +59,9 @@ library
       with lookup?
       syntax-case stx
         keywords
+          let*
+          in
+          fold
           char
           string
           digit
@@ -112,6 +115,12 @@ library
         when
           readable nonnegative integer
           syntax fold-readable: number+digit, readable digit, readable digit
+        when
+          readable let*: id a, ..., in b
+          syntax let-readable: id a, ..., in b
+        when
+          readable fold: combine, start, item
+          syntax fold-readable: combine, start, item
 
   define
     char/eof-advance: char/eof, line, column
