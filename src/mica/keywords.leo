@@ -19,6 +19,7 @@ library
     prefixed
     suffixed
     passing
+    all
   import leo scheme
 
   define-keywords
@@ -40,3 +41,4 @@ library
     prefixed
     suffixed
     passing
+    all

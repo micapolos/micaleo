@@ -2,46 +2,13 @@ library
   mica readable
   export
     readable
-    make-readable
-    readable?
-    readable-first-char/eof?-procedure
-    readable-read-procedure
-    readable-first-char/eof?
     readable-read
     readable-read-all
     readable-read-string
-    peek-char/eof-readable
-    peek-char-readable
-    char/eof-readable
-    char-readable
-    string-readable
-    error-readable
-    let-readable
-    check-readable
-    peek-char/eof?->readable
-    peek-char?->readable
-    char/eof?->readable
-    char?->readable
-    char?->string-readable
-    char?->non-empty-string-readable
-    char->readable
-    string->readable
-    digit-readable
-    alphabetic-readable
-    readable-map
-    cons-readable
-    first-of-readable
-    fold-readable
-    list-of-readable
-    non-empty-list-of-readable
-    separated-list-of-readable
-    non-empty-separated-list-of-readable
-    prefixed-readable
-    suffixed-readable
-    list->readable
-    readable-append
   import
     mica scheme
+
+  comment inline all functions in syntax-case
 
   define-record readable-record
     with
@@ -85,6 +52,7 @@ library
           suffixed
           passing
           check
+          read
         when
           readable ch
           char? datum ch
@@ -197,6 +165,16 @@ library
           syntax begin
             check-readable: readable item, cases
             ...
+        when
+          readable read: rd, str
+          string? datum str
+          syntax readable-read-string: readable rd, str
+        when
+          readable read: rd, port
+          syntax readable-read: readable rd, port
+        when
+          readable read all: rd, port
+          syntax readable-read-all: readable rd, port
         when
           readable x
           syntax readable-with x
