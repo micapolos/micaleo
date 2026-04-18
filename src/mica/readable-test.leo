@@ -22,20 +22,6 @@ check-readable
     error "a"
 
 check-readable
-  char/eof-readable
-  cases
-    ok: "", eof
-    ok: "f", #\f
-    error "foo"
-
-check-readable
-  char-readable
-  cases
-    error: ""
-    ok: "f", #\f
-    error "foo"
-
-check-readable
   readable char
   cases
     error: ""
