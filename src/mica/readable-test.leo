@@ -137,13 +137,13 @@ check-readable
       list: 123, 124, 125
 
 check-readable
-  readable-append: digit-readable, alphabetic-readable, char-readable
+  readable list: digit, "+", char
   cases
     ok
-      "1a!"
-      list: 1, char a, char !
-    error "1a"
-    error "1a!a"
+      "1+!"
+      list: 1, "+", char !
+    error "1+"
+    error "1+!a"
 
 check-readable
   list->readable list: digit-readable, alphabetic-readable, char-readable

@@ -79,6 +79,7 @@ library
           nothing
           cons
           separated
+          append
         when
           readable ch
           char? datum ch
@@ -157,6 +158,9 @@ library
         when
           readable nonempty separated list of: separator, item
           syntax non-empty-separated-list-of-readable: readable separator, readable item
+        when
+          readable list: item, ...
+          syntax readable-append: readable item, ...
 
   define
     char/eof-advance: char/eof, line, column
