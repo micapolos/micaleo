@@ -161,7 +161,7 @@ library
           syntax readable char or eof passing eof?
         when
           readable char
-          syntax char-readable
+          syntax readable char or eof passing char?
         when
           readable char: xs, ...
           syntax readable char passing partial
@@ -353,9 +353,6 @@ library
                   line
                   column
 
-  define char-readable
-    char/eof?->readable char?
-
   define peek-char-readable
     let-readable
       char/eof peek-char/eof-readable
@@ -474,7 +471,7 @@ library
 
   define string-readable
     readable-map
-      list-of-readable char-readable
+      list-of-readable readable char
       list->string
 
   define
