@@ -55,6 +55,14 @@ check-readable
     error "ab"
 
 check-readable
+  readable #\a
+  cases
+    ok: "a", char a
+    error ""
+    error "b"
+    error "ab"
+
+check-readable
   cons-readable: digit-readable, alphabetic-readable
   cases
     ok
@@ -150,6 +158,14 @@ check-readable
 
 check-readable
   string->readable "123"
+  cases
+    ok: "123", "123"
+    error "12"
+    error "124"
+    error "1234"
+
+check-readable
+  readable "123"
   cases
     ok: "123", "123"
     error "12"

@@ -1,6 +1,7 @@
 library
   mica readable
   export
+    rename %readable readable
     make-readable
     readable?
     readable-first-char/eof?-procedure
@@ -41,9 +42,35 @@ library
   import
     mica scheme
 
-  define-data readable
-    first-char/eof?-procedure
-    read-procedure
+  define-record readable-record
+    with
+      immutable first-char/eof?-procedure
+      immutable read-procedure
+    with:
+    with
+      constructor make-readable
+      predicate readable?
+      prefix "readable-"
+
+  define-syntax
+    %readable stx
+    lambda
+      with lookup?
+      syntax-case stx
+        when
+          readable ch
+          char? datum ch
+          syntax char->readable ch
+        when
+          readable s
+          string? datum s
+          syntax string->readable s
+        when
+          readable: id, arg, ...
+          lookup?: syntax id, syntax readable
+          with
+            lookup?: syntax id, syntax readable
+            syntax : id, arg, ...
 
   define
     char/eof-advance: char/eof, line, column
