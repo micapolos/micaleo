@@ -58,7 +58,15 @@ library
     lambda
       with lookup?
       syntax-case stx
-        keywords: char, string, digit, nonnegative, integer
+        keywords
+          char
+          string
+          digit
+          nonnegative
+          integer
+          alphabetic
+          numeric
+          whitespace
         when
           readable ch
           char? datum ch
@@ -92,6 +100,15 @@ library
         when
           readable string
           syntax string-readable
+        when
+          readable alphabetic string
+          syntax char?->string-readable char-alphabetic?
+        when
+          readable numeric string
+          syntax char?->string-readable char-numeric?
+        when
+          readable whitespace string
+          syntax char?->string-readable char-whitespace?
         when
           readable nonnegative integer
           syntax fold-readable: number+digit, readable digit, readable digit
