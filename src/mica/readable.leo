@@ -250,15 +250,17 @@ library
       in readable-with cons: car, cdr
 
   define
-    fold-readable: combine, start, readable
-    first-of-readable
-      let-readable
-        item readable
-        in fold-readable
-          combine
-          combine: start, item
-          readable
-      readable-with start
+    fold-readable: combine, start-readable, item-readable
+    let-readable
+      start start-readable
+      in first-of-readable
+        let-readable
+          item item-readable
+          in fold-readable
+            combine
+            readable-with combine: start, item
+            item-readable
+        readable-with start
 
   define
     prefixed-readable: prefix-readable, item-readable
@@ -281,7 +283,7 @@ library
         lambda
           with: folded, item
           cons: item, folded
-        null
+        readable-with null
         readable
       reverse
 

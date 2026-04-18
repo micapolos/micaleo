@@ -67,6 +67,16 @@ check-readable
     error "ab"
 
 check-readable
+  fold-readable
+    number+digit
+    digit-readable
+    digit-readable
+  cases
+    error ""
+    ok: "1", 1
+    ok: "12", 12
+
+check-readable
   list-of-readable digit-readable
   cases
     ok: "", null
@@ -76,22 +86,6 @@ check-readable
     ok
       "12"
       list: 1, 2
-
-check-readable
-  suffixed-readable
-    fold-readable
-      lambda
-        with: number, digit
-        add
-          multiply: number, 10
-          digit
-      0
-      digit-readable
-    char->readable #\!
-  cases
-    ok: "!", 0
-    ok: "1!", 1
-    ok: "12!", 12
 
 check-readable
   readable-append: digit-readable, alphabetic-readable, char-readable

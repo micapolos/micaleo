@@ -9,6 +9,7 @@ test
   mica pointer
   mica ftype
   mica mem
+  mica number
   mica classifier
   mica readable
   mica mem all
