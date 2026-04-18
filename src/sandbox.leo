@@ -18,4 +18,4 @@ define
 
 print readable-read-string
   comma-separated-readable number-readable
-  "123, 124, 125, 1277"
+  "123, 124, 125, 127"
