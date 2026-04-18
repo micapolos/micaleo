@@ -61,11 +61,11 @@ check-readable
     error "ab"
 
 check-readable
-  cons-readable: digit-readable, alphabetic-readable
+  readable cons: digit, #\!
   cases
     ok
-      "1a"
-      cons: 1, char a
+      "1!"
+      cons: 1, char !
     error ""
     error "1"
     error "12"

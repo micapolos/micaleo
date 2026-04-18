@@ -77,6 +77,7 @@ library
           numeric
           whitespace
           nothing
+          cons
         when
           readable ch
           char? datum ch
@@ -146,6 +147,9 @@ library
         when
           readable nonempty list of item
           syntax non-empty-list-of-readable readable item
+        when
+          readable cons: car, cdr
+          syntax cons-readable: readable car, readable cdr
 
   define
     char/eof-advance: char/eof, line, column
