@@ -63,6 +63,7 @@ library
           first
           prefixed
           suffixed
+          wrapped
           passing
           check
           read
@@ -233,6 +234,11 @@ library
         when
           readable suffixed: item, suffix
           syntax suffixed-readable: readable item, readable suffix
+        when
+          readable wrapped: prefix, item, suffix
+          syntax readable prefixed
+            prefix
+            suffixed: item, suffix
         when
           readable:
             check: item, xs, ...

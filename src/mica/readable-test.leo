@@ -151,6 +151,11 @@ readable
     fails for: "", "!", "123", "abc!"
 
   check
+    wrapped: "(", nonnegative integer, ")"
+    reads: "(123)", as 123
+    fails for: "", "()", "(abc)", "123"
+
+  check
     first of:
     fails for: "", "a"
 

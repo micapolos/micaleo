@@ -21,6 +21,7 @@ library
     first
     prefixed
     suffixed
+    wrapped
     passing
     all
     fails
@@ -52,6 +53,7 @@ library
     first
     prefixed
     suffixed
+    wrapped
     passing
     all
     fails
