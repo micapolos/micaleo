@@ -88,6 +88,49 @@ check-readable
       list: 1, 2
 
 check-readable
+  non-empty-list-of-readable digit-readable
+  cases
+    error ""
+    ok
+      "1"
+      list: 1
+    ok
+      "12"
+      list: 1, 2
+
+check-readable
+  separated-list-of-readable
+    string->readable ", "
+    char?->non-empty-string-readable char-numeric?
+  cases
+    ok: "", null
+    ok
+      "123"
+      list: "123"
+    ok
+      "123, 124"
+      list: "123", "124"
+    ok
+      "123, 124, 125"
+      list: "123", "124", "125"
+
+check-readable
+  non-empty-separated-list-of-readable
+    string->readable ", "
+    char?->non-empty-string-readable char-numeric?
+  cases
+    error ""
+    ok
+      "123"
+      list: "123"
+    ok
+      "123, 124"
+      list: "123", "124"
+    ok
+      "123, 124, 125"
+      list: "123", "124", "125"
+
+check-readable
   readable-append: digit-readable, alphabetic-readable, char-readable
   cases
     ok
@@ -114,17 +157,18 @@ check-readable
     error "1234"
 
 check-readable
-  string->readable "123"
-  cases
-    ok: "123", "123"
-    error "12"
-    error "124"
-    error "1234"
-
-check-readable
   char?->string-readable char-numeric?
   cases
+    ok: "", ""
     ok: "123", "123"
+    error "abc"
+    error "123a"
+
+check-readable
+  char?->non-empty-string-readable char-numeric?
+  cases
+    ok: "123", "123"
+    error ""
     error "abc"
     error "123a"
 

@@ -7,6 +7,8 @@ library
     readable-read-procedure
     readable-first-char/eof?
     readable-read
+    readable-read-all
+    readable-read-string
     peek-char/eof-readable
     peek-char-readable
     char/eof-readable
@@ -19,6 +21,7 @@ library
     char/eof?->readable
     char?->readable
     char?->string-readable
+    char?->non-empty-string-readable
     char->readable
     string->readable
     digit-readable
@@ -28,6 +31,9 @@ library
     first-of-readable
     fold-readable
     list-of-readable
+    non-empty-list-of-readable
+    separated-list-of-readable
+    non-empty-separated-list-of-readable
     prefixed-readable
     suffixed-readable
     list->readable
@@ -107,6 +113,10 @@ library
           port-eof? port
           error `more at: line` line, column` column
         value
+
+  define
+    readable-read-string: readable, string
+    readable-read-all: readable, open-input-string string
 
   define
     peek-char/eof?->readable char/eof?
@@ -277,6 +287,24 @@ library
       in readable-with item
 
   define
+    non-empty-separated-list-of-readable: separator-readable, item-readable
+    cons-readable
+      item-readable
+      first-of-readable
+        prefixed-readable
+          separator-readable
+          separated-list-of-readable: separator-readable, item-readable
+        readable-with null
+
+  define
+    separated-list-of-readable: separator-readable, item-readable
+    first-of-readable
+      cons-readable
+        item-readable
+        list-of-readable prefixed-readable: separator-readable, item-readable
+      readable-with null
+
+  define
     list-of-readable: readable
     readable-map
       fold-readable
@@ -288,9 +316,21 @@ library
       reverse
 
   define
+    non-empty-list-of-readable: readable
+    cons-readable
+      readable
+      list-of-readable readable
+
+  define
     char?->string-readable char?
     readable-map
       list-of-readable char?->readable char?
+      list->string
+
+  define
+    char?->non-empty-string-readable char?
+    readable-map
+      non-empty-list-of-readable char?->readable char?
       list->string
 
   define-syntax rules
