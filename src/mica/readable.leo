@@ -18,12 +18,20 @@ library
     peek-char?->readable
     char/eof?->readable
     char?->readable
+    char?->string-readable
     char->readable
+    string->readable
     digit-readable
     alphabetic-readable
     readable-map
     cons-readable
     first-of-readable
+    fold-readable
+    list-of-readable
+    prefixed-readable
+    suffixed-readable
+    list->readable
+    readable-append
   import
     mica scheme
 
@@ -53,6 +61,16 @@ library
       lambda
         with: port, line, column
         values: value, line, column
+
+  define
+    lazy-readable: readable
+    make-readable
+      lambda
+        with char/eof
+        readable-first-char/eof?: readable, char/eof
+      lambda
+        with: port, line, number
+        readable-read: readable, port, line, number
 
   define error-readable
     make-readable
@@ -185,13 +203,6 @@ library
         else char readable-with char
 
   define
-    cons-readable: car-readable, cdr-readable
-    let-readable
-      car car-readable
-      cdr cdr-readable
-      in readable-with cons: car, cdr
-
-  define
     first-of-readable and readables
     switch readables
       when
@@ -209,6 +220,76 @@ library
                 readable
               else
                 apply: first-of-readable, readables
+
+  define
+    list->readable readables
+    switch readables
+      when
+        null null?
+        readable-with null
+      else readables let-readable
+        item car readables
+        items list->readable cdr readables
+        in readable-with cons: item, items
+
+  define
+    readable-append and readables
+    list->readable readables
+
+  define
+    string->readable string
+    readable-map
+      list->readable map: char->readable, string->list string
+      list->string
+
+  define
+    cons-readable: car-readable, cdr-readable
+    let-readable
+      car car-readable
+      cdr cdr-readable
+      in readable-with cons: car, cdr
+
+  define
+    fold-readable: combine, start, readable
+    first-of-readable
+      let-readable
+        item readable
+        in fold-readable
+          combine
+          combine: start, item
+          readable
+      readable-with start
+
+  define
+    prefixed-readable: prefix-readable, item-readable
+    let-readable
+      _ prefix-readable
+      item item-readable
+      in readable-with item
+
+  define
+    suffixed-readable: item-readable, suffix-readable
+    let-readable
+      item item-readable
+      _ suffix-readable
+      in readable-with item
+
+  define
+    list-of-readable: readable
+    readable-map
+      fold-readable
+        lambda
+          with: folded, item
+          cons: item, folded
+        null
+        readable
+      reverse
+
+  define
+    char?->string-readable char?
+    readable-map
+      list-of-readable char?->readable char?
+      list->string
 
   define-syntax rules
     when
