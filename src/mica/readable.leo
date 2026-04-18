@@ -1,12 +1,7 @@
 library
   mica readable
-  export
-    readable
-    readable-read
-    readable-read-all
-    readable-read-string
-  import
-    mica scheme
+  export readable
+  import mica scheme
 
   comment inline all functions in syntax-case
 
