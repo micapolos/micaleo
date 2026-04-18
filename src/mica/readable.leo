@@ -84,6 +84,7 @@ library
           prefixed
           suffixed
           passing
+          check
         when
           readable ch
           char? datum ch
@@ -186,6 +187,9 @@ library
         when
           readable suffixed: item, suffix
           syntax suffixed-readable: readable item, readable suffix
+        when
+          readable check: item, cases
+          syntax check-readable: readable item, cases
 
   define
     char/eof-advance: char/eof, line, column

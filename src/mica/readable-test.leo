@@ -2,66 +2,66 @@ import
   mica scheme
   mica readable
 
-check-readable
-  readable nothing
+readable check
+  nothing
   cases
     error ""
     error "a"
 
-check-readable
-  readable char/eof
+readable check
+  char/eof
   cases
     ok: "", eof
     ok: "a", #\a
     error "ab"
 
-check-readable
-  readable eof
+readable check
+  eof
   cases
     ok: "", eof
     error "a"
 
-check-readable
-  readable char
+readable check
+  char
   cases
     error: ""
     ok: "f", #\f
     error "foo"
 
-check-readable
-  readable char/eof passing or?: eof?, char-numeric?
+readable check
+  char/eof passing or?: eof?, char-numeric?
   cases
     ok: "", eof
     ok: "1", #\1
     error "a"
     error "12"
 
-check-readable
-  readable char passing char-numeric?
+readable check
+  char passing char-numeric?
   cases
     ok: "1", #\1
     error ""
     error "a"
     error "12"
 
-check-readable
-  readable digit
+readable check
+  digit
   cases
     ok: "1", 1
     error ""
     error "a"
     error "12"
 
-check-readable
-  readable #\a
+readable check
+  #\a
   cases
     ok: "a", char a
     error ""
     error "b"
     error "ab"
 
-check-readable
-  readable cons: digit, #\!
+readable check
+  cons: digit, #\!
   cases
     ok
       "1!"
@@ -72,22 +72,22 @@ check-readable
     error "a"
     error "ab"
 
-check-readable
-  readable fold: number+digit, digit, digit
+readable check
+  fold: number+digit, digit, digit
   cases
     error ""
     ok: "1", 1
     ok: "12", 12
 
-check-readable
-  readable nonnegative integer
+readable check
+  nonnegative integer
   cases
     error ""
     ok: "1", 1
     ok: "12", 12
 
-check-readable
-  readable list of digit
+readable check
+  list of digit
   cases
     ok: "", null
     ok
@@ -97,8 +97,8 @@ check-readable
       "12"
       list: 1, 2
 
-check-readable
-  readable nonempty list of digit
+readable check
+  nonempty list of digit
   cases
     error ""
     ok
@@ -108,8 +108,8 @@ check-readable
       "12"
       list: 1, 2
 
-check-readable
-  readable separated list of: ", ", nonnegative integer
+readable check
+  separated list of: ", ", nonnegative integer
   cases
     ok: "", null
     ok
@@ -122,8 +122,8 @@ check-readable
       "123, 124, 125"
       list: 123, 124, 125
 
-check-readable
-  readable nonempty separated list of: ", ", nonnegative integer
+readable check
+  nonempty separated list of: ", ", nonnegative integer
   cases
     error ""
     ok
@@ -136,8 +136,8 @@ check-readable
       "123, 124, 125"
       list: 123, 124, 125
 
-check-readable
-  readable list: digit, "+", char
+readable check
+  list: digit, "+", char
   cases
     ok
       "1+!"
@@ -145,38 +145,38 @@ check-readable
     error "1+"
     error "1+!a"
 
-check-readable
-  readable string
+readable check
+  string
   cases
     ok: "", ""
     ok: "123", "123"
 
-check-readable
-  readable "123"
+readable check
+  "123"
   cases
     ok: "123", "123"
     error "12"
     error "124"
     error "1234"
 
-check-readable
-  readable string of char passing char-numeric?
+readable check
+  string of char passing char-numeric?
   cases
     ok: "", ""
     ok: "123", "123"
     error "abc"
     error "123a"
 
-check-readable
-  readable nonempty string of char passing char-numeric?
+readable check
+  nonempty string of char passing char-numeric?
   cases
     ok: "123", "123"
     error ""
     error "abc"
     error "123a"
 
-check-readable
-  readable prefixed: "- ", nonnegative integer
+readable check
+  prefixed: "- ", nonnegative integer
   cases
     ok: "- 123", 123
     error ""
@@ -185,8 +185,8 @@ check-readable
     error "- abc"
     error "123"
 
-check-readable
-  readable suffixed: nonnegative integer, "!"
+readable check
+  suffixed: nonnegative integer, "!"
   cases
     ok: "123!", 123
     error ""
@@ -194,14 +194,14 @@ check-readable
     error "123"
     error "abc!"
 
-check-readable
-  readable first of:
+readable check
+  first of:
   cases
     error ""
     error "a"
 
-check-readable
-  readable first of
+readable check
+  first of
     prefixed: "number ", nonnegative integer
     prefixed: "word ", alphabetic string
   cases
