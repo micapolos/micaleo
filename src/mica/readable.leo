@@ -134,6 +134,9 @@ library
           readable char passing test?
           syntax char?->readable test?
         when
+          readable char: xs, ...
+          syntax char->readable char: xs, ...
+        when
           readable string
           syntax string-readable
         when

@@ -13,7 +13,7 @@ readable
     char/eof
     cases
       ok: "", eof
-      ok: "a", #\a
+      ok: "a", char a
       error "ab"
 
   check
@@ -26,21 +26,21 @@ readable
     char
     cases
       error: ""
-      ok: "f", #\f
+      ok: "f", char f
       error "foo"
 
   check
     char/eof passing or?: eof?, char-numeric?
     cases
       ok: "", eof
-      ok: "1", #\1
+      ok: "1", char 1
       error "a"
       error "12"
 
   check
     char passing char-numeric?
     cases
-      ok: "1", #\1
+      ok: "1", char 1
       error ""
       error "a"
       error "12"
@@ -54,7 +54,7 @@ readable
       error "12"
 
   check
-    #\a
+    char a
     cases
       ok: "a", char a
       error ""
@@ -62,7 +62,7 @@ readable
       error "ab"
 
   check
-    cons: digit, #\!
+    cons: digit, char !
     cases
       ok
         "1!"
