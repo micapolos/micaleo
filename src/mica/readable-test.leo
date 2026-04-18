@@ -123,20 +123,18 @@ check-readable
       list: 123, 124, 125
 
 check-readable
-  non-empty-separated-list-of-readable
-    string->readable ", "
-    char?->non-empty-string-readable char-numeric?
+  readable nonempty separated list of: ", ", nonnegative integer
   cases
     error ""
     ok
       "123"
-      list: "123"
+      list: 123
     ok
       "123, 124"
-      list: "123", "124"
+      list: 123, 124
     ok
       "123, 124, 125"
-      list: "123", "124", "125"
+      list: 123, 124, 125
 
 check-readable
   readable-append: digit-readable, alphabetic-readable, char-readable
