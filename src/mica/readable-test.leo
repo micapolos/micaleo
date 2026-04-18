@@ -169,7 +169,9 @@ readable
   check
     let
       first-integer nonnegative integer
-      second-integer wrapped: " + ", nonnegative integer, "!"
+      unused " + "
+      second-integer nonnegative integer
+      unused "!"
       in add: first-integer, second-integer
     reads: "10 + 20!", as 30
     fails for "10 - 20!"
