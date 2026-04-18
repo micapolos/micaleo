@@ -9,6 +9,7 @@ library
     readable-char/eof
     readable-char
     let-readable
+    check-readable
   import
     mica scheme
 
@@ -16,24 +17,38 @@ library
     first-char/eof?-procedure
     read-procedure
 
-  define readable-read
-    case-lambda
+  define
+    readable-with value
+    make-readable
+      lambda: with _, true
+      lambda
+        with: port, line, column
+        values: value, line, column
+
+  define
+    readable-read: readable, port, line, column
+    switch
+      peek-char port
       when
-        with: readable, port, line, column
-        switch
-          peek-char port
-          when
-            char readable-first-char/eof?-procedure readable
-            with: readable-read-procedure readable, port, line, column
-          else other
-            error
-              `unexpected` other
-              `at
-                line` line
-                column` column
-      when
-        with: readable, port
-        readable-read: readable, port, 1, 1
+        char readable-first-char/eof?-procedure readable
+        with: readable-read-procedure readable, port, line, column
+      else other
+        error
+          `unexpected` other
+          `at
+            line` line
+            column` column
+
+  define
+    readable-read-all: readable, port
+    call-with-values
+      lambda readable-read: readable, port, 1, 1
+      lambda
+        with: value, line, column
+        unless
+          port-eof? port
+          error `more at: line` line, column` column
+        value
 
   define readable-char/eof make-readable
     lambda: with _, true
@@ -81,35 +96,29 @@ library
     let-readable
       char/eof readable-char/eof
       in switch char/eof
-        when
-          eof eof?
-          error `eof
-        else char
-          make-readable
-            lambda: with _, false
-            lambda
-              with: port, line, column
-              error `dupa
+        when: eof eof?, error `eof
+        else char readable-with char
 
-  define
-    char-readable char
-    make-readable
-      read-char readable-char
-      in if
-        char=?: char, read-char
-        then char
-        else error `unexpected
-
-    let-readable
-      char/eof readable-char/eof
-      in switch char/eof
-        when
-          eof eof?
-          error `eof
-        else char
-          make-readable
-            lambda: with _, false
-            lambda
-              with: port, line, column
-              error `dupa
-
+  define-syntax rules
+    when
+      check-readable-case
+        readable
+        ok: string, out
+      free-keyword? ok
+      check equal?
+        readable-read-all: readable, open-input-string string
+        out
+    when
+      check-readable-case
+        readable
+        error string
+      free-keyword? error
+      check raises readable-read-all: readable, open-input-string string
+    when
+      check-readable
+        readable
+        cases: case, ...
+      free-keyword? cases
+      begin
+        check-readable-case: readable, case
+        ...

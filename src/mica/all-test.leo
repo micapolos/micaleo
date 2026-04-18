@@ -10,6 +10,7 @@ test
   mica ftype
   mica mem
   mica classifier
+  mica readable
   mica mem all
   mica editor all
   mica data
