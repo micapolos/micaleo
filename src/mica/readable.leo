@@ -59,10 +59,12 @@ library
       with lookup?
       syntax-case stx
         keywords
+          with
           let*
           in
           list
           of
+          nonempty
           fold
           char
           string
@@ -97,6 +99,9 @@ library
             lookup?: syntax id, syntax readable
             syntax : id, arg, ...
         when
+          readable with x
+          syntax readable-with x
+        when
           readable digit
           syntax digit-readable
         when
@@ -119,13 +124,16 @@ library
           syntax fold-readable: number+digit, readable digit, readable digit
         when
           readable let*: id a, ..., in b
-          syntax let-readable: id a, ..., in b
+          syntax let-readable: id readable a, ..., in readable b
         when
           readable fold: combine, start, item
-          syntax fold-readable: combine, start, item
+          syntax fold-readable: combine, readable start, readable item
+        when
+          readable list of item
+          syntax list-of-readable readable item
         when
           readable nonempty list of item
-          syntax non-empty-list-of-readable item
+          syntax non-empty-list-of-readable readable item
 
   define
     char/eof-advance: char/eof, line, column

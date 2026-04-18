@@ -92,10 +92,7 @@ check-readable
     ok: "12", 12
 
 check-readable
-  readable fold
-    number+digit
-    digit-readable
-    digit-readable
+  readable fold: number+digit, digit, digit
   cases
     error ""
     ok: "1", 1
@@ -109,7 +106,7 @@ check-readable
     ok: "12", 12
 
 check-readable
-  list-of-readable digit-readable
+  readable list of digit
   cases
     ok: "", null
     ok
@@ -120,7 +117,7 @@ check-readable
       list: 1, 2
 
 check-readable
-  non-empty-list-of-readable digit-readable
+  readable nonempty list of digit
   cases
     error ""
     ok
