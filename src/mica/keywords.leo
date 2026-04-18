@@ -24,6 +24,7 @@ library
     all
     fails
     reads
+    by
   import leo scheme
 
   define-keywords
@@ -50,3 +51,4 @@ library
     all
     fails
     reads
+    by

@@ -51,6 +51,8 @@ library
           check
           read
           map
+          separated
+          by
         when
           readable ch
           char? datum ch
@@ -142,10 +144,10 @@ library
           readable cons: car, cdr
           syntax cons-readable: readable car, readable cdr
         when
-          readable separated list of: separator, item
+          readable list: of item, separated by separator
           syntax separated-list-of-readable: readable separator, readable item
         when
-          readable nonempty separated list of: separator, item
+          readable nonempty list: of item, separated by separator
           syntax non-empty-separated-list-of-readable: readable separator, readable item
         when
           readable list: item, ...

@@ -83,7 +83,9 @@ readable
     fails for ""
 
   check
-    separated list of: ", ", nonnegative integer
+    list
+      of nonnegative integer
+      separated by ", "
     reads: "", as null
     reads
       "123"
@@ -96,7 +98,9 @@ readable
       as list: 123, 124, 125
 
   check
-    nonempty separated list of: ", ", nonnegative integer
+    nonempty list
+      of nonnegative integer
+      separated by ", "
     reads
       "123"
       as list: 123
