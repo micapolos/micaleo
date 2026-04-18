@@ -17,6 +17,21 @@ library
       predicate readable?
       prefix "readable-"
 
+  define
+    char/eof-advance: char/eof, line, column
+    switch char/eof
+      when
+        eof eof?
+        values: line, column
+      when
+        newline char-newline?
+        values
+          fx+: line, 1
+          1
+      else char values
+        line
+        fx+: column, 1
+
   define-syntax
     readable stx
     lambda
@@ -55,6 +70,7 @@ library
           by
           line
           column
+          next
         when
           readable ch
           char? datum ch
@@ -108,6 +124,32 @@ library
               with: port, line, number
               void:
         when
+          readable next char or eof passing test?
+          syntax make-readable
+            test?
+            lambda
+              with: port, line, column
+              values: peek-char port, line, column
+        when
+          readable next char passing test?
+          syntax readable next char or eof passing and?: not? eof?, test?
+        when
+          readable char or eof passing test?
+          syntax make-readable
+            test?
+            lambda
+              with: port, line, column
+              let
+                char/eof read-char port
+                in call-with-values
+                  lambda char/eof-advance: char/eof, line, column
+                  lambda
+                    with: line, column
+                    values: char/eof, line, column
+        when
+          readable char passing test?
+          syntax readable char or eof passing and?: not? eof?, test?
+        when
           readable digit
           syntax digit-readable
         when
@@ -119,12 +161,6 @@ library
         when
           readable char
           syntax char-readable
-        when
-          readable char or eof passing test?
-          syntax char/eof?->readable test?
-        when
-          readable char passing test?
-          syntax char?->readable test?
         when
           readable char: xs, ...
           syntax char->readable char: xs, ...
@@ -207,21 +243,6 @@ library
           syntax readable with x
 
   define
-    char/eof-advance: char/eof, line, column
-    switch char/eof
-      when
-        eof eof?
-        values: line, column
-      when
-        newline char-newline?
-        values
-          fx+: line, 1
-          1
-      else char values
-        line
-        fx+: column, 1
-
-  define
     readable-read: readable, port, line, column
     switch
       peek-char port
@@ -263,10 +284,6 @@ library
         values: peek-char port, line, column
 
   define
-    peek-char?->readable char?
-    peek-char/eof?->readable and?: not? eof?, char?
-
-  define
     char/eof?->readable char/eof?
     make-readable
       char/eof?
@@ -280,10 +297,6 @@ library
               with: line, column
               values: char/eof, line, column
 
-  define
-    char?->readable char?
-    char/eof?->readable and?: not? eof?, char?
-
   define peek-char/eof-readable
     peek-char/eof?->readable lambda: with _, true
 
@@ -291,8 +304,8 @@ library
     char/eof?->readable lambda: with _, true
 
   define
-    char->readable char
-    char?->readable partial: char=?, char
+    char->readable a-char
+    readable char passing partial: char=?, a-char
 
   define
     readable-map: mapped-readable, procedure
@@ -302,13 +315,13 @@ library
 
   define digit-readable
     readable-map
-      char?->readable char-numeric?
+      readable char passing char-numeric?
       lambda
         with char
         subtract: char->integer char, char->integer #\0
 
   define alphabetic-readable
-    char?->readable char-alphabetic?
+    readable char passing char-alphabetic?
 
   define-syntax
     keywords: in
@@ -461,13 +474,13 @@ library
   define
     char?->string-readable char?
     readable-map
-      list-of-readable char?->readable char?
+      list-of-readable readable char passing char?
       list->string
 
   define
     char?->non-empty-string-readable char?
     readable-map
-      non-empty-list-of-readable char?->readable char?
+      non-empty-list-of-readable readable char passing char?
       list->string
 
   define-syntax

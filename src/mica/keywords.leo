@@ -27,6 +27,7 @@ library
     by
     line
     column
+    next
   import leo scheme
 
   define-keywords
@@ -56,3 +57,4 @@ library
     by
     line
     column
+    next
