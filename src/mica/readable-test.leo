@@ -45,7 +45,7 @@ check-readable
     error "12"
 
 check-readable
-  digit-readable
+  readable digit
   cases
     ok: "1", 1
     error ""
