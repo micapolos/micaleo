@@ -3,7 +3,9 @@ library
   export readable
   import mica scheme
 
-  comment inline all functions in syntax-case
+  comment
+    inline all functions in syntax-case
+    add nongreedy? property to readable-record
 
   define-record readable-record
     required
