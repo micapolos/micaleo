@@ -205,7 +205,7 @@ readables
           nonnegative integer
         prefixed
           "-"
-          map: nonnegative integer, partial -
+          map: nonnegative integer, -
         nonnegative integer
     when
       rational
