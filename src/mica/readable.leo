@@ -102,17 +102,17 @@ library
           readable id
           and
             keyword? id
-            lookup?: syntax id, syntax readable
+            property-ref?: lookup?, id, readable
           with
-            lookup?: syntax id, syntax readable
+            property-ref?: lookup?, id, readable
             syntax id
         when
-          readable: id, arg, ...
+          readable id: arg, ...
           and
             keyword? id
-            lookup?: syntax id, syntax readable
+            property-ref?: lookup?, id, readable
           with
-            lookup?: syntax id, syntax readable
+            property-ref?: lookup?, id, readable
             syntax id: arg, ...
         when
           readable define
