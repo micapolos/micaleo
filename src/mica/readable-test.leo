@@ -221,13 +221,6 @@ readables
           "-"
           map: nonnegative integer, -
         nonnegative integer
-    when
-      rational
-      let
-        numerator integer
-        unused "/"
-        denominator integer
-        in divide: numerator, denominator
 
   check
     integer
@@ -235,9 +228,3 @@ readables
     reads: "+10", as 10
     reads: "-10", as - 10
     fails for: "", "+", "-", "++10", "--10", "a", "+a"
-
-  check
-    rational
-    reads
-      "10/20"
-      as divide: 10, 20
