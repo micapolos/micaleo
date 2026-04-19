@@ -181,10 +181,10 @@ readables
 
   check
     let
-      first-integer nonnegative integer
+      left nonnegative integer
       op spaced operator
-      second-integer nonnegative integer
-      in with: op, first-integer, second-integer
+      right nonnegative integer
+      in with: op, left, right
     reads: "10 + 20", as 30
     reads: "30 - 20", as 10
     reads: "10 * 20", as 200
@@ -192,14 +192,14 @@ readables
 
   check
     let
-      first-integer nonnegative integer
+      left nonnegative integer
       colon-line line
       colon-column column
       unused ":"
-      second-integer nonnegative integer
+      right nonnegative integer
       in `we have`
-        first-integer
-        second-integer
+        left
+        right
         `and colon at
           line` colon-line
           column` colon-column
