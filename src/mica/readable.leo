@@ -78,6 +78,7 @@ library
           passing
           check
           read
+          assign
           map
           separated
           by
@@ -246,6 +247,11 @@ library
           readable map: item, procedure
           syntax readable-map: readable item, procedure
         when
+          readable assign: item, x
+          syntax readable-map
+            readable item
+            lambda: with _, x
+        when
           readable fold: combine, start, item
           syntax fold-readable: combine, readable start, readable item
         when
@@ -328,7 +334,9 @@ library
         with: value, line, column
         unless
           port-eof? port
-          error `more at: line` line, column` column
+          error `expected eof at
+            line` line
+            column` column
         value
 
   define

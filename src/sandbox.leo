@@ -2,20 +2,15 @@ import
   mica scheme
   mica readable
 
-define comma-separator-readable
-  string->readable ", "
-
-define number-readable
-  fold-readable
-    number+digit
-    digit-readable
-    digit-readable
-
-define word-readable
-  char?->non-empty-string-readable char-alphabetic?
-
-print readable-read-string
-  separated-list-of-readable
-    comma-separator-readable
-    number-readable
-  "123, 124, 125, 127"
+print readable read
+  let
+    i1 nonnegative integer
+    ununsed " "
+    op first of
+      assign: "+", add
+      assign: "-", subtract
+      assign: "*", multiply
+    ununsed " "
+    i2 nonnegative integer
+    in with: op, i1, i2
+  "123 * 1"

@@ -169,12 +169,18 @@ readables
   check
     let
       first-integer nonnegative integer
-      unused " + "
+      unused " "
+      op first of
+        assign: "+", add
+        assign: "-", subtract
+        assign: "*", multiply
+      unused " "
       second-integer nonnegative integer
-      unused "!"
-      in add: first-integer, second-integer
-    reads: "10 + 20!", as 30
-    fails for "10 - 20!"
+      in with: op, first-integer, second-integer
+    reads: "10 + 20", as 30
+    reads: "30 - 20", as 10
+    reads: "10 * 20", as 200
+    fails for "10 / 20"
 
   check
     let

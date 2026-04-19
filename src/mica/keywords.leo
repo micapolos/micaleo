@@ -27,6 +27,7 @@ library
     all
     fails
     reads
+    assign
     by
     line
     column
@@ -60,6 +61,7 @@ library
     all
     fails
     reads
+    assign
     by
     line
     column
