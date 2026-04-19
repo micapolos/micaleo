@@ -2,6 +2,8 @@ import
   mica scheme
   mica readable
 
+define-keywords: spaced, operator
+
 readables
   check
     nothing
@@ -166,15 +168,21 @@ readables
     reads: "number 123", as 123
     reads: "word abc", as "abc"
 
-  check
-    let
-      first-integer nonnegative integer
-      unused " "
-      op first of
+  define rules
+    when
+      spaced x
+      wrapped: " ", x, " "
+    when
+      operator
+      first of
         assign: "+", add
         assign: "-", subtract
         assign: "*", multiply
-      unused " "
+
+  check
+    let
+      first-integer nonnegative integer
+      op spaced operator
       second-integer nonnegative integer
       in with: op, first-integer, second-integer
     reads: "10 + 20", as 30
