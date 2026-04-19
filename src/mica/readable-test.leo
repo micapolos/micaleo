@@ -2,7 +2,7 @@ import
   mica scheme
   mica readable
 
-readable
+readables
   check
     nothing
     fails for: "", "a"
@@ -196,26 +196,25 @@ readable
         20
         and colon at: line 1, column 3
 
-readable define rules
-  when
-    integer
-    first of
-      prefixed
-        "+"
+  define rules
+    when
+      integer
+      first of
+        prefixed
+          "+"
+          nonnegative integer
+        prefixed
+          "-"
+          map: nonnegative integer, partial -
         nonnegative integer
-      prefixed
-        "-"
-        map: nonnegative integer, partial -
-      nonnegative integer
-  when
-    rational
-    let
-      numerator integer
-      unused "/"
-      denominator integer
-      in divide: numerator, denominator
+    when
+      rational
+      let
+        numerator integer
+        unused "/"
+        denominator integer
+        in divide: numerator, denominator
 
-readable
   check
     integer
     reads: "10", as 10

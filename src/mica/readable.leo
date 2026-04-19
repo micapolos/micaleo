@@ -1,6 +1,8 @@
 library
   mica readable
-  export readable
+  export
+    readable
+    readables
   import mica scheme
 
   comment todo
@@ -289,15 +291,16 @@ library
           readable read all: rd, port
           syntax readable-read-all: readable rd, port
         when
-          readable:
-            check: item, xs, ...
-            ...
-          syntax begin
-            check-readable: readable item, xs, ...
-            ...
+          readable check: item, xs, ...
+          syntax check-readable: readable item, xs, ...
         when
           readable x
           syntax readable with x
+
+  define-syntax rules
+    when
+      readables: xs, ...
+      begin: readable xs, ...
 
   define
     readable-read: readable, port, line, column
