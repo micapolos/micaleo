@@ -42,7 +42,7 @@ library
           evaluate: resolve, annotated-annotation annotated
           evaluate: resolve, annotated-ref annotated
       else other
-        assertion-violation `not term` other
+        assertion-violation 'not term' other
 
   define
     evaluate-procedure: resolve, procedure

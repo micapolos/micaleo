@@ -31,7 +31,7 @@ library
 
   define
     pointer->datum pointer
-    `pointer` ftype-pointer->sexpr pointer-ftype-pointer pointer
+    'pointer' ftype-pointer->sexpr pointer-ftype-pointer pointer
 
   record-type-equal-procedure
     record-type-descriptor pointer

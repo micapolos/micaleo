@@ -21,7 +21,7 @@ library
         map: syntax->list, fields
       when
         _ false?
-        syntax-error: name, `no field` name
+        syntax-error: name, 'no field' name
       else ass syntax-case
         ass
         when

@@ -197,15 +197,15 @@ readables
       colon-column column
       unused ":"
       right nonnegative integer
-      in `we have`
+      in 'we have'
         left
         right
-        `and colon at
-          line` colon-line
-          column` colon-column
+        'and colon at
+          line' colon-line
+          column' colon-column
     reads
       "10:20"
-      as `we have
+      as quote we have
         10
         20
         and colon at: line 1, column 3

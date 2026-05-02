@@ -65,10 +65,10 @@ library
 
   define
     color->datum color
-    `color`
+    'color'
       let
         with code-datum vector-ref: color-code-datums, color-code color
         if
           color-bright? color
-          then `bright` code-datum
+          then 'bright' code-datum
           else code-datum

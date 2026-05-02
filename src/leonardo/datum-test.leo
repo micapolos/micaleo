@@ -9,7 +9,7 @@ check equal?
 
 check equal?
   term->datum make-native zero?
-  `native` zero?
+  'native' zero?
 
 check equal?
   term->datum make-application

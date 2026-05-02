@@ -22,7 +22,7 @@ library
         abstraction abstraction?
         depth/procedure->syntax: depth, abstraction-procedure abstraction
       else other
-        assertion-violation `invalid term` other
+        assertion-violation 'invalid term' other
 
   define
     depth/procedure->syntax: depth, procedure

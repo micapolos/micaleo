@@ -7,7 +7,7 @@ import
 
 define
   test-resolve application
-  make-native `resolved` application
+  make-native 'resolved' application
 
 define
   test-evaluate term
@@ -76,7 +76,7 @@ check-evaluates
   make-application
     make-native 10
     make-native 20
-  make-evaluated-term make-native `resolved` make-application
+  make-evaluated-term make-native 'resolved' make-application
     make-evaluated-term make-native 10
     make-evaluated-term make-native 20
 
@@ -90,7 +90,7 @@ check-evaluates
           make-application: argument-a, argument-b
       make-native "foo"
     make-native "bar"
-  make-evaluated-term make-native `resolved` make-application
+  make-evaluated-term make-native 'resolved' make-application
     make-evaluated-term make-native "foo"
     make-evaluated-term make-native "bar"
 
@@ -102,7 +102,7 @@ check-evaluates
       argument
   make-evaluated-term make-abstraction lambda
     with argument
-    make-evaluated-term make-native `resolved` make-application
+    make-evaluated-term make-native 'resolved' make-application
       make-evaluated-term make-native 'fn
       make-evaluated-term argument
 
@@ -118,6 +118,6 @@ check-evaluates
     make-evaluated-term make-native 'string
     lambda
       with argument
-      make-evaluated-term make-native `resolved` make-application
+      make-evaluated-term make-native 'resolved' make-application
         make-evaluated-term make-native 'fn
         make-evaluated-term argument

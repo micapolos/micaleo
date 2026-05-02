@@ -317,10 +317,10 @@ library
         with: readable-read-procedure readable, port, line, column
       else other
         error
-          `unexpected` other
-          `at
-            line` line
-            column` column
+          'unexpected' other
+          'at
+            line' line
+            column' column
 
   define
     readable-first-char/eof?: readable, char/eof
@@ -334,9 +334,9 @@ library
         with: value, line, column
         unless
           port-eof? port
-          error `expected eof at
-            line` line
-            column` column
+          error 'expected eof at
+            line' line
+            column' column
         value
 
   define

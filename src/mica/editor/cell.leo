@@ -66,7 +66,7 @@ library
 
   define
     cell->datum cell
-    `cell`
+    'cell'
       cell->char cell
-      `background` color->datum cell->background-color cell
-      `foreground` color->datum cell->foreground-color cell
+      'background' color->datum cell->background-color cell
+      'foreground' color->datum cell->foreground-color cell

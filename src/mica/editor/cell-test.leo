@@ -17,9 +17,9 @@ check equal?
     char a
     background color red
     foreground color bright cyan
-  `cell`
+  'cell'
     char a
-    `background color red
-    `foreground color bright cyan
+    'background color red
+    'foreground color bright cyan
 
 check equal?: ftype-sizeof fcell, 4

@@ -20,8 +20,8 @@ library
     type-error: type, arg-type, arg
     syntax-error
       arg
-      `invalid type` syntax->datum arg-type
-      `expected` syntax->datum type
+      'invalid type' syntax->datum arg-type
+      'expected' syntax->datum type
 
   define
     type-check: type, arg-type, arg
@@ -37,8 +37,8 @@ library
         length arg-types
       syntax-error
         stx
-        `invalid argument count` length arg-types
-        `expected` length param-types
+        'invalid argument count' length arg-types
+        'expected' length param-types
     for-each
       type-check
       param-types
@@ -187,8 +187,8 @@ library
                   other
                   syntax-error
                     syntax fn
-                    `invalid type` datum other
-                    `expected lambda
+                    'invalid type' datum other
+                    'expected lambda
         when
           other
           syntax-error: syntax other, 'compile error

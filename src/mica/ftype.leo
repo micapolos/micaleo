@@ -65,6 +65,6 @@ library
           not equal?: sexpr-a, sexpr-b
           syntax-error
             syntax ftype-a
-            `ftype mismatch
-              expected` sexpr-a
-              actual` sexpr-b
+            'ftype mismatch
+              expected' sexpr-a
+              actual' sexpr-b
