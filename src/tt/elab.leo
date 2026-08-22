@@ -2,7 +2,8 @@ library
   tt elab
   export
     elab
-    elaborate
+    run-elab
+    check-elab
   import
     leo scheme
     tt lookup
@@ -22,5 +23,21 @@ library
           elab: param, ..., x
 
   define
-    elaborate: lookup, x
+    run-elab: lookup, x
     x lookup
+
+  define-syntax
+    keywords when
+    rules when
+      check-elab
+        when: id var, ..., elab
+        id2 var2, ..., out
+      let-values
+        with
+          values: lookup, x
+          run-elab
+            lookup: id var, ...
+            elab
+        in
+          check-lookup: lookup, id2 var2, ...
+          check equal?: x, out
