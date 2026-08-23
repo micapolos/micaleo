@@ -44,6 +44,7 @@ library
     binding=?
     binding-apply
 
+    term?
     term=?
   import
     leo scheme
