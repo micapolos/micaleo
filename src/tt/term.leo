@@ -5,23 +5,23 @@ library
     kind?
     kind-index
 
-    variable
-    variable?
-    variable-index
+    native
+    native?
+    native-ref
 
     abstraction
     abstraction?
-    abstraction-procedure
+    abstraction-binding
 
     product
     product?
-    product-param
-    product-procedure
+    product-domain
+    product-binding
 
     application
     application?
-    application-lhs
-    application-rhs
+    application-target
+    application-argument
 
     hole
     hole?
@@ -30,19 +30,19 @@ library
     binding
     binding?
     binding-quantity
-    binding-ref
+    binding-procedure
   import
     leo scheme
     data
     union
 
-  data binding: quantity, ref
+  data binding: quantity, procedure
 
+  data native ref
   data kind index
-  data variable index
-  data abstraction procedure
-  data product: param, procedure
-  data application: lhs, rhs
+  data abstraction binding
+  data product: domain, binding
+  data application: target, argument
   data hole index
 
-  union term: kind, variable, abstraction, product, application, hole
+  union term: native, kind, abstraction, product, application, hole
