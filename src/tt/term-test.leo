@@ -28,3 +28,17 @@ check not binding=?
   binding
     infinity
     lambda: with x, x
+
+check equal?
+  binding->datum
+    0
+    binding
+      0
+      lambda
+        with: x
+        x
+  'binding
+    0
+    lambda
+      with $0
+      $0

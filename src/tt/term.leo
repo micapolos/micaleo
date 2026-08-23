@@ -7,22 +7,26 @@ library
     hole?
     hole-index
     hole=?
+    hole->datum
 
     kind
     kind?
     kind-index
-    hole=?
+    kind=?
+    kind->datum
 
     variable
     variable?
     variable-index
     variable=?
+    variable->datum
 
     abstraction
     abstraction?
     abstraction-binding
     abstraction=?
     abstraction-apply
+    abstraction->datum
 
     product
     product?
@@ -30,12 +34,14 @@ library
     product-binding
     product=?
     product-apply
+    product->datum
 
     application
     application?
     application-target
     application-argument
     application=?
+    application->datum
 
     binding
     binding?
@@ -43,9 +49,11 @@ library
     binding-procedure
     binding=?
     binding-apply
+    binding->datum
 
     term?
     term=?
+    term->datum
   import
     leo scheme
     data
@@ -172,5 +180,64 @@ library
         and
           application? y
           application=?: depth, x, y
-      else other
-        error 'not term' x
+
+  define
+    binding->datum: depth, a-binding
+    'binding'
+      binding-quantity a-binding
+      'lambda'
+        'with' variable->datum variable depth
+        term->datum
+          +: depth, 1
+          binding-apply: a-binding, variable depth
+
+  define
+    hole->datum: a-hole
+    'hole' hole-index a-hole
+
+  define
+    kind->datum: a-kind
+    'kind' kind-index a-kind
+
+  define
+    variable->datum: a-variable
+    string->symbol string-append: "$", number->string variable-index a-variable
+
+  define
+    abstraction->datum: depth, an-abstraction
+    'abstraction' binding->datum: depth, abstraction-binding an-abstraction
+
+  define
+    product->datum: depth, a-product
+    'product'
+      term->datum: depth, product-domain a-product
+      binding->datum: depth, product-binding a-product
+
+  define
+    application->datum: depth, an-application
+    'application'
+      term->datum: depth, application-target an-application
+      term->datum: depth, application-argument an-application
+
+  define
+    term->datum: depth, a-term
+    switch
+      a-term
+      when
+        a-hole hole?
+        hole->datum: a-hole
+      when
+        a-kind kind?
+        kind->datum: a-kind
+      when
+        a-variable variable?
+        variable->datum: a-variable
+      when
+        an-abstraction abstraction?
+        abstraction->datum: depth, an-abstraction
+      when
+        a-product product?
+        product->datum: depth, a-product
+      when
+        an-application application?
+        application->datum: depth, an-application
