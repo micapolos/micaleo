@@ -51,9 +51,12 @@ library
     binding-apply
     binding->datum
 
+    term
     term?
     term=?
     term->datum
+
+    pi
   import
     leo scheme
     data
@@ -74,6 +77,76 @@ library
     exact->inexact 1
     exact->inexact 0
 
+  define-keywords pi
+
+  define-syntax
+    keywords: kind, hole, lambda, pi, apply
+    rules
+      when
+        term id
+        keyword? id
+        id
+      when
+        term kind index
+        kind index
+      when
+        term hole index
+        hole index
+      when
+        term lambda
+          with:
+          x
+        term x
+      when
+        term lambda
+          with: id, ids, ...
+          x
+        keyword? id
+        abstraction binding
+          infinity
+          lambda
+            with id
+            term lambda
+              with: ids, ...
+              x
+      when
+        term lambda
+          with: id quantity, ids, ...
+          x
+        keyword? id
+        abstraction binding
+          quantity
+          lambda
+            with id
+            term lambda
+              with: ids, ...
+              x
+      when
+        term pi
+          with:
+          x
+        term x
+      when
+        term pi
+          with: id, ids, ...
+          x
+        keyword? id
+        product
+          kind 0
+          binding
+            infinity
+            lambda
+              with id
+              term lambda
+                with: ids, ...
+                x
+      when
+        term apply: target, args, ...
+        fold-left
+          term-apply
+          term target
+          list: term args, ...
+
   define
     binding-apply: a-binding, a-term
     with
@@ -91,6 +164,15 @@ library
     binding-apply
       product-binding a-product
       a-term
+
+  define
+    term-apply: a, b
+    cond
+      when
+        abstraction? a
+        abstraction-apply: a, b
+      else
+        application: a, b
 
   define
     binding=?: depth, a, b
