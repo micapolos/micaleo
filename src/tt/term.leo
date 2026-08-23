@@ -192,32 +192,46 @@ library
           binding-apply: a-binding, variable depth
 
   define
-    hole->datum: a-hole
+    hole->datum a-hole
     'hole' hole-index a-hole
 
   define
-    kind->datum: a-kind
+    kind->datum a-kind
     'kind' kind-index a-kind
 
   define
-    variable->datum: a-variable
-    string->symbol string-append: "$", number->string variable-index a-variable
+    variable->datum a-variable
+    string->symbol string-append
+      "$"
+      number->string variable-index a-variable
 
   define
-    abstraction->datum: depth, an-abstraction
-    'abstraction' binding->datum: depth, abstraction-binding an-abstraction
+    abstraction->datum
+      depth
+      an-abstraction
+    'abstraction' binding->datum
+      depth
+      abstraction-binding an-abstraction
 
   define
     product->datum: depth, a-product
     'product'
-      term->datum: depth, product-domain a-product
-      binding->datum: depth, product-binding a-product
+      term->datum
+        depth
+        product-domain a-product
+      binding->datum
+        depth
+        product-binding a-product
 
   define
     application->datum: depth, an-application
     'application'
-      term->datum: depth, application-target an-application
-      term->datum: depth, application-argument an-application
+      term->datum
+        depth
+        application-target an-application
+      term->datum
+        depth
+        application-argument an-application
 
   define
     term->datum: depth, a-term
