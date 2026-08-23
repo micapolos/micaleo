@@ -11,12 +11,12 @@ library
 
     abstraction
     abstraction?
-    abstraction-binding
+    abstraction-procedure
 
     product
     product?
     product-param
-    product-binding
+    product-procedure
 
     application
     application?
@@ -30,18 +30,19 @@ library
     binding
     binding?
     binding-quantity
-    binding-procedure
+    binding-ref
   import
     leo scheme
     data
     union
 
+  data binding: quantity, ref
+
   data kind index
   data variable index
-  data abstraction binding
-  data product: param, binding
+  data abstraction procedure
+  data product: param, procedure
   data application: lhs, rhs
   data hole index
-  data binding: quantity, procedure
 
   union term: kind, variable, abstraction, product, application, hole
