@@ -37,7 +37,6 @@ library
     union
 
   data binding: quantity, procedure
-
   data native ref
   data kind index
   data abstraction binding
